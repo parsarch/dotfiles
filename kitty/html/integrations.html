@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Integrations with other tools &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/kitty.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The kitty command line interface" href="invocation.html" />
+    <link rel="prev" title="The terminal graphics protocol" href="graphics-protocol.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#image-and-document-viewers">Image and document viewers</a></li>
+<li><a class="reference internal" href="#system-and-data-visualisation-tools">System and data visualisation tools</a></li>
+<li><a class="reference internal" href="#editor-integration">Editor integration</a></li>
+<li><a class="reference internal" href="#scrollback-manipulation">Scrollback manipulation</a></li>
+<li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="graphics-protocol.html" title="previous chapter">The terminal graphics protocol</a></li>
+      <li>Next: <a href="invocation.html" title="next chapter">The kitty command line interface</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="integrations-with-other-tools">
+<h1>Integrations with other tools<a class="headerlink" href="#integrations-with-other-tools" title="Permalink to this headline">¶</a></h1>
+<p>kitty provides extremely powerful interfaces such as <a class="reference internal" href="remote-control.html"><span class="doc">Controlling kitty from scripts or the shell</span></a> and
+<a class="reference internal" href="kittens/custom.html"><span class="doc">Custom kittens</span></a> and <a class="reference internal" href="kittens/icat.html"><span class="doc">icat - Display images in the terminal</span></a>
+that allow it to be integrated with other tools seamlessly.</p>
+<div class="section" id="image-and-document-viewers">
+<h2>Image and document viewers<a class="headerlink" href="#image-and-document-viewers" title="Permalink to this headline">¶</a></h2>
+<p>Powered by kitty’s <a class="reference internal" href="graphics-protocol.html"><span class="doc">The terminal graphics protocol</span></a> there exist many tools for viewing
+images and other types of documents directly in your terminal, even over SSH.</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://github.com/dsanson/termpdf.py">termpdf.py</a></dt><dd><p>a terminal PDF/DJVU/CBR viewer</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/lunaryorn/mdcat">mdcat</a></dt><dd><p>Display markdown files nicely formatted with images in the terminal</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/ranger/ranger">ranger</a></dt><dd><p>a terminal file manager, with previews of file contents powered by kitty’s graphics protocol.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/jarun/nnn/">nnn</a></dt><dd><p>another terminal file manager, with previews of file contents powered by kitty’s graphics protocol.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/rabite0/hunter">hunter</a></dt><dd><p>another terminal file manager, with previews of file contents powered by kitty’s graphics protocol.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/twenty5151/koneko">koneko</a></dt><dd><p>browse images from the pixiv artist community directly in kitty</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/atanunq/viu">viu</a></dt><dd><p>view images in the terminal, similar to kitty’s icat, however also supports
+displaying animated GIFs</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="system-and-data-visualisation-tools">
+<h2>System and data visualisation tools<a class="headerlink" href="#system-and-data-visualisation-tools" title="Permalink to this headline">¶</a></h2>
+<dl>
+<dt><a class="reference external" href="https://github.com/dylanaraps/neofetch">neofetch</a></dt><dd><p>A command line system information tool that shows images using kitty’s graphics protocol</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/jktr/matplotlib-backend-kitty">matplotlib</a></dt><dd><p>show matplotlib plots directly in kitty</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/simonschoelly/KittyTerminalImages.jl">KittyTerminalImages.jl</a></dt><dd><p>show images from Julia directly in kitty</p>
+</dd>
+<dt><a class="reference external" href="http://www.gnuplot.info/">gnuplot</a></dt><dd><blockquote>
+<div><p>a graphing and data visualization tool that can be made to display its
+output in kitty with the following bash snippet:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>function iplot {
+    cat &lt;&lt;EOF | gnuplot
+    set terminal pngcairo enhanced font &#39;Fira Sans,10&#39;
+    set autoscale
+    set samples 1000
+    set output &#39;|kitty +kitten icat --stdin yes&#39;
+    set object 1 rectangle from screen 0,0 to screen 1,1 fillcolor rgb&quot;#fdf6e3&quot; behind
+    plot $@
+    set output &#39;/dev/null&#39;
+    EOF
+}
+</pre></div>
+</div>
+</div></blockquote>
+<p>Add this to bashrc and then to plot a function, simply do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iplot</span> <span class="s1">&#39;sin(x*3)*exp(x*.2)&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt><a class="reference external" href="https://github.com/o2sh/onefetch">onefetch</a></dt><dd><p>a tool to fetch information about your git repositories</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/chubin/wttr.in">wttr</a></dt><dd><p>a tool to display weather information in your terminal with curl</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="editor-integration">
+<h2>Editor integration<a class="headerlink" href="#editor-integration" title="Permalink to this headline">¶</a></h2>
+<p>kitty can be integrated into many different terminal editors to add features
+such a split windows, previews, REPLs etc.</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://kakoune.org/">kakoune</a></dt><dd><p>integrates with kitty to use native kitty windows for its windows/panels and REPLs.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/jpalardy/vim-slime#kitty">vim-slime</a></dt><dd><p>uses kitty remote control for a Lisp REPL.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/knubie/vim-kitty-navigator">vim-kitty-navigator</a></dt><dd><p>allows you to navigate seamlessly between vim and kitty splits using a consistent set of hotkeys.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/vim-test/vim-test">vim-test</a></dt><dd><p>allows easily running tests in a terminal window</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="scrollback-manipulation">
+<h2>Scrollback manipulation<a class="headerlink" href="#scrollback-manipulation" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt><a class="reference external" href="https://github.com/trygveaa/kitty-kitten-search">kitty-search</a></dt><dd><p>Live incremental search of the scrollback buffer.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/yurikhan/kitty_grab">kitty-grab</a></dt><dd><p>keyboard based text selection for the kitty scrollback buffer.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="miscellaneous">
+<h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt><a class="reference external" href="https://github.com/yurikhan/kitty-smart-tab">kitty-smart-tab</a></dt><dd><p>use keys to either control tabs or pass them onto running applications if
+no tabs are present</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/yurikhan/kitty-smart-scroll">kitty-smart-scroll</a></dt><dd><p>use keys to either scroll or pass them onto running applications if
+no scrollback buffer is present</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/kovidgoyal/kitty/issues/1292#issuecomment-582388769">reload keybindings</a></dt><dd><p>reload key bindings from <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code> without needing to restart
+kitty</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/LandingEllipse/kitti3">kitti3</a></dt><dd><p>allow using kitty as a drop-down terminal under the i3 window manager</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/GermainZ/kitty-weechat-hints">weechat-hints</a></dt><dd><p>URL hints kitten for WeeChat that works without having to use WeeChat’s
+raw-mode.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/michaeljclark/glkitty">glkitty</a></dt><dd><p>C library to draw OpenGL shaders in the terminal with a glgears demo</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

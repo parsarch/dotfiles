@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hints &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/kitty.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Hyperlinked grep" href="hyperlinked_grep.html" />
+    <link rel="prev" title="kitty-diff - A fast side-by-side diff tool with syntax highlighting and images" href="diff.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="../support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#completely-customizing-the-matching-and-actions-of-the-kitten">Completely customizing the matching and actions of the kitten</a></li>
+<li><a class="reference internal" href="#command-line-interface">Command Line Interface</a><ul>
+<li><a class="reference internal" href="#options">Options</a></li>
+</ul>
+</li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="diff.html" title="previous chapter">kitty-diff - A fast side-by-side diff tool with syntax highlighting and images</a></li>
+      <li>Next: <a href="hyperlinked_grep.html" title="next chapter">Hyperlinked grep</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="hints">
+<h1>Hints<a class="headerlink" href="#hints" title="Permalink to this headline">¶</a></h1>
+<p><em>kitty</em> has a <em>hints mode</em> to select and act on arbitrary text snippets currently
+visible on the screen.  For example, you can press <a class="reference internal" href="../conf.html#shortcut-kitty.Open-URL"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+e</span></code></a>
+to choose any URL visible on the screen and then open it using your system
+browser.</p>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/hints_mode.png"><img alt="URL hints mode" src="../_images/hints_mode.png" style="width: 1562.0px; height: 580.0px;" /></a>
+<p class="caption"><span class="caption-text">URL hints mode</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>Similarly, you can press <a class="reference internal" href="../conf.html#shortcut-kitty.Insert-selected-path"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+p&gt;f</span></code></a> to
+select anything that looks like a path or filename and then insert it into the
+terminal, very useful for picking files from the output of a <code class="docutils literal notranslate"><span class="pre">git</span></code> or <code class="docutils literal notranslate"><span class="pre">ls</span></code> command and
+adding them to the command line for the next command.</p>
+<p>You can also press <a class="reference internal" href="../conf.html#shortcut-kitty.Open-the-selected-file-at-the-selected-line"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+p&gt;n</span></code></a> to select anything that looks
+like a path or filename followed by a colon and a line number and open
+the file in vim at the specified line number. The patterns and editor
+to be used can be modified using options passed to the kitten. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">g</span> <span class="n">kitten</span> <span class="n">hints</span> <span class="o">--</span><span class="nb">type</span><span class="o">=</span><span class="n">linenum</span> <span class="o">--</span><span class="n">linenum</span><span class="o">-</span><span class="n">action</span><span class="o">=</span><span class="n">tab</span> <span class="n">nvim</span> <span class="o">+</span><span class="p">{</span><span class="n">line</span><span class="p">}</span> <span class="p">{</span><span class="n">path</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>will open the selected file in a new tab inside neovim when you press
+<kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">ctrl</kbd>+<kbd class="kbd docutils literal notranslate">g</kbd></kbd>.</p>
+<p>Pressing <a class="reference internal" href="../conf.html#shortcut-kitty.Open-the-selected-hyperlink"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+p&gt;y</span></code></a> will open hyperlinks, i.e. a URL
+that has been marked as such by the program running in the terminal,
+for example, by <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">--hyperlink=auto</span></code>. You can also <a class="reference internal" href="../open_actions.html"><span class="doc">customize what actions are
+taken for different types of URLs</span></a>.</p>
+<p>The hints kitten is very powerful to see more detailed help on its various
+options and modes of operation, see below. You can use these options to
+create mappings in <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code> to select various different text
+snippets. See <a class="reference internal" href="../conf.html#shortcut-kitty.Insert-selected-path"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+p&gt;f</span></code></a> for examples.</p>
+<div class="section" id="completely-customizing-the-matching-and-actions-of-the-kitten">
+<h2>Completely customizing the matching and actions of the kitten<a class="headerlink" href="#completely-customizing-the-matching-and-actions-of-the-kitten" title="Permalink to this headline">¶</a></h2>
+<p>The hints kitten supports writing simple python scripts that can be used to
+completely customize how it finds matches and what happens when a match is
+selected. This allows the hints kitten to provide the user interface, while
+you can provide the logic for finding matches and performing actions on them.
+This is best illustrated with an example. Create the file
+<code class="file docutils literal notranslate"><span class="pre">custom-hints.py</span></code> in the kitty config directory with the following
+contents:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="k">def</span> <span class="nf">mark</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">Mark</span><span class="p">,</span> <span class="n">extra_cli_args</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">):</span>
+    <span class="c1"># This function is responsible for finding all</span>
+    <span class="c1"># matching text. extra_cli_args are any extra arguments</span>
+    <span class="c1"># passed on the command line when invoking the kitten.</span>
+    <span class="c1"># We mark all individual word for potential selection</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w+&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)):</span>
+        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">span</span><span class="p">()</span>
+        <span class="n">mark_text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\0</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="c1"># The empty dictionary below will be available as groupdicts</span>
+        <span class="c1"># in handle_result() and can contain arbitrary data.</span>
+        <span class="k">yield</span> <span class="n">Mark</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">mark_text</span><span class="p">,</span> <span class="p">{})</span>
+
+
+<span class="k">def</span> <span class="nf">handle_result</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">target_window_id</span><span class="p">,</span> <span class="n">boss</span><span class="p">,</span> <span class="n">extra_cli_args</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">):</span>
+    <span class="c1"># This function is responsible for performing some</span>
+    <span class="c1"># action on the selected text.</span>
+    <span class="c1"># matches is a list of the selected entries and groupdicts contains</span>
+    <span class="c1"># the arbitrary data associated with each entry in mark() above</span>
+    <span class="n">matches</span><span class="p">,</span> <span class="n">groupdicts</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;match&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;groupdicts&#39;</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+            <span class="n">matches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="n">groupdicts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">match_data</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">matches</span><span class="p">,</span> <span class="n">groupdicts</span><span class="p">):</span>
+        <span class="c1"># Lookup the word in a dictionary, the open_url function</span>
+        <span class="c1"># will open the provided url in the system browser</span>
+        <span class="n">boss</span><span class="o">.</span><span class="n">open_url</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;https://www.google.com/search?q=define:</span><span class="si">{</span><span class="n">word</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now run kitty with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kitty</span> <span class="o">-</span><span class="n">o</span> <span class="s1">&#39;map f1 kitten hints --customize-processing custom-hints.py&#39;</span>
+</pre></div>
+</div>
+<p>When you press the <kbd class="kbd docutils literal notranslate">F1</kbd> key you will be able to select a word to
+look it up in the Google dictionary.</p>
+</div>
+<div class="section" id="command-line-interface">
+<h2>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kitty +kitten hints <span class="o">[</span>options<span class="o">]</span>
+</pre></div>
+</div>
+<p>Select text from the screen using the keyboard. Defaults to searching for URLs.</p>
+<div class="section" id="options">
+<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-program">
+<code class="sig-name descname">--program</code><code class="sig-prename descclassname"> &lt;PROGRAM&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-program" title="Permalink to this definition">¶</a></dt>
+<dd><p>What program to use to open matched text. Defaults to the default open program for the operating system. Use a value of <code class="file docutils literal notranslate"><span class="pre">-</span></code> to paste the match into the terminal window instead. A value of <code class="file docutils literal notranslate"><span class="pre">&#64;</span></code> will copy the match to the clipboard. A value of <code class="file docutils literal notranslate"><span class="pre">*</span></code> will copy the match to the primary selection (on systems that support primary selections). A value of <code class="file docutils literal notranslate"><span class="pre">default</span></code> will run the default open program. Can be specified multiple times to run multiple programs.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-type">
+<code class="sig-name descname">--type</code><code class="sig-prename descclassname"> &lt;TYPE&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of text to search for. A value of <code class="code docutils literal notranslate"><span class="pre">linenum</span></code> is special, it looks for error messages using the pattern specified with <a class="reference internal" href="#cmdoption-kitty-kitten-hints-regex"><code class="xref std std-option docutils literal notranslate"><span class="pre">--regex</span></code></a>, which must have the named groups, <code class="code docutils literal notranslate"><span class="pre">path</span></code> and <code class="code docutils literal notranslate"><span class="pre">line</span></code>. If not specified, will look for <code class="code docutils literal notranslate"><span class="pre">path:line</span></code>. The <a class="reference internal" href="#cmdoption-kitty-kitten-hints-linenum-action"><code class="xref std std-option docutils literal notranslate"><span class="pre">--linenum-action</span></code></a> option controls where to display the selected error message, other options are ignored.
+Default: <code class="code docutils literal notranslate"><span class="pre">url</span></code>
+Choices: <code class="code docutils literal notranslate"><span class="pre">hash,</span> <span class="pre">hyperlink,</span> <span class="pre">ip,</span> <span class="pre">line,</span> <span class="pre">linenum,</span> <span class="pre">path,</span> <span class="pre">regex,</span> <span class="pre">url,</span> <span class="pre">word</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-regex">
+<code class="sig-name descname">--regex</code><code class="sig-prename descclassname"> &lt;REGEX&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-regex" title="Permalink to this definition">¶</a></dt>
+<dd><p>The regular expression to use when <a class="reference internal" href="#cmdoption-kitty-kitten-hints-type"><code class="xref std std-option docutils literal notranslate"><span class="pre">kitty</span> <span class="pre">+kitten</span> <span class="pre">hints</span> <span class="pre">--type</span></code></a><code class="code docutils literal notranslate"><span class="pre">=regex</span></code>. The regular expression is in python syntax. If you specify a numbered group in the regular expression only the group will be matched. This allow you to match text ignoring a prefix/suffix, as needed. The default expression matches lines. To match text over multiple lines you should prefix the regular expression with <code class="code docutils literal notranslate"><span class="pre">(?ms)</span></code>, which turns on MULTILINE and DOTALL modes for the regex engine. If you specify named groups and a <a class="reference internal" href="#cmdoption-kitty-kitten-hints-program"><code class="xref std std-option docutils literal notranslate"><span class="pre">kitty</span> <span class="pre">+kitten</span> <span class="pre">hints</span> <span class="pre">--program</span></code></a> then the program will be passed arguments corresponding to each named group of the form key=value.
+Default: <code class="code docutils literal notranslate"><span class="pre">(?m)^\s*(.+)\s*$</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-linenum-action">
+<code class="sig-name descname">--linenum-action</code><code class="sig-prename descclassname"> &lt;LINENUM_ACTION&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-linenum-action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Where to perform the action on matched errors. <code class="code docutils literal notranslate"><span class="pre">self</span></code> means the current window, <code class="code docutils literal notranslate"><span class="pre">window</span></code> a new kitty window, <code class="code docutils literal notranslate"><span class="pre">tab</span></code> a new tab, <code class="code docutils literal notranslate"><span class="pre">os_window</span></code> a new OS window and <code class="code docutils literal notranslate"><span class="pre">background</span></code> run in the background. The action to perform on the matched errors. The actual action is whatever arguments are provided to the kitten, for example: <code class="code docutils literal notranslate"><span class="pre">kitty</span> <span class="pre">+</span> <span class="pre">kitten</span> <span class="pre">hints</span> <span class="pre">--type=linenum</span> <span class="pre">--linenum-action=tab</span> <span class="pre">vim</span> <span class="pre">+{line}</span> <span class="pre">{path}</span></code> will open the matched path at the matched line number in vim in a new kitty tab.
+Default: <code class="code docutils literal notranslate"><span class="pre">self</span></code>
+Choices: <code class="code docutils literal notranslate"><span class="pre">background,</span> <span class="pre">os_window,</span> <span class="pre">self,</span> <span class="pre">tab,</span> <span class="pre">window</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-url-prefixes">
+<code class="sig-name descname">--url-prefixes</code><code class="sig-prename descclassname"> &lt;URL_PREFIXES&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-url-prefixes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Comma separated list of recognized URL prefixes. Defaults, to the list of prefixes defined in kitty.conf.
+Default: <code class="code docutils literal notranslate"><span class="pre">default</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-word-characters">
+<code class="sig-name descname">--word-characters</code><code class="sig-prename descclassname"> &lt;WORD_CHARACTERS&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-word-characters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Characters to consider as part of a word. In addition, all characters marked as alphanumeric in the unicode database will be considered as word characters. Defaults to the select_by_word_characters setting from kitty.conf.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-minimum-match-length">
+<code class="sig-name descname">--minimum-match-length</code><code class="sig-prename descclassname"> &lt;MINIMUM_MATCH_LENGTH&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-minimum-match-length" title="Permalink to this definition">¶</a></dt>
+<dd><p>The minimum number of characters to consider a match.
+Default: <code class="code docutils literal notranslate"><span class="pre">3</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-multiple">
+<code class="sig-name descname">--multiple</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-multiple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select multiple matches and perform the action on all of them together at the end. In this mode, press <kbd class="kbd docutils literal notranslate">Esc</kbd> to finish selecting.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-multiple-joiner">
+<code class="sig-name descname">--multiple-joiner</code><code class="sig-prename descclassname"> &lt;MULTIPLE_JOINER&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-multiple-joiner" title="Permalink to this definition">¶</a></dt>
+<dd><p>String to use to join multiple selections when copying to the clipboard or inserting into the terminal. The special strings: “space”, “newline”, “empty”, “json” and “auto” are interpreted as a space character, a newline an empty joiner, a JSON serialized list and an automatic choice, based on the type of text being selected. In addition, integers are interpreted as zero-based indices into the list of selections. You can use 0 for the first selection and -1 for the last.
+Default: <code class="code docutils literal notranslate"><span class="pre">auto</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-add-trailing-space">
+<code class="sig-name descname">--add-trailing-space</code><code class="sig-prename descclassname"> &lt;ADD_TRAILING_SPACE&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-add-trailing-space" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add trailing space after matched text. Defaults to auto, which adds the space when used together with –multiple.
+Default: <code class="code docutils literal notranslate"><span class="pre">auto</span></code>
+Choices: <code class="code docutils literal notranslate"><span class="pre">always,</span> <span class="pre">auto,</span> <span class="pre">never</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-hints-offset">
+<code class="sig-name descname">--hints-offset</code><code class="sig-prename descclassname"> &lt;HINTS_OFFSET&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-hints-offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>The offset (from zero) at which to start hint numbering. Note that only numbers greater than or equal to zero are respected.
+Default: <code class="code docutils literal notranslate"><span class="pre">1</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-alphabet">
+<code class="sig-name descname">--alphabet</code><code class="sig-prename descclassname"> &lt;ALPHABET&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-alphabet" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of characters to use for hints. The default is to use numbers and lowercase English alphabets. Specify your preference as a string of characters. Note that unless you specify the hints offset as zero the first match will be highlighted with the second character you specify.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-ascending">
+<code class="sig-name descname">--ascending</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-ascending" title="Permalink to this definition">¶</a></dt>
+<dd><p>Have the hints increase from top to bottom instead of decreasing from top to bottom.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-hints-foreground-color">
+<code class="sig-name descname">--hints-foreground-color</code><code class="sig-prename descclassname"> &lt;HINTS_FOREGROUND_COLOR&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-hints-foreground-color" title="Permalink to this definition">¶</a></dt>
+<dd><p>The foreground color for hints
+Default: <code class="code docutils literal notranslate"><span class="pre">black</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-hints-background-color">
+<code class="sig-name descname">--hints-background-color</code><code class="sig-prename descclassname"> &lt;HINTS_BACKGROUND_COLOR&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-hints-background-color" title="Permalink to this definition">¶</a></dt>
+<dd><p>The background color for hints
+Default: <code class="code docutils literal notranslate"><span class="pre">green</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-hints-text-color">
+<code class="sig-name descname">--hints-text-color</code><code class="sig-prename descclassname"> &lt;HINTS_TEXT_COLOR&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-hints-text-color" title="Permalink to this definition">¶</a></dt>
+<dd><p>The foreground color for text pointed to by the hints
+Default: <code class="code docutils literal notranslate"><span class="pre">gray</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-customize-processing">
+<code class="sig-name descname">--customize-processing</code><code class="sig-prename descclassname"> &lt;CUSTOMIZE_PROCESSING&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-customize-processing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of a python file in the kitty config directory which will be imported to provide custom implementations for pattern finding and performing actions on selected matches. See <a class="reference external" href="https://sw.kovidgoyal.net/kitty/kittens/hints.html">https://sw.kovidgoyal.net/kitty/kittens/hints.html</a> for details. You can also specify absolute paths to load the script from elsewhere.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-hints-window-title">
+<code class="sig-name descname">--window-title</code><code class="sig-prename descclassname"> &lt;WINDOW_TITLE&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-hints-window-title" title="Permalink to this definition">¶</a></dt>
+<dd><p>The window title for the hints window, default title is selected based on the type of text being hinted.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

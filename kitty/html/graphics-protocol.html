@@ -1,0 +1,822 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The terminal graphics protocol &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/kitty.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Integrations with other tools" href="integrations.html" />
+    <link rel="prev" title="Frequently Asked Questions" href="faq.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#getting-the-window-size">Getting the window size</a></li>
+<li><a class="reference internal" href="#a-minimal-example">A minimal example</a></li>
+<li><a class="reference internal" href="#the-graphics-escape-code">The graphics escape code</a></li>
+<li><a class="reference internal" href="#transferring-pixel-data">Transferring pixel data</a><ul>
+<li><a class="reference internal" href="#rgb-and-rgba-data">RGB and RGBA data</a></li>
+<li><a class="reference internal" href="#png-data">PNG data</a></li>
+<li><a class="reference internal" href="#compression">Compression</a></li>
+<li><a class="reference internal" href="#the-transmission-medium">The transmission medium</a></li>
+<li><a class="reference internal" href="#querying-support-and-available-transmission-mediums">Querying support and available transmission mediums</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#display-images-on-screen">Display images on screen</a><ul>
+<li><a class="reference internal" href="#controlling-displayed-image-layout">Controlling displayed image layout</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#deleting-images">Deleting images</a><ul>
+<li><a class="reference internal" href="#suppressing-responses-from-the-terminal">Suppressing responses from the terminal</a></li>
+<li><a class="reference internal" href="#requesting-image-ids-from-the-terminal">Requesting image ids from the terminal</a></li>
+<li><a class="reference internal" href="#image-persistence-and-storage-quotas">Image persistence and storage quotas</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#control-data-reference">Control data reference</a></li>
+<li><a class="reference internal" href="#interaction-with-other-terminal-actions">Interaction with other terminal actions</a></li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="faq.html" title="previous chapter">Frequently Asked Questions</a></li>
+      <li>Next: <a href="integrations.html" title="next chapter">Integrations with other tools</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="the-terminal-graphics-protocol">
+<h1><a class="toc-backref" href="#id2">The terminal graphics protocol</a><a class="headerlink" href="#the-terminal-graphics-protocol" title="Permalink to this headline">¶</a></h1>
+<p>The goal of this specification is to create a flexible and performant protocol
+that allows the program running in the terminal, hereafter called the <em>client</em>,
+to render arbitrary pixel (raster) graphics to the screen of the terminal
+emulator. The major design goals are</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Should not require terminal emulators to understand image formats.</p></li>
+<li><p>Should allow specifying graphics to be drawn at individual pixel positions.</p></li>
+<li><p>The graphics should integrate with the text, in particular it should be possible to draw graphics
+below as well as above the text, with alpha blending. The graphics should also scroll with the text, automatically.</p></li>
+<li><p>Should use optimizations when the client is running on the same computer as the terminal emulator.</p></li>
+</ul>
+</div></blockquote>
+<p>For some discussion regarding the design choices, see <a class="reference external" href="https://github.com/kovidgoyal/kitty/issues/33">#33</a>.</p>
+<p>To see a quick demo, inside a <em>kitty</em> terminal run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kitty</span> <span class="o">+</span><span class="n">kitten</span> <span class="n">icat</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">image</span><span class="o">.</span><span class="n">png</span>
+</pre></div>
+</div>
+<p>You can also see a screenshot with more sophisticated features such as
+alpha-blending and text over graphics.</p>
+<img alt="Demo of graphics rendering in kitty" class="align-center" src="https://user-images.githubusercontent.com/1308621/31647475-1188ab66-b326-11e7-8d26-24b937f1c3e8.png" />
+<p>Some programs that use the kitty graphics protocol:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/dsanson/termpdf.py">termpdf.py</a> - a terminal PDF/DJVU/CBR viewer</p></li>
+<li><p><a class="reference external" href="https://github.com/ranger/ranger">ranger</a> - a terminal file manager, with
+image previews, see this <a class="reference external" href="https://github.com/ranger/ranger/pull/1077">PR</a></p></li>
+<li><p><a class="reference internal" href="kittens/diff.html"><span class="doc">kitty-diff</span></a> - a side-by-side terminal diff program with support for images</p></li>
+<li><p><a class="reference external" href="https://github.com/mirukana/pixcat">pixcat</a> - a third party CLI and python library that wraps the graphics protocol</p></li>
+<li><p><a class="reference external" href="https://github.com/dylanaraps/neofetch">neofetch</a> - A command line system
+information tool</p></li>
+<li><p><a class="reference external" href="https://github.com/atanunq/viu">viu</a> - a terminal image viewer</p></li>
+<li><p><a class="reference external" href="https://github.com/michaeljclark/glkitty">glkitty</a> - C library to draw OpenGL shaders in the terminal with a glgears demo</p></li>
+</ul>
+</div></blockquote>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#the-terminal-graphics-protocol" id="id2">The terminal graphics protocol</a></p>
+<ul>
+<li><p><a class="reference internal" href="#getting-the-window-size" id="id3">Getting the window size</a></p></li>
+<li><p><a class="reference internal" href="#a-minimal-example" id="id4">A minimal example</a></p></li>
+<li><p><a class="reference internal" href="#the-graphics-escape-code" id="id5">The graphics escape code</a></p></li>
+<li><p><a class="reference internal" href="#transferring-pixel-data" id="id6">Transferring pixel data</a></p>
+<ul>
+<li><p><a class="reference internal" href="#rgb-and-rgba-data" id="id7">RGB and RGBA data</a></p></li>
+<li><p><a class="reference internal" href="#png-data" id="id8">PNG data</a></p></li>
+<li><p><a class="reference internal" href="#compression" id="id9">Compression</a></p></li>
+<li><p><a class="reference internal" href="#the-transmission-medium" id="id10">The transmission medium</a></p>
+<ul>
+<li><p><a class="reference internal" href="#local-client" id="id11">Local client</a></p></li>
+<li><p><a class="reference internal" href="#remote-client" id="id12">Remote client</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#querying-support-and-available-transmission-mediums" id="id13">Querying support and available transmission mediums</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#display-images-on-screen" id="id14">Display images on screen</a></p>
+<ul>
+<li><p><a class="reference internal" href="#controlling-displayed-image-layout" id="id15">Controlling displayed image layout</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#deleting-images" id="id16">Deleting images</a></p>
+<ul>
+<li><p><a class="reference internal" href="#suppressing-responses-from-the-terminal" id="id17">Suppressing responses from the terminal</a></p></li>
+<li><p><a class="reference internal" href="#requesting-image-ids-from-the-terminal" id="id18">Requesting image ids from the terminal</a></p></li>
+<li><p><a class="reference internal" href="#image-persistence-and-storage-quotas" id="id19">Image persistence and storage quotas</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#control-data-reference" id="id20">Control data reference</a></p></li>
+<li><p><a class="reference internal" href="#interaction-with-other-terminal-actions" id="id21">Interaction with other terminal actions</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="getting-the-window-size">
+<h2><a class="toc-backref" href="#id3">Getting the window size</a><a class="headerlink" href="#getting-the-window-size" title="Permalink to this headline">¶</a></h2>
+<p>In order to know what size of images to display and how to position them, the
+client must be able to get the window size in pixels and the number of cells
+per row and column. This can be done by using the <code class="docutils literal notranslate"><span class="pre">TIOCGWINSZ</span></code> ioctl.  Some
+code to demonstrate its use</p>
+<p>In C:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/ioctl.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="nc">winsize</span> <span class="n">sz</span><span class="p">;</span>
+    <span class="n">ioctl</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">TIOCGWINSZ</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sz</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;number of rows: %i, number of columns: %i, screen width: %i, screen height: %i</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">sz</span><span class="p">.</span><span class="n">ws_row</span><span class="p">,</span> <span class="n">sz</span><span class="p">.</span><span class="n">ws_col</span><span class="p">,</span> <span class="n">sz</span><span class="p">.</span><span class="n">ws_xpixel</span><span class="p">,</span> <span class="n">sz</span><span class="p">.</span><span class="n">ws_ypixel</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">array</span><span class="o">,</span> <span class="nn">fcntl</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">termios</span>
+<span class="n">buf</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">fcntl</span><span class="o">.</span><span class="n">ioctl</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">termios</span><span class="o">.</span><span class="n">TIOCGWINSZ</span><span class="p">,</span> <span class="n">buf</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;number of rows: </span><span class="si">{}</span><span class="s1">, number of columns: </span><span class="si">{}</span><span class="s1">, screen width: </span><span class="si">{}</span><span class="s1">, screen height: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">buf</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Note that some terminals return <code class="docutils literal notranslate"><span class="pre">0</span></code> for the width and height values. Such
+terminals should be modified to return the correct values.  Examples of
+terminals that return correct values: <code class="docutils literal notranslate"><span class="pre">kitty,</span> <span class="pre">xterm</span></code></p>
+<p>You can also use the <em>CSI t</em> escape code to get the screen size. Send
+<code class="docutils literal notranslate"><span class="pre">&lt;ESC&gt;[14t</span></code> to <code class="docutils literal notranslate"><span class="pre">STDOUT</span></code> and kitty will reply on <code class="docutils literal notranslate"><span class="pre">STDIN</span></code> with
+<code class="docutils literal notranslate"><span class="pre">&lt;ESC&gt;[4;&lt;height&gt;;&lt;width&gt;t</span></code> where <code class="docutils literal notranslate"><span class="pre">height</span></code> and <code class="docutils literal notranslate"><span class="pre">width</span></code> are the window
+size in pixels. This escape code is supported in many terminals, not just
+kitty.</p>
+</div>
+<div class="section" id="a-minimal-example">
+<h2><a class="toc-backref" href="#id4">A minimal example</a><a class="headerlink" href="#a-minimal-example" title="Permalink to this headline">¶</a></h2>
+<p>Some minimal python code to display PNG images in kitty, using the most basic
+features of the graphics protocol:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">standard_b64encode</span>
+
+<span class="k">def</span> <span class="nf">serialize_gr_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+   <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cmd</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+   <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
+   <span class="n">w</span> <span class="o">=</span> <span class="n">ans</span><span class="o">.</span><span class="n">append</span>
+   <span class="n">w</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">_G&#39;</span><span class="p">),</span> <span class="n">w</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">))</span>
+   <span class="k">if</span> <span class="n">payload</span><span class="p">:</span>
+      <span class="n">w</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+      <span class="n">w</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+   <span class="n">w</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\033\\</span><span class="s1">&#39;</span><span class="p">)</span>
+   <span class="k">return</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">write_chunked</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+   <span class="n">data</span> <span class="o">=</span> <span class="n">standard_b64encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+   <span class="k">while</span> <span class="n">data</span><span class="p">:</span>
+      <span class="n">chunk</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="mi">4096</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">4096</span><span class="p">:]</span>
+      <span class="n">m</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">data</span> <span class="k">else</span> <span class="mi">0</span>
+      <span class="n">cmd</span><span class="p">[</span><span class="s1">&#39;m&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span>
+      <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">serialize_gr_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">chunk</span><span class="p">))</span>
+      <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+      <span class="n">cmd</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+   <span class="n">write_chunked</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Save this script as <code class="file docutils literal notranslate"><span class="pre">png.py</span></code>, then you can use it to display any PNG
+file in kitty as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">png</span><span class="o">.</span><span class="n">py</span> <span class="n">file</span><span class="o">.</span><span class="n">png</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-graphics-escape-code">
+<h2><a class="toc-backref" href="#id5">The graphics escape code</a><a class="headerlink" href="#the-graphics-escape-code" title="Permalink to this headline">¶</a></h2>
+<p>All graphics escape codes are of the form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_G</span><span class="o">&lt;</span><span class="n">control</span> <span class="n">data</span><span class="o">&gt;</span><span class="p">;</span><span class="o">&lt;</span><span class="n">payload</span><span class="o">&gt;&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>This is a so-called <em>Application Programming Command (APC)</em>. Most terminal
+emulators ignore APC codes, making it safe to use.</p>
+<p>The control data is a comma-separated list of <code class="docutils literal notranslate"><span class="pre">key=value</span></code> pairs.  The payload
+is arbitrary binary data, base64-encoded to prevent interoperation problems
+with legacy terminals that get confused by control codes within an APC code.
+The meaning of the payload is interpreted based on the control data.</p>
+<p>The first step is to transmit the actual image data.</p>
+</div>
+<div class="section" id="transferring-pixel-data">
+<h2><a class="toc-backref" href="#id6">Transferring pixel data</a><a class="headerlink" href="#transferring-pixel-data" title="Permalink to this headline">¶</a></h2>
+<p>The first consideration when transferring data between the client and the
+terminal emulator is the format in which to do so. Since there is a vast and
+growing number of image formats in existence, it does not make sense to have
+every terminal emulator implement support for them. Instead, the client should
+send simple pixel data to the terminal emulator. The obvious downside to this
+is performance, especially when the client is running on a remote machine.
+Techniques for remedying this limitation are discussed later. The terminal
+emulator must understand pixel data in three formats, 24-bit RGB, 32-bit RGBA and
+PNG. This is specified using the <code class="docutils literal notranslate"><span class="pre">f</span></code> key in the control data. <code class="docutils literal notranslate"><span class="pre">f=32</span></code> (which is the
+default) indicates 32-bit RGBA data and <code class="docutils literal notranslate"><span class="pre">f=24</span></code> indicates 24-bit RGB data and <code class="docutils literal notranslate"><span class="pre">f=100</span></code>
+indicates PNG data. The PNG format is supported for convenience and a compact way
+of transmitting paletted images.</p>
+<div class="section" id="rgb-and-rgba-data">
+<h3><a class="toc-backref" href="#id7">RGB and RGBA data</a><a class="headerlink" href="#rgb-and-rgba-data" title="Permalink to this headline">¶</a></h3>
+<p>In these formats the pixel data is stored directly as 3 or 4 bytes per pixel,
+respectively. The colors in the data <strong>must</strong> be in the <em>sRGB color space</em>.  When
+specifying images in this format, the image dimensions <strong>must</strong> be sent in the
+control data. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gf</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="mi">20</span><span class="p">;</span><span class="o">&lt;</span><span class="n">payload</span><span class="o">&gt;&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>Here the width and height are specified using the <code class="docutils literal notranslate"><span class="pre">s</span></code> and <code class="docutils literal notranslate"><span class="pre">v</span></code> keys respectively. Since
+<code class="docutils literal notranslate"><span class="pre">f=24</span></code> there are three bytes per pixel and therefore the pixel data must be <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">*</span> <span class="pre">10</span> <span class="pre">*</span> <span class="pre">20</span> <span class="pre">=</span> <span class="pre">600</span></code>
+bytes.</p>
+</div>
+<div class="section" id="png-data">
+<h3><a class="toc-backref" href="#id8">PNG data</a><a class="headerlink" href="#png-data" title="Permalink to this headline">¶</a></h3>
+<p>In this format any PNG image can be transmitted directly.  For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gf</span><span class="o">=</span><span class="mi">100</span><span class="p">;</span><span class="o">&lt;</span><span class="n">payload</span><span class="o">&gt;&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>The PNG format is specified using the <code class="docutils literal notranslate"><span class="pre">f=100</span></code> key. The width and height of
+the image will be read from the PNG data itself. Note that if you use both PNG and
+compression, then you must provide the <code class="docutils literal notranslate"><span class="pre">S</span></code> key with the size of the PNG data.</p>
+</div>
+<div class="section" id="compression">
+<h3><a class="toc-backref" href="#id9">Compression</a><a class="headerlink" href="#compression" title="Permalink to this headline">¶</a></h3>
+<p>The client can send compressed image data to the terminal emulator, by specifying the
+<code class="docutils literal notranslate"><span class="pre">o</span></code> key. Currently, only zlib based deflate compression is supported, which is specified using
+<code class="docutils literal notranslate"><span class="pre">o=z</span></code>. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gf</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">o</span><span class="o">=</span><span class="n">z</span><span class="p">;</span><span class="o">&lt;</span><span class="n">payload</span><span class="o">&gt;&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>This is the same as the example from the RGB data section, except that the
+payload is now compressed using deflate. The terminal emulator will decompress
+it before rendering. You can specify compression for any format. The terminal
+emulator will decompress before interpreting the pixel data.</p>
+</div>
+<div class="section" id="the-transmission-medium">
+<h3><a class="toc-backref" href="#id10">The transmission medium</a><a class="headerlink" href="#the-transmission-medium" title="Permalink to this headline">¶</a></h3>
+<p>The transmission medium is specified using the <code class="docutils literal notranslate"><span class="pre">t</span></code> key. The <code class="docutils literal notranslate"><span class="pre">t</span></code> key defaults to <code class="docutils literal notranslate"><span class="pre">d</span></code>
+and can take the values:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 86%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Value of <cite>t</cite></p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">d</span></code></p></td>
+<td><p>Direct (the data is transmitted within the escape code itself)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">f</span></code></p></td>
+<td><p>A simple file</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">t</span></code></p></td>
+<td><p>A temporary file, the terminal emulator will delete the file after reading the pixel data. For security reasons
+the terminal emulator should only delete the file if it
+is in a known temporary directory, such as <code class="file docutils literal notranslate"><span class="pre">/tmp</span></code>,
+<code class="file docutils literal notranslate"><span class="pre">/dev/shm</span></code>, <code class="file docutils literal notranslate"><span class="pre">TMPDIR</span> <span class="pre">env</span> <span class="pre">var</span> <span class="pre">if</span> <span class="pre">present</span></code> and any platform
+specific temporary directories.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s</span></code></p></td>
+<td><p>A <a class="reference external" href="http://man7.org/linux/man-pages/man7/shm_overview.7.html">POSIX shared memory object</a>.
+The terminal emulator will delete it after reading the pixel data</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="local-client">
+<h4><a class="toc-backref" href="#id11">Local client</a><a class="headerlink" href="#local-client" title="Permalink to this headline">¶</a></h4>
+<p>First let us consider the local client techniques (files and shared memory). Some examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gf</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="n">f</span><span class="p">;</span><span class="o">&lt;</span><span class="n">encoded</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">file</span><span class="o">.</span><span class="n">png</span><span class="o">&gt;&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>Here we tell the terminal emulator to read PNG data from the specified file of
+the specified size:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="n">s</span><span class="p">,</span><span class="n">o</span><span class="o">=</span><span class="n">z</span><span class="p">;</span><span class="o">&lt;</span><span class="n">encoded</span> <span class="o">/</span><span class="n">some</span><span class="o">-</span><span class="n">shared</span><span class="o">-</span><span class="n">memory</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>Here we tell the terminal emulator to read compressed image data from
+the specified shared memory object.</p>
+<p>The client can also specify a size and offset to tell the terminal emulator
+to only read a part of the specified file. The is done using the <code class="docutils literal notranslate"><span class="pre">S</span></code> and <code class="docutils literal notranslate"><span class="pre">O</span></code>
+keys respectively. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="n">s</span><span class="p">,</span><span class="n">S</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span><span class="n">O</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span><span class="o">&lt;</span><span class="n">encoded</span> <span class="o">/</span><span class="n">some</span><span class="o">-</span><span class="n">shared</span><span class="o">-</span><span class="n">memory</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>This tells the terminal emulator to read <code class="docutils literal notranslate"><span class="pre">80</span></code> bytes starting from the offset <code class="docutils literal notranslate"><span class="pre">10</span></code>
+inside the specified shared memory buffer.</p>
+</div>
+<div class="section" id="remote-client">
+<h4><a class="toc-backref" href="#id12">Remote client</a><a class="headerlink" href="#remote-client" title="Permalink to this headline">¶</a></h4>
+<p>Remote clients, those that are unable to use the filesystem/shared memory to
+transmit data, must send the pixel data directly using escape codes. Since
+escape codes are of limited maximum length, the data will need to be chunked up
+for transfer. This is done using the <code class="docutils literal notranslate"><span class="pre">m</span></code> key. The pixel data must first be
+base64 encoded then chunked up into chunks no larger than <code class="docutils literal notranslate"><span class="pre">4096</span></code> bytes. The client
+then sends the graphics escape code as usual, with the addition of an <code class="docutils literal notranslate"><span class="pre">m</span></code> key that
+must have the value <code class="docutils literal notranslate"><span class="pre">1</span></code> for all but the last chunk, where it must be <code class="docutils literal notranslate"><span class="pre">0</span></code>. For example,
+if the data is split into three chunks, the client would send the following
+sequence of escape codes to the terminal emulator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="o">&lt;</span><span class="n">encoded</span> <span class="n">pixel</span> <span class="n">data</span> <span class="n">first</span> <span class="n">chunk</span><span class="o">&gt;&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+<span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gm</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="o">&lt;</span><span class="n">encoded</span> <span class="n">pixel</span> <span class="n">data</span> <span class="n">second</span> <span class="n">chunk</span><span class="o">&gt;&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+<span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gm</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="o">&lt;</span><span class="n">encoded</span> <span class="n">pixel</span> <span class="n">data</span> <span class="n">last</span> <span class="n">chunk</span><span class="o">&gt;&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>Note that only the first escape code needs to have the full set of control
+codes such as width, height, format etc. Subsequent chunks must have
+only the <code class="docutils literal notranslate"><span class="pre">m</span></code> key. The client <strong>must</strong> finish sending all chunks for a single image
+before sending any other graphics related escape codes. Note that the cursor
+position used to display the image <strong>must</strong> be the position when the final chunk is
+received. Finally, terminals must not display anything, until the entire sequence is
+received and validated.</p>
+</div>
+</div>
+<div class="section" id="querying-support-and-available-transmission-mediums">
+<h3><a class="toc-backref" href="#id13">Querying support and available transmission mediums</a><a class="headerlink" href="#querying-support-and-available-transmission-mediums" title="Permalink to this headline">¶</a></h3>
+<p>Since a client has no a-priori knowledge of whether it shares a filesystem/shared memory
+with the terminal emulator, it can send an id with the control data, using the <code class="docutils literal notranslate"><span class="pre">i</span></code> key
+(which can be an arbitrary positive integer up to 4294967295, it must not be zero).
+If it does so, the terminal emulator will reply after trying to load the image, saying
+whether loading was successful or not. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gi</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="n">s</span><span class="p">;</span><span class="o">&lt;</span><span class="n">encoded</span> <span class="o">/</span><span class="n">some</span><span class="o">-</span><span class="n">shared</span><span class="o">-</span><span class="n">memory</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>to which the terminal emulator will reply (after trying to load the data):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gi</span><span class="o">=</span><span class="mi">31</span><span class="p">;</span><span class="n">error</span> <span class="n">message</span> <span class="ow">or</span> <span class="n">OK</span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>Here the <code class="docutils literal notranslate"><span class="pre">i</span></code> value will be the same as was sent by the client in the original
+request.  The message data will be a ASCII encoded string containing only
+printable characters and spaces. The string will be <code class="docutils literal notranslate"><span class="pre">OK</span></code> if reading the pixel
+data succeeded or an error message.</p>
+<p>Sometimes, using an id is not appropriate, for example, if you do not want to
+replace a previously sent image with the same id, or if you are sending a dummy
+image and do not want it stored by the terminal emulator. In that case, you can
+use the <em>query action</em>, set <code class="docutils literal notranslate"><span class="pre">a=q</span></code>. Then the terminal emulator will try to load
+the image and respond with either OK or an error, as above, but it will not
+replace an existing image with the same id, nor will it store the image.</p>
+<p>While as of May 2020, kitty is the only terminal emulator to support this
+graphics protocol, we intend that any terminal emulator that wishes to support
+it can. To check if a terminal emulator supports the graphics protocol the best way
+is to send the above <em>query action</em> followed by a request for the
+<cite>primary device attributes &lt;https://vt100.net/docs/vt510-rm/DA1.html&gt;</cite>. If you
+get back an answer for the device attributes without getting back an answer for
+the <em>query action</em> the terminal emulator does not support the graphics
+protocol.</p>
+<p>This means that terminal emulators that support the graphics protocol, <strong>must</strong>
+reply to <em>query actions</em> immediately without processing other input. Most
+terminal emulators handle input in a FIFO manner, anyway.</p>
+<p>So for example, you could send:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gi</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="n">q</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="n">d</span><span class="p">,</span><span class="n">f</span><span class="o">=</span><span class="mi">24</span><span class="p">;</span><span class="n">AAAA</span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\<span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="p">[</span><span class="n">c</span>
+</pre></div>
+</div>
+<p>If you get back a response to the graphics query, the terminal emulator supports
+the protocol, if you get back a response to the device attributes query without
+a response to the graphics query, it does not.</p>
+</div>
+</div>
+<div class="section" id="display-images-on-screen">
+<h2><a class="toc-backref" href="#id14">Display images on screen</a><a class="headerlink" href="#display-images-on-screen" title="Permalink to this headline">¶</a></h2>
+<p>Every transmitted image can be displayed an arbitrary number of times on the
+screen, in different locations, using different parts of the source image, as
+needed. Each such display of an image is called a <em>placement</em>.  You can either
+simultaneously transmit and display an image using the action <code class="docutils literal notranslate"><span class="pre">a=T</span></code>, or first
+transmit the image with a id, such as <code class="docutils literal notranslate"><span class="pre">i=10</span></code> and then display it with
+<code class="docutils literal notranslate"><span class="pre">a=p,i=10</span></code> which will display the previously transmitted image at the current
+cursor position. When specifying an image id, the terminal emulator will reply
+to the placement request with an acknowledgement code, which will be either:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gi</span><span class="o">=&lt;</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">;</span><span class="n">OK</span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>when the image referred to by id was found, or:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gi</span><span class="o">=&lt;</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">;</span><span class="n">ENOENT</span><span class="p">:</span><span class="o">&lt;</span><span class="n">some</span> <span class="n">detailed</span> <span class="n">error</span> <span class="n">msg</span><span class="o">&gt;&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>when the image with the specified id was not found. This is similar to the
+scheme described above for querying available transmission media, except that
+here we are querying if the image with the specified id is available or needs to
+be re-transmitted.</p>
+<p>Since there can be many placements per image, you can also give placements an
+id. To do so add the <code class="docutils literal notranslate"><span class="pre">p</span></code> key with a number between <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">4294967295</span></code>.
+When you specify a placement id, it will be added to the acknowledgement code
+above. Every placement is uniquely identified by the pair of the <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">id</span></code>
+and the <code class="docutils literal notranslate"><span class="pre">placement</span> <span class="pre">id</span></code>. If you specify a placement id for an image that does
+not have an id, it will be ignored. An example response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gi</span><span class="o">=&lt;</span><span class="n">image</span> <span class="nb">id</span><span class="o">&gt;</span><span class="p">,</span><span class="n">p</span><span class="o">=&lt;</span><span class="n">placement</span> <span class="nb">id</span><span class="o">&gt;</span><span class="p">;</span><span class="n">OK</span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>If you send two placements with the same <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">id</span></code> and <code class="docutils literal notranslate"><span class="pre">placement</span> <span class="pre">id</span></code> the
+second one will replace the first. This can be used to resize or move
+placements around the screen, without flicker.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.19.3: </span>Support for specifying placement ids (see <a class="reference internal" href="kittens/query_terminal.html"><span class="doc">Query terminal</span></a> to query kitty version)</p>
+</div>
+<div class="section" id="controlling-displayed-image-layout">
+<h3><a class="toc-backref" href="#id15">Controlling displayed image layout</a><a class="headerlink" href="#controlling-displayed-image-layout" title="Permalink to this headline">¶</a></h3>
+<p>The image is rendered at the current cursor position, from the upper left corner of
+the current cell. You can also specify extra <code class="docutils literal notranslate"><span class="pre">X=3</span></code> and <code class="docutils literal notranslate"><span class="pre">Y=4</span></code> pixel offsets to display from
+a different origin within the cell. Note that the offsets must be smaller that the size of the cell.</p>
+<p>By default, the entire image will be displayed (images wider than the available
+width will be truncated on the right edge). You can choose a source rectangle (in pixels)
+as the part of the image to display. This is done with the keys: <code class="docutils literal notranslate"><span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">w,</span> <span class="pre">h</span></code> which specify
+the top-left corner, width and height of the source rectangle.</p>
+<p>You can also ask the terminal emulator to display the image in a specified rectangle
+(num of columns / num of lines), using the control codes <code class="docutils literal notranslate"><span class="pre">c,r</span></code>. <code class="docutils literal notranslate"><span class="pre">c</span></code> is the number of columns
+and <cite>r</cite> the number of rows. The image will be scaled (enlarged/shrunk) as needed to fit
+the specified area. Note that if you specify a start cell offset via the <code class="docutils literal notranslate"><span class="pre">X,Y</span></code> keys, it is not
+added to the number of rows/columns.</p>
+<p>Finally, you can specify the image <em>z-index</em>, i.e. the vertical stacking order. Images
+placed in the same location with different z-index values will be blended if
+they are semi-transparent. You can specify z-index values using the <code class="docutils literal notranslate"><span class="pre">z</span></code> key.
+Negative z-index values mean that the images will be drawn under the text. This
+allows rendering of text on top of images. Negative z-index values below
+INT32_MIN/2 (-1,073,741,824) will be drawn under cells with non-default background
+colors.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>After placing an image on the screen the cursor must be moved to the
+right by the number of cols in the image placement rectangle and down by the
+number of rows in the image placement rectangle. If either of these cause
+the cursor to leave either the screen or the scroll area, the exact
+positioning of the cursor is undefined, and up to implementations.</p>
+</div>
+</div>
+</div>
+<div class="section" id="deleting-images">
+<h2><a class="toc-backref" href="#id16">Deleting images</a><a class="headerlink" href="#deleting-images" title="Permalink to this headline">¶</a></h2>
+<p>Images can be deleted by using the delete action <code class="docutils literal notranslate"><span class="pre">a=d</span></code>. If specified without any
+other keys, it will delete all images visible on screen. To delete specific images,
+use the <cite>d</cite> key as described in the table below. Note that each value of d has
+both a lowercase and an uppercase variant. The lowercase variant only deletes the
+images without necessarily freeing up the stored image data, so that the images can be
+re-displayed without needing to resend the data. The uppercase variants will delete
+the image data as well, provided that the image is not referenced elsewhere, such as in the
+scrollback buffer. The values of the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> keys are the same as cursor positions (i.e.
+<code class="docutils literal notranslate"><span class="pre">x=1,</span> <span class="pre">y=1</span></code> is the top left cell).</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 93%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Value of <code class="docutils literal notranslate"><span class="pre">d</span></code></p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">a</span></code> or <code class="docutils literal notranslate"><span class="pre">A</span></code></p></td>
+<td><p>Delete all placements visible on screen</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">i</span></code> or <code class="docutils literal notranslate"><span class="pre">I</span></code></p></td>
+<td><p>Delete all images with the specified id, specified using the <code class="docutils literal notranslate"><span class="pre">i</span></code> key. If you specify a <code class="docutils literal notranslate"><span class="pre">p</span></code> key for the placement                      id as well, then only the placement with the specified image id and placement id will be deleted.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">n</span></code> or <code class="docutils literal notranslate"><span class="pre">N</span></code></p></td>
+<td><p>Delete newest image with the specified number, specified using the <code class="docutils literal notranslate"><span class="pre">I</span></code> key. If you specify a <code class="docutils literal notranslate"><span class="pre">p</span></code> key for the
+placement id as well, then only the placement with the specified number and placement id will be deleted.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">c</span></code> or <code class="docutils literal notranslate"><span class="pre">C</span></code></p></td>
+<td><p>Delete all placements that intersect with the current cursor position.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">c</span></code> or <code class="docutils literal notranslate"><span class="pre">C</span></code></p></td>
+<td><p>Delete all placements that intersect with the current cursor position.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">p</span></code> or <code class="docutils literal notranslate"><span class="pre">P</span></code></p></td>
+<td><p>Delete all placements that intersect a specific cell, the cell is specified using the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> keys</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">q</span></code> or <code class="docutils literal notranslate"><span class="pre">Q</span></code></p></td>
+<td><p>Delete all placements that intersect a specific cell having a specific z-index. The cell and z-index is specified using the <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">z</span></code> keys.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">x</span></code> or <code class="docutils literal notranslate"><span class="pre">X</span></code></p></td>
+<td><p>Delete all placements that intersect the specified column, specified using the <code class="docutils literal notranslate"><span class="pre">x</span></code> key.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">y</span></code> or <code class="docutils literal notranslate"><span class="pre">Y</span></code></p></td>
+<td><p>Delete all placements that intersect the specified row, specified using the <code class="docutils literal notranslate"><span class="pre">y</span></code> key.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">z</span></code> or <code class="docutils literal notranslate"><span class="pre">Z</span></code></p></td>
+<td><p>Delete all placements that have the specified z-index, specified using the <code class="docutils literal notranslate"><span class="pre">z</span></code> key.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note when all placements for an image have been deleted, the image is also
+deleted, if the capital letter form above is specified. Also, when the terminal
+is running out of quota space for image, images without placements will be
+preferentially deleted.</p>
+<p>Some examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Ga</span><span class="o">=</span><span class="n">d</span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\              <span class="c1"># delete all visible placements</span>
+<span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Ga</span><span class="o">=</span><span class="n">d</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">=</span><span class="mi">10</span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\     <span class="c1"># delete the image with id=10, without freeing data</span>
+<span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Ga</span><span class="o">=</span><span class="n">d</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="mi">7</span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\ <span class="c1"># delete the image with id=10 and placement id=7, without freeing data</span>
+<span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Ga</span><span class="o">=</span><span class="n">d</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="n">Z</span><span class="p">,</span><span class="n">z</span><span class="o">=-</span><span class="mi">1</span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\     <span class="c1"># delete the placements with z-index -1, also freeing up image data</span>
+<span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Ga</span><span class="o">=</span><span class="n">d</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="n">p</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="mi">4</span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\  <span class="c1"># delete all placements that intersect the cell at (3, 4), without freeing data</span>
+</pre></div>
+</div>
+<div class="section" id="suppressing-responses-from-the-terminal">
+<h3><a class="toc-backref" href="#id17">Suppressing responses from the terminal</a><a class="headerlink" href="#suppressing-responses-from-the-terminal" title="Permalink to this headline">¶</a></h3>
+<p>If you are using the graphics protocol from a limited client, such as a shell
+script, it might be useful to avoid having to process responses from the
+terminal. For this, you can use the <code class="docutils literal notranslate"><span class="pre">q</span></code> key. Set it to <code class="docutils literal notranslate"><span class="pre">1</span></code> to suppress
+<code class="docutils literal notranslate"><span class="pre">OK</span></code> responses and to <code class="docutils literal notranslate"><span class="pre">2</span></code> to suppress failure responses.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.19.3: </span>The ability to suppress responses (see <a class="reference internal" href="kittens/query_terminal.html"><span class="doc">Query terminal</span></a> to query kitty version)</p>
+</div>
+</div>
+<div class="section" id="requesting-image-ids-from-the-terminal">
+<h3><a class="toc-backref" href="#id18">Requesting image ids from the terminal</a><a class="headerlink" href="#requesting-image-ids-from-the-terminal" title="Permalink to this headline">¶</a></h3>
+<p>If you are writing a program that is going to share the screen with other
+programs and you still want to use image ids, it is not possible to know
+what image ids are free to use. In this case, instead of using the <code class="docutils literal notranslate"><span class="pre">i</span></code>
+key to specify and image id use the <code class="docutils literal notranslate"><span class="pre">I</span></code> key to specify and image number
+instead. These numbers are not unique.
+When creating a new image, even if an existing image has the same number a new
+one is created. And the terminal will reply with the id of the newly created
+image. For example, when creating an image with <code class="docutils literal notranslate"><span class="pre">I=13</span></code>, the terminal will
+send the response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Gi</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span><span class="n">I</span><span class="o">=</span><span class="mi">13</span><span class="p">;</span><span class="n">OK</span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>Here, the value of <code class="docutils literal notranslate"><span class="pre">i</span></code> is the id for the newly created image and the value of
+<code class="docutils literal notranslate"><span class="pre">I</span></code> is the same as was sent in the creation command.</p>
+<p>All future commands that refer to images using the image number, such as
+creating placements or deleting images, will act on only the newest image with
+that number. This allows the client program to send a bunch of commands dealing
+with an image by image number without waiting for a response from the terminal
+with the image id. Once such a response is received, the client program should
+use the <code class="docutils literal notranslate"><span class="pre">i</span></code> key with the image id for all future communication.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Specifying both <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">I</span></code> keys in any command is an error. The
+terminal must reply with an EINVAL error message, unless silenced.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.19.3: </span>The ability to use image numbers (see <a class="reference internal" href="kittens/query_terminal.html"><span class="doc">Query terminal</span></a> to query kitty version)</p>
+</div>
+</div>
+<div class="section" id="image-persistence-and-storage-quotas">
+<h3><a class="toc-backref" href="#id19">Image persistence and storage quotas</a><a class="headerlink" href="#image-persistence-and-storage-quotas" title="Permalink to this headline">¶</a></h3>
+<p>In order to avoid <em>Denial-of-Service</em> attacks, terminal emulators should have a
+maximum storage quota for image data. It should allow at least a few full
+screen images.  For example the quota in kitty is 320MB per buffer. When adding
+a new image, if the total size exceeds the quota, the terminal emulator should
+delete older images to make space for the new one.</p>
+</div>
+</div>
+<div class="section" id="control-data-reference">
+<h2><a class="toc-backref" href="#id20">Control data reference</a><a class="headerlink" href="#control-data-reference" title="Permalink to this headline">¶</a></h2>
+<p>The table below shows all the control data keys as well as what values they can
+take, and the default value they take when missing. All integers are 32-bit.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 16%" />
+<col style="width: 7%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">a</span></code></p></td>
+<td><p>Single character.
+<code class="docutils literal notranslate"><span class="pre">(t,</span> <span class="pre">T,</span> <span class="pre">q,</span> <span class="pre">p,</span> <span class="pre">d)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">t</span></code></p></td>
+<td><p>The overall action this graphics command is performing.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">q</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Suppress responses from the terminal to this graphics command.</p></td>
+</tr>
+<tr class="row-even"><td colspan="4"><p><strong>Keys for image transmission</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">f</span></code></p></td>
+<td><p>Positive integer.
+<code class="docutils literal notranslate"><span class="pre">(24,</span> <span class="pre">32,</span> <span class="pre">100)</span></code>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">32</span></code></p></td>
+<td><p>The format in which the image data is sent.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">t</span></code></p></td>
+<td><p>Single character.
+<code class="docutils literal notranslate"><span class="pre">(d,</span> <span class="pre">f,</span> <span class="pre">t,</span> <span class="pre">s)</span></code>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">d</span></code></p></td>
+<td><p>The transmission medium used.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s</span></code></p></td>
+<td><p>Positive integer.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>The width of the image being sent.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">v</span></code></p></td>
+<td><p>Positive integer.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>The height of the image being sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">S</span></code></p></td>
+<td><p>Positive integer.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>The size of data to read from a file.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">O</span></code></p></td>
+<td><p>Positive integer.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>The offset from which to read data from a file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">i</span></code></p></td>
+<td><p>Positive integer.
+<code class="docutils literal notranslate"><span class="pre">(0</span> <span class="pre">-</span> <span class="pre">4294967295)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>The image id</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">p</span></code></p></td>
+<td><p>Positive integer.
+<code class="docutils literal notranslate"><span class="pre">(0</span> <span class="pre">-</span> <span class="pre">4294967295)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>The placement id</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">o</span></code></p></td>
+<td><p>Single character.
+<code class="docutils literal notranslate"><span class="pre">only</span> <span class="pre">z</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p>The type of data compression.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">m</span></code></p></td>
+<td><p>zero or one</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Whether there is more chunked data available.</p></td>
+</tr>
+<tr class="row-odd"><td colspan="4"><p><strong>Keys for image display</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">x</span></code></p></td>
+<td><p>Positive integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>The left edge (in pixels) of the image area to display</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></td>
+<td><p>Positive integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>The top edge (in pixels) of the image area to display</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">w</span></code></p></td>
+<td><p>Positive integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>The width (in pixels) of the image area to display. By default, the entire width is used.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">h</span></code></p></td>
+<td><p>Positive integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>The height (in pixels) of the image area to display. By default, the entire height is used</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">X</span></code></p></td>
+<td><p>Positive integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>The x-offset within the first cell at which to start displaying the image</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span></code></p></td>
+<td><p>Positive integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>The y-offset within the first cell at which to start displaying the image</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">c</span></code></p></td>
+<td><p>Positive integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>The number of columns to display the image over</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">r</span></code></p></td>
+<td><p>Positive integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>The number of rows to display the image over</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">z</span></code></p></td>
+<td><p>32-bit integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>The <em>z-index</em> vertical stacking order of the image</p></td>
+</tr>
+<tr class="row-odd"><td colspan="4"><p><strong>Keys for deleting images</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">d</span></code></p></td>
+<td><p>Single character.
+<code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">A,</span> <span class="pre">c,</span> <span class="pre">C,</span> <span class="pre">n,</span> <span class="pre">N,</span>
+<span class="pre">i,</span> <span class="pre">I,</span> <span class="pre">p,</span> <span class="pre">P,</span> <span class="pre">q,</span> <span class="pre">Q,</span> <span class="pre">x,</span>
+<span class="pre">X,</span> <span class="pre">y,</span> <span class="pre">Y,</span> <span class="pre">z,</span> <span class="pre">Z)</span></code>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a</span></code></p></td>
+<td><p>What to delete.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="interaction-with-other-terminal-actions">
+<h2><a class="toc-backref" href="#id21">Interaction with other terminal actions</a><a class="headerlink" href="#interaction-with-other-terminal-actions" title="Permalink to this headline">¶</a></h2>
+<p>When resetting the terminal, all images that are visible on the screen must be
+cleared.  When switching from the main screen to the alternate screen buffer
+(1049 private mode) all images in the alternate screen must be cleared, just as
+all text is cleared. The clear screen escape code (usually <code class="docutils literal notranslate"><span class="pre">&lt;ESC&gt;[2J</span></code>) should
+also clear all images. This is so that the clear command works.</p>
+<p>The other commands to erase text must have no effect on graphics.
+The dedicated delete graphics commands must be used for those.</p>
+<p>When scrolling the screen (such as when using index cursor movement commands,
+or scrolling through the history buffer), images must be scrolled along with
+text. When page margins are defined and the index commands are used, only
+images that are entirely within the page area (between the margins) must be
+scrolled. When scrolling them would cause them to extend outside the page area,
+they must be clipped.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

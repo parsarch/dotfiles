@@ -1,0 +1,708 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kitty - the fast, featureful, GPU based terminal emulator &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/kitty.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="kitty - Binary install" href="binary.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="#">
+    <img class="logo" src="_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#quickstart">Quickstart</a></li>
+<li><a class="reference internal" href="#design-philosophy">Design philosophy</a></li>
+<li><a class="reference internal" href="#tabs-and-windows">Tabs and Windows</a></li>
+<li><a class="reference internal" href="#other-keyboard-shortcuts">Other keyboard shortcuts</a></li>
+<li><a class="reference internal" href="#layouts">Layouts</a></li>
+<li><a class="reference internal" href="#kittens">Kittens</a></li>
+<li><a class="reference internal" href="#configuring-kitty">Configuring kitty</a></li>
+<li><a class="reference internal" href="#remote-control">Remote control</a></li>
+<li><a class="reference internal" href="#startup-sessions">Startup Sessions</a></li>
+<li><a class="reference internal" href="#mouse-features">Mouse features</a></li>
+<li><a class="reference internal" href="#font-control">Font control</a></li>
+<li><a class="reference internal" href="#the-scrollback-buffer">The scrollback buffer</a></li>
+<li><a class="reference internal" href="#multiple-copy-paste-buffers">Multiple copy/paste buffers</a></li>
+<li><a class="reference internal" href="#marks">Marks</a></li>
+<li><a class="reference internal" href="#frequently-asked-questions">Frequently Asked Questions</a></li>
+<li><a class="reference internal" href="#cool-integrations-for-kitty-with-other-cli-tools">Cool integrations for kitty with other CLI tools</a></li>
+<li><a class="reference internal" href="#completion-for-kitty">Completion for kitty</a></li>
+<li><a class="reference internal" href="#changelog">Changelog</a></li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="binary.html" title="next chapter">kitty - Binary install</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="kitty-the-fast-featureful-gpu-based-terminal-emulator">
+<h1><a class="toc-backref" href="#id5">kitty - the fast, featureful, GPU based terminal emulator</a><a class="headerlink" href="#kitty-the-fast-featureful-gpu-based-terminal-emulator" title="Permalink to this headline">¶</a></h1>
+<div class="major-features docutils container">
+<ul class="simple">
+<li><p>Offloads rendering to the GPU for <a class="reference internal" href="performance.html"><span class="doc">lower system load</span></a> and
+buttery smooth scrolling.  Uses threaded rendering to minimize input latency.</p></li>
+<li><p>Supports all modern terminal features: <a class="reference internal" href="graphics-protocol.html"><span class="doc">graphics (images)</span></a>, unicode, <a class="reference external" href="https://gist.github.com/XVilka/8346728">true-color</a>,
+OpenType ligatures, mouse protocol, <a class="reference internal" href="open_actions.html"><span class="doc">hyperlinks</span></a>,
+focus tracking, <a class="reference external" href="https://cirw.in/blog/bracketed-paste">bracketed paste</a>
+and several <a class="reference internal" href="protocol-extensions.html"><span class="doc">new terminal protocol extensions</span></a>.</p></li>
+<li><p>Supports tiling multiple terminal windows side by side in different
+<a class="reference internal" href="#layouts"><span class="std std-ref">layouts</span></a> without needing to use an extra program like tmux</p></li>
+<li><p>Can be <a class="reference internal" href="remote-control.html"><span class="doc">controlled from scripts or the shell prompt</span></a>,
+even over SSH.</p></li>
+<li><p>Has a framework for <a class="reference internal" href="#kittens"><span class="std std-ref">Kittens</span></a>, small terminal programs that can be used to
+extend <em>kitty</em>’s functionality.  For example, they are used for
+<a class="reference internal" href="kittens/unicode-input.html"><span class="doc">Unicode input</span></a>, <a class="reference internal" href="kittens/hints.html"><span class="doc">Hints</span></a> and
+<a class="reference internal" href="kittens/diff.html"><span class="doc">Side-by-side diff</span></a>.</p></li>
+<li><p>Supports <a class="reference internal" href="#sessions"><span class="std std-ref">startup sessions</span></a> which allow you to specify
+the window/tab layout, working directories and programs to run on startup.</p></li>
+<li><p>Cross-platform: <em>kitty</em> works on Linux and macOS, but because it uses only
+OpenGL for rendering, it should be trivial to port to other Unix-like platforms.</p></li>
+<li><p>Allows you to open <a class="reference internal" href="#scrollback"><span class="std std-ref">the scrollback buffer</span></a> in a
+separate window using arbitrary programs of your choice. This is useful for
+browsing the history comfortably in a pager or editor.</p></li>
+<li><p>Has <a class="reference internal" href="#cpbuf"><span class="std std-ref">multiple copy/paste buffers</span></a>, like vim.</p></li>
+</ul>
+</div>
+<div class="figure align-center" id="id4">
+<a class="reference internal image-reference" href="_images/screenshot.png"><img alt="Screenshot, showing three programs in the 'Tall' layout" src="_images/screenshot.png" style="width: 3880.0px; height: 2168.0px;" /></a>
+<p class="caption"><span class="caption-text">Screenshot, showing vim, tig and git running in <em>kitty</em> with the ‘Tall’ layout</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="quickstart">
+<span id="id1"></span><h2><a class="toc-backref" href="#id6">Quickstart</a><a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h2>
+<p>Pre-built binaries of <em>kitty</em> are available for both macOS and Linux.
+See the <a class="reference internal" href="binary.html"><span class="doc">binary install instructions</span></a>. You can
+<a class="reference internal" href="build.html"><span class="doc">build from source</span></a>.</p>
+<p>You can also use your favorite package manager to install the <em>kitty</em> package.
+<em>kitty</em> packages are available for:
+<a class="reference external" href="https://formulae.brew.sh/cask/kitty">macOS with Homebrew (Cask)</a>,
+<a class="reference external" href="https://nixos.org/nixos/packages.html?channel=nixpkgs-unstable&amp;query=kitty">macOS and Linux with Nix</a>,
+<a class="reference external" href="https://launchpad.net/ubuntu/+source/kitty">Ubuntu</a>,
+<a class="reference external" href="https://packages.debian.org/buster/kitty">Debian</a>,
+<a class="reference external" href="https://build.opensuse.org/package/show/X11:terminals/kitty">openSUSE</a>,
+<a class="reference external" href="https://www.archlinux.org/packages/community/x86_64/kitty/">Arch Linux</a>,
+<a class="reference external" href="https://packages.gentoo.org/packages/x11-terms/kitty">Gentoo</a>,
+<a class="reference external" href="https://src.fedoraproject.org/rpms/kitty">Fedora</a>,
+<a class="reference external" href="https://github.com/void-linux/void-packages/blob/master/srcpkgs/kitty/template">Void Linux</a>,
+and <a class="reference external" href="https://dev.getsol.us/source/kitty/">Solus</a>.</p>
+<p>See <a class="reference internal" href="conf.html"><span class="doc">Configuring kitty</span></a> for help on configuring <em>kitty</em> and
+<a class="reference internal" href="invocation.html"><span class="doc">Invocation</span></a> for the command line arguments <em>kitty</em> supports.</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#kitty-the-fast-featureful-gpu-based-terminal-emulator" id="id5">kitty - the fast, featureful, GPU based terminal emulator</a></p>
+<ul>
+<li><p><a class="reference internal" href="#quickstart" id="id6">Quickstart</a></p></li>
+<li><p><a class="reference internal" href="#design-philosophy" id="id7">Design philosophy</a></p></li>
+<li><p><a class="reference internal" href="#tabs-and-windows" id="id8">Tabs and Windows</a></p>
+<ul>
+<li><p><a class="reference internal" href="#scrolling" id="id9">Scrolling</a></p></li>
+<li><p><a class="reference internal" href="#tabs" id="id10">Tabs</a></p></li>
+<li><p><a class="reference internal" href="#windows" id="id11">Windows</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#other-keyboard-shortcuts" id="id12">Other keyboard shortcuts</a></p></li>
+<li><p><a class="reference internal" href="#layouts" id="id13">Layouts</a></p></li>
+<li><p><a class="reference internal" href="#kittens" id="id14">Kittens</a></p></li>
+<li><p><a class="reference internal" href="#configuring-kitty" id="id15">Configuring kitty</a></p></li>
+<li><p><a class="reference internal" href="#remote-control" id="id16">Remote control</a></p></li>
+<li><p><a class="reference internal" href="#startup-sessions" id="id17">Startup Sessions</a></p></li>
+<li><p><a class="reference internal" href="#mouse-features" id="id18">Mouse features</a></p></li>
+<li><p><a class="reference internal" href="#font-control" id="id19">Font control</a></p></li>
+<li><p><a class="reference internal" href="#the-scrollback-buffer" id="id20">The scrollback buffer</a></p></li>
+<li><p><a class="reference internal" href="#multiple-copy-paste-buffers" id="id21">Multiple copy/paste buffers</a></p></li>
+<li><p><a class="reference internal" href="#marks" id="id22">Marks</a></p></li>
+<li><p><a class="reference internal" href="#frequently-asked-questions" id="id23">Frequently Asked Questions</a></p></li>
+<li><p><a class="reference internal" href="#cool-integrations-for-kitty-with-other-cli-tools" id="id24">Cool integrations for kitty with other CLI tools</a></p></li>
+<li><p><a class="reference internal" href="#completion-for-kitty" id="id25">Completion for kitty</a></p>
+<ul>
+<li><p><a class="reference internal" href="#bash" id="id26">bash</a></p></li>
+<li><p><a class="reference internal" href="#zsh" id="id27">zsh</a></p></li>
+<li><p><a class="reference internal" href="#fish" id="id28">fish</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#changelog" id="id29">Changelog</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="design-philosophy">
+<h2><a class="toc-backref" href="#id7">Design philosophy</a><a class="headerlink" href="#design-philosophy" title="Permalink to this headline">¶</a></h2>
+<p><em>kitty</em> is designed for power keyboard users. To that end all its controls
+work with the keyboard (although it fully supports mouse interactions as
+well). Its configuration is a simple, human editable, single file for
+easy reproducibility (I like to store configuration in source control).</p>
+<p>The code in <em>kitty</em> is designed to be simple, modular and hackable. It is
+written in a mix of C (for performance sensitive parts) and Python (for
+easy hackability of the UI). It does not depend on any large and complex
+UI toolkit, using only OpenGL for rendering everything.</p>
+<p>Finally, <em>kitty</em> is designed from the ground up to support all modern
+terminal features, such as unicode, true color, bold/italic fonts, text
+formatting, etc. It even extends existing text formatting escape codes,
+to add support for features not available elsewhere, such as colored and
+styled (curly) underlines. One of the design goals of <em>kitty</em> is to be
+easily extensible so that new features can be added in the future with
+relatively little effort.</p>
+</div>
+<div class="section" id="tabs-and-windows">
+<h2><a class="toc-backref" href="#id8">Tabs and Windows</a><a class="headerlink" href="#tabs-and-windows" title="Permalink to this headline">¶</a></h2>
+<p><em>kitty</em> is capable of running multiple programs organized into tabs and
+windows. The top level of organization is the <em>Tab</em>. Each tab consists
+of one or more <em>windows</em>. The windows can be arranged in multiple
+different layouts, like windows are organized in a tiling window
+manager. The keyboard controls (which are all customizable) for tabs and
+windows are:</p>
+<div class="section" id="scrolling">
+<h3><a class="toc-backref" href="#id9">Scrolling</a><a class="headerlink" href="#scrolling" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 73%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Action</p></th>
+<th class="head"><p>Shortcut</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Scroll line up</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Scroll-line-up"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+up</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌥</kbd>+<kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">⇞</kbd></kbd> and <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">↑</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Scroll line down</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Scroll-line-down"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+down</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌥</kbd>+<kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">⇟</kbd></kbd> and <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">↓</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-even"><td><p>Scroll page up</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Scroll-page-up"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+page_up</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">⇞</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Scroll page down</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Scroll-page-down"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+page_down</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">⇟</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-even"><td><p>Scroll to top</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Scroll-to-top"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+home</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">↖</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Scroll to bottom</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Scroll-to-bottom"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+end</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">↘</kbd></kbd> on macOS)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="tabs">
+<h3><a class="toc-backref" href="#id10">Tabs</a><a class="headerlink" href="#tabs" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 73%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Action</p></th>
+<th class="head"><p>Shortcut</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>New tab</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.New-tab"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+t</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">t</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Close tab</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Close-tab"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+q</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">w</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-even"><td><p>Next tab</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Next-tab"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+right</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate"></kbd>^<kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate">⇥</kbd></kbd> and <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⇧</kbd>+<kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">]</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Previous tab</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Previous-tab"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+left</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⇧</kbd>+<kbd class="kbd docutils literal notranslate"></kbd>^<kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate">⇥</kbd></kbd> and <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⇧</kbd>+<kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">[</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-even"><td><p>Next layout</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Next-layout"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+l</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Move tab forward</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Move-tab-forward"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+.</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Move tab backward</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Move-tab-backward"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+,</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Set tab title</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Set-tab-title"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+alt+t</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⇧</kbd>+<kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">i</kbd></kbd> on macOS)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="windows">
+<h3><a class="toc-backref" href="#id11">Windows</a><a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Action</p></th>
+<th class="head"><p>Shortcut</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>New window</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty."><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+enter</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">↩</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-odd"><td><p>New OS window</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.New-OS-window"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+n</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">n</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-even"><td><p>Close window</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Close-window"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+w</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⇧</kbd>+<kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">d</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Next window</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Next-window"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+]</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Previous window</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Previous-window"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+[</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Move window forward</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Move-window-forward"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+f</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Move window backward</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Move-window-backward"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+b</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Move window to top</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Move-window-to-top"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+`</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Focus specific window</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.First-window"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+1</span></code></a>, <a class="reference internal" href="conf.html#shortcut-kitty.Second-window"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+2</span></code></a> … <a class="reference internal" href="conf.html#shortcut-kitty.Tenth-window"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+0</span></code></a>
+(also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">1</kbd></kbd>, <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">2</kbd></kbd> … <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">9</kbd></kbd> on macOS)
+(clockwise from the top-left)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Additionally, you can define shortcuts in <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code> to focus neighboring
+windows and move windows around (similar to window movement in vim):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">left</span> <span class="n">neighboring_window</span> <span class="n">left</span>
+<span class="nb">map</span> <span class="n">shift</span><span class="o">+</span><span class="n">left</span> <span class="n">move_window</span> <span class="n">right</span>
+<span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">down</span> <span class="n">neighboring_window</span> <span class="n">down</span>
+<span class="nb">map</span> <span class="n">shift</span><span class="o">+</span><span class="n">down</span> <span class="n">move_window</span> <span class="n">up</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>You can also define a shortcut to switch to the previously active window:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">p</span> <span class="n">nth_window</span> <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">nth_window</span></code> will focus the nth window for positive numbers and the
+previously active windows for negative numbers.</p>
+<p id="detach-window">You can define shortcuts to detach the current window and
+move it to another tab or another OS window:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># moves the window into a new OS window</span>
+<span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">f2</span> <span class="n">detach_window</span>
+<span class="c1"># moves the window into a new Tab</span>
+<span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">f3</span> <span class="n">detach_window</span> <span class="n">new</span><span class="o">-</span><span class="n">tab</span>
+<span class="c1"># asks which tab to move the window into</span>
+<span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">f4</span> <span class="n">detach_window</span> <span class="n">ask</span>
+</pre></div>
+</div>
+<p>Similarly, you can detach the current tab, with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># moves the tab into a new OS window</span>
+<span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">f2</span> <span class="n">detach_tab</span>
+<span class="c1"># asks which OS Window to move the tab into</span>
+<span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">f4</span> <span class="n">detach_tab</span> <span class="n">ask</span>
+</pre></div>
+</div>
+<p>Finally, you can define a shortcut to close all windows in a tab other than
+the currently active window:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">f9</span> <span class="n">close_other_windows_in_tab</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="other-keyboard-shortcuts">
+<h2><a class="toc-backref" href="#id12">Other keyboard shortcuts</a><a class="headerlink" href="#other-keyboard-shortcuts" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 61%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Action</p></th>
+<th class="head"><p>Shortcut</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Copy to clipboard</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Copy-to-clipboard"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+c</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">c</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Paste from clipboard</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Paste-from-clipboard"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+v</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">v</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-even"><td><p>Paste from selection</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Paste-from-selection"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+s</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Increase font size</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Increase-font-size"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+equal</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-even"><td><p>Decrease font size</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Decrease-font-size"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+minus</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate"></kbd>-<kbd class="kbd docutils literal notranslate"></kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Restore font size</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Reset-font-size"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+backspace</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">0</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-even"><td><p>Toggle fullscreen</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Toggle-fullscreen"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+f11</span></code></a> (also <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate"></kbd>^<kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">f</kbd></kbd> on macOS)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Toggle maximized</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Toggle-maximized"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+f10</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Input unicode character</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Unicode-input"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+u</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Click URL using the keyboard</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Open-URL"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+e</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Reset the terminal</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Reset-the-terminal"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+delete</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Pass current selection to program</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Pass-selection-to-program"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+o</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Edit <em>kitty</em> config file</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Edit-config-file"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+f2</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Open a <em>kitty</em> shell</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Open-the-kitty-command-shell"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+escape</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Increase background opacity</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Increase-background-opacity"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+a&gt;m</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Decrease background opacity</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Decrease-background-opacity"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+a&gt;l</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Full background opacity</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Make-background-fully-opaque"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+a&gt;1</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Reset background opacity</p></td>
+<td><p><a class="reference internal" href="conf.html#shortcut-kitty.Reset-background-opacity"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+a&gt;d</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="layouts">
+<span id="id2"></span><h2><a class="toc-backref" href="#id13">Layouts</a><a class="headerlink" href="#layouts" title="Permalink to this headline">¶</a></h2>
+<p>A layout is an arrangement of multiple kitty <em>windows</em> inside a top-level OS window. You can create a new window
+using the <a class="reference internal" href="conf.html#shortcut-kitty."><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+enter</span></code></a> key combination.</p>
+<p>Currently, there are six layouts available:</p>
+<ul class="simple">
+<li><p><strong>Fat</strong> – One (or optionally more) windows are shown full width on the top, the rest of the windows are shown side-by-side on the bottom</p></li>
+<li><p><strong>Grid</strong> – All windows are shown in a grid</p></li>
+<li><p><strong>Horizontal</strong> – All windows are shown side-by-side</p></li>
+<li><p><strong>Splits</strong> – Windows arranged in arbitrary patterns created using horizontal and vertical splits</p></li>
+<li><p><strong>Stack</strong> – Only a single maximized window is shown at a time</p></li>
+<li><p><strong>Tall</strong> – One (or optionally more) windows are shown full height on the left, the rest of the windows are shown one below the other on the right</p></li>
+<li><p><strong>Vertical</strong> – All windows are shown one below the other</p></li>
+</ul>
+<p>By default, all layouts are enabled and you can switch between layouts using
+the <a class="reference internal" href="conf.html#shortcut-kitty.Next-layout"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+l</span></code></a> key combination. You can also create shortcuts to select
+particular layouts, and choose which layouts you want to enable/disable, see
+<a class="reference internal" href="conf.html#conf-kitty-shortcuts-layout"><span class="std std-ref">Layout management</span></a> for examples. The first layout listed in
+<a class="reference internal" href="conf.html#opt-kitty.enabled_layouts"><code class="xref std std-opt docutils literal notranslate"><span class="pre">enabled_layouts</span></code></a> becomes the default layout.</p>
+<p>For more details on the layouts and how to use them see <a class="reference internal" href="layouts.html"><span class="doc">Layouts</span></a>.</p>
+</div>
+<div class="section" id="kittens">
+<span id="id3"></span><h2><a class="toc-backref" href="#id14">Kittens</a><a class="headerlink" href="#kittens" title="Permalink to this headline">¶</a></h2>
+<p><em>kitty</em> has a framework for easily creating terminal programs that make use of
+its advanced features. These programs are called kittens. They are used both
+to add features to <em>kitty</em> itself and to create useful standalone programs.
+Some prominent kittens:</p>
+<dl class="simple">
+<dt><a class="reference internal" href="kittens/icat.html"><span class="doc">icat</span></a></dt><dd><p>Display images in the terminal</p>
+</dd>
+<dt><a class="reference internal" href="kittens/diff.html"><span class="doc">diff</span></a></dt><dd><p>A fast, side-by-side diff for the terminal with syntax highlighting and
+images</p>
+</dd>
+<dt><a class="reference internal" href="kittens/unicode-input.html"><span class="doc">Unicode Input</span></a></dt><dd><p>Easily input arbitrary unicode characters in <em>kitty</em> by name or hex code.</p>
+</dd>
+<dt><a class="reference internal" href="kittens/hints.html"><span class="doc">Hints</span></a></dt><dd><p>Select and open/paste/insert arbitrary text snippets such as URLs,
+filenames, words, lines, etc from the terminal screen.</p>
+</dd>
+<dt><a class="reference internal" href="kittens/panel.html"><span class="doc">Panel</span></a></dt><dd><p>Draw a GPU accelerated dock panel on your desktop showing the output
+from an arbitrary terminal program.</p>
+</dd>
+<dt><a class="reference internal" href="kittens/clipboard.html"><span class="doc">Clipboard</span></a></dt><dd><p>Copy/paste to the clipboard from shell scripts, even over SSH.</p>
+</dd>
+</dl>
+<p>You can also <a class="reference internal" href="kittens/custom.html"><span class="doc">Learn to create your own kittens</span></a>.</p>
+</div>
+<div class="section" id="configuring-kitty">
+<h2><a class="toc-backref" href="#id15">Configuring kitty</a><a class="headerlink" href="#configuring-kitty" title="Permalink to this headline">¶</a></h2>
+<p><em>kitty</em> is highly configurable, everything from keyboard shortcuts to
+painting frames-per-second. For details and a sample <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code>,
+see the <a class="reference internal" href="conf.html"><span class="doc">configuration docs</span></a>.</p>
+</div>
+<div class="section" id="remote-control">
+<h2><a class="toc-backref" href="#id16">Remote control</a><a class="headerlink" href="#remote-control" title="Permalink to this headline">¶</a></h2>
+<p><em>kitty</em> has a very powerful system that allows you to control it from the
+<a class="reference internal" href="remote-control.html"><span class="doc">shell prompt, even over SSH</span></a>. You can change colors,
+fonts, open new windows, tabs, set their titles, change window layout, get text
+from one window and send text to another, etc, etc. The possibilities are
+endless. See the <a class="reference internal" href="remote-control.html"><span class="doc">tutorial</span></a> to get started.</p>
+</div>
+<div class="section" id="startup-sessions">
+<span id="sessions"></span><h2><a class="toc-backref" href="#id17">Startup Sessions</a><a class="headerlink" href="#startup-sessions" title="Permalink to this headline">¶</a></h2>
+<p>You can control the tabs, window layout, working directory, startup programs,
+etc. by creating a “session” file and using the <a class="reference internal" href="invocation.html#cmdoption-kitty-session"><code class="xref std std-option docutils literal notranslate"><span class="pre">kitty</span> <span class="pre">--session</span></code></a>
+command line flag or the <a class="reference internal" href="conf.html#opt-kitty.startup_session"><code class="xref std std-opt docutils literal notranslate"><span class="pre">startup_session</span></code></a> option in <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code>.
+For example:</p>
+<div class="highlight-session notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the window layout for the current tab</span>
+<span class="nf">layout</span><span class="l"> tall</span>
+<span class="c1"># Set the working directory for windows in the current tab</span>
+<span class="nf">cd</span><span class="l"> ~</span>
+<span class="c1"># Create a window and run the specified command in it</span>
+<span class="nf">launch</span><span class="l"> zsh</span>
+<span class="c1"># Create a window with some environment variables set and run</span>
+<span class="c1"># vim in it</span>
+<span class="nf">launch</span><span class="l"> env FOO=BAR vim</span>
+<span class="c1"># Set the title for the next window</span>
+<span class="nf">title</span><span class="l"> Chat with x</span>
+<span class="nf">launch</span><span class="l"> irssi --profile x</span>
+
+<span class="c1"># Create a new tab (the part after new_tab is the optional tab</span>
+<span class="c1"># name which will be displayed in the tab bar, if omitted, the</span>
+<span class="c1"># title of the active window will be used instead)</span>
+<span class="nf">new_tab</span><span class="l"> my tab</span>
+<span class="nf">cd</span><span class="l"> ~/somewhere</span>
+<span class="c1"># Set the layouts allowed in this tab</span>
+<span class="nf">enabled_layouts</span><span class="l"> tall, stack</span>
+<span class="c1"># Set the current layout</span>
+<span class="nf">layout</span><span class="l"> stack</span>
+<span class="nf">launch</span><span class="l"> zsh</span>
+
+<span class="c1"># Create a new OS window</span>
+<span class="nf">new_os_window</span>
+<span class="c1"># set new window size to 80x25 cells</span>
+<span class="nf">os_window_size</span><span class="l"> 80c 25c</span>
+<span class="c1"># set the --class for the new OS window</span>
+<span class="nf">os_window_class</span><span class="l"> mywindow</span>
+<span class="nf">launch</span><span class="l"> sh</span>
+<span class="c1"># Make the current window the active (focused) window</span>
+<span class="nf">focus</span>
+<span class="nf">launch</span><span class="l"> emacs</span>
+
+<span class="c1"># Add a watcher that will be called with various events that occur</span>
+<span class="c1"># on all subsequent windows. See the documentation of the launch command</span>
+<span class="c1"># for details on watchers.</span>
+<span class="nf">watcher</span><span class="l"> /some/python/file.py</span>
+<span class="nf">launch</span><span class="l"> mpd</span>
+<span class="nf">launch</span><span class="l"> irssi</span>
+<span class="c1"># Remove the watcher for further windows</span>
+<span class="nf">watcher</span><span class="l"> clear</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mouse-features">
+<h2><a class="toc-backref" href="#id18">Mouse features</a><a class="headerlink" href="#mouse-features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>You can hold down <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">ctrl</kbd>+<kbd class="kbd docutils literal notranslate">shift</kbd></kbd> and click on a URL to open it in a browser.</p></li>
+<li><p>You can double click to select a word and then drag to select more words.</p></li>
+<li><p>You can triple click to select a line and then drag to select more lines.</p></li>
+<li><p>You can right click to extend a previous selection.</p></li>
+<li><p>You can hold down <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">ctrl</kbd>+<kbd class="kbd docutils literal notranslate">alt</kbd></kbd> and drag with the mouse to select in
+columns (see also <a class="reference internal" href="conf.html#opt-kitty.rectangle_select_modifiers"><code class="xref std std-opt docutils literal notranslate"><span class="pre">rectangle_select_modifiers</span></code></a>).</p></li>
+<li><p>Selecting text automatically copies it to the primary clipboard (on
+platforms with a primary clipboard).</p></li>
+<li><p>You can select text with kitty even when a terminal program has grabbed
+the mouse by holding down the <kbd class="kbd docutils literal notranslate">shift</kbd> key (see also
+<a class="reference internal" href="conf.html#opt-kitty.terminal_select_modifiers"><code class="xref std std-opt docutils literal notranslate"><span class="pre">terminal_select_modifiers</span></code></a>).</p></li>
+</ul>
+</div>
+<div class="section" id="font-control">
+<h2><a class="toc-backref" href="#id19">Font control</a><a class="headerlink" href="#font-control" title="Permalink to this headline">¶</a></h2>
+<p><em>kitty</em> has extremely flexible and powerful font selection features. You can
+specify individual families for the regular, bold, italic and bold+italic
+fonts. You can even specify specific font families for specific ranges of
+unicode characters. This allows precise control over text rendering. It can
+come in handy for applications like powerline, without the need to use patched
+fonts. See the various font related configuration directives in
+<a class="reference internal" href="conf.html#conf-kitty-fonts"><span class="std std-ref">Fonts</span></a>.</p>
+</div>
+<div class="section" id="the-scrollback-buffer">
+<span id="scrollback"></span><h2><a class="toc-backref" href="#id20">The scrollback buffer</a><a class="headerlink" href="#the-scrollback-buffer" title="Permalink to this headline">¶</a></h2>
+<p><em>kitty</em> supports scrolling back to view history, just like most terminals. You
+can use either keyboard shortcuts or the mouse scroll wheel to do so.  However,
+<em>kitty</em> has an extra, neat feature. Sometimes you need to explore the
+scrollback buffer in more detail, maybe search for some text or refer to it
+side-by-side while typing in a follow-up command. <em>kitty</em> allows you to do this
+by pressing the <a class="reference internal" href="conf.html#shortcut-kitty.Browse-scrollback-buffer-in-less"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+h</span></code></a> key-combination, which will open the
+scrollback buffer in your favorite pager program (which is <code class="docutils literal notranslate"><span class="pre">less</span></code> by default).
+Colors and text formatting are preserved. You can explore the scrollback buffer
+comfortably within the pager.</p>
+<p>Additionally, you can pipe the contents of the scrollback buffer to an
+arbitrary, command running in a new window, tab or overlay, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">f1</span> <span class="n">launch</span> <span class="o">--</span><span class="n">stdin</span><span class="o">-</span><span class="n">source</span><span class="o">=</span><span class="nd">@screen_scrollback</span> <span class="o">--</span><span class="n">stdin</span><span class="o">-</span><span class="n">add</span><span class="o">-</span><span class="n">formatting</span> <span class="n">less</span> <span class="o">+</span><span class="n">G</span> <span class="o">-</span><span class="n">R</span>
+</pre></div>
+</div>
+<p>Would open the scrollback buffer in a new window when you press the <kbd class="kbd docutils literal notranslate">F1</kbd>
+key. See <a class="reference internal" href="conf.html#shortcut-kitty.Browse-scrollback-buffer-in-less"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+h</span></code></a> for details.</p>
+<p>If you wish to store very large amounts of scrollback to view using the piping or
+<a class="reference internal" href="conf.html#shortcut-kitty.Browse-scrollback-buffer-in-less"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+h</span></code></a> features, you can use the <a class="reference internal" href="conf.html#opt-kitty.scrollback_pager_history_size"><code class="xref std std-opt docutils literal notranslate"><span class="pre">scrollback_pager_history_size</span></code></a>
+option.</p>
+</div>
+<div class="section" id="multiple-copy-paste-buffers">
+<span id="cpbuf"></span><h2><a class="toc-backref" href="#id21">Multiple copy/paste buffers</a><a class="headerlink" href="#multiple-copy-paste-buffers" title="Permalink to this headline">¶</a></h2>
+<p>In addition to being able to copy/paste from the system clipboard, in <em>kitty</em> you
+can also setup an arbitrary number of copy paste buffers. To do so, simply add
+something like the following to your <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">f1</span> <span class="n">copy_to_buffer</span> <span class="n">a</span>
+<span class="nb">map</span> <span class="n">f2</span> <span class="n">paste_from_buffer</span> <span class="n">a</span>
+</pre></div>
+</div>
+<p>This will allow you to press <kbd class="kbd docutils literal notranslate">F1</kbd> to copy the current selection to an
+internal buffer named <code class="docutils literal notranslate"><span class="pre">a</span></code> and <kbd class="kbd docutils literal notranslate">F2</kbd> to paste from that buffer. The buffer
+names are arbitrary strings, so you can define as many such buffers as you
+need.</p>
+</div>
+<div class="section" id="marks">
+<h2><a class="toc-backref" href="#id22">Marks</a><a class="headerlink" href="#marks" title="Permalink to this headline">¶</a></h2>
+<p>kitty has the ability to mark text on the screen based on regular expressions.
+This can be useful to highlight words or phrases when browsing output from long
+running programs or similar. To learn how this feature works, see <a class="reference internal" href="marks.html"><span class="doc">Marks</span></a>.</p>
+</div>
+<div class="section" id="frequently-asked-questions">
+<h2><a class="toc-backref" href="#id23">Frequently Asked Questions</a><a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h2>
+<p>The list of Frequently Asked Questions (<em>FAQ</em>) is <a class="reference internal" href="faq.html"><span class="doc">available here</span></a>.</p>
+</div>
+<div class="section" id="cool-integrations-for-kitty-with-other-cli-tools">
+<span id="completion"></span><h2><a class="toc-backref" href="#id24">Cool integrations for kitty with other CLI tools</a><a class="headerlink" href="#cool-integrations-for-kitty-with-other-cli-tools" title="Permalink to this headline">¶</a></h2>
+<p>kitty provides extremely powerful interfaces such as <a class="reference internal" href="remote-control.html"><span class="doc">Controlling kitty from scripts or the shell</span></a> and
+<a class="reference internal" href="kittens/custom.html"><span class="doc">Custom kittens</span></a> and <a class="reference internal" href="kittens/icat.html"><span class="doc">icat - Display images in the terminal</span></a>
+that allow it to be integrated with other tools seamlessly. For a list of such
+user created integrations, see: <a class="reference internal" href="integrations.html"><span class="doc">Integrations with other tools</span></a>.</p>
+</div>
+<div class="section" id="completion-for-kitty">
+<h2><a class="toc-backref" href="#id25">Completion for kitty</a><a class="headerlink" href="#completion-for-kitty" title="Permalink to this headline">¶</a></h2>
+<p><em>kitty</em> comes with completion for the <code class="docutils literal notranslate"><span class="pre">kitty</span></code> command for popular shells.</p>
+<div class="section" id="bash">
+<h3><a class="toc-backref" href="#id26">bash</a><a class="headerlink" href="#bash" title="Permalink to this headline">¶</a></h3>
+<p>Add the following to your <code class="file docutils literal notranslate"><span class="pre">~/.bashrc</span></code></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> &lt;<span class="o">(</span>kitty + <span class="nb">complete</span> setup bash<span class="o">)</span>
+</pre></div>
+</div>
+<p>Older versions of bash (for example, v3.2) do not support
+process substitution with the source command, in which
+case you can try an alternative:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> /dev/stdin <span class="o">&lt;&lt;&lt;</span><span class="s2">&quot;</span><span class="k">$(</span>kitty + <span class="nb">complete</span> setup bash<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="zsh">
+<h3><a class="toc-backref" href="#id27">zsh</a><a class="headerlink" href="#zsh" title="Permalink to this headline">¶</a></h3>
+<p>Add the following to your <code class="file docutils literal notranslate"><span class="pre">~/.zshrc</span></code></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>autoload -Uz compinit
+compinit
+<span class="c1"># Completion for kitty</span>
+kitty + <span class="nb">complete</span> setup zsh <span class="p">|</span> <span class="nb">source</span> /dev/stdin
+</pre></div>
+</div>
+<p>The important thing above is to make sure the call to <em>kitty</em> to load the zsh
+completions happens after the call to <code class="file docutils literal notranslate"><span class="pre">compinit</span></code>.</p>
+</div>
+<div class="section" id="fish">
+<h3><a class="toc-backref" href="#id28">fish</a><a class="headerlink" href="#fish" title="Permalink to this headline">¶</a></h3>
+<p>For versions of fish earlier than 3.0.0, add the following to your
+<code class="file docutils literal notranslate"><span class="pre">~/.config/fish/config.fish</span></code>. Later versions source completions by default.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kitty + <span class="nb">complete</span> setup fish <span class="p">|</span> <span class="nb">source</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="changelog">
+<h2><a class="toc-backref" href="#id29">Changelog</a><a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference internal" href="changelog.html"><span class="doc">Changelog</span></a>.</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

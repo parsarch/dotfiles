@@ -8,4 +8,6 @@ killall xfce4-clipman;
 xfce4-clipman &
 killall volumeicon;
 volumeicon &
-
+lxpolkit &
+/usr/lib/kdeconnectd &
+kdeconnect-indicator;

@@ -1,0 +1,28 @@
+{
+    "settingDefaults": {
+        "custom_themes": [
+            {
+    "name": "Nord dark theme",
+    "is_dark": true,
+    "colors": {
+        "accent-color": "#bf616a",
+        "primary-color": "#bf616a",
+        "warning-color": "#ebcb8b",
+
+        "sidebar-color": "#2e3440",
+        "roomlist-background-color": "#2e3440",
+        "roomlist-text-color": "#ebcb8b",
+        "roomlist-text-secondary-color": "#e5e9f0",
+        "roomlist-highlights-color": "#4c566a",
+        "roomlist-separator-color": "#2e3440",
+
+        "timeline-background-color": "#2e3440",
+        "timeline-text-color": "#eceff4",
+        "timeline-text-secondary-color": "#bf616a",
+        "timeline-highlights-color": "#2e3440",
+        "reaction-row-button-selected-bg-color": "#bf616a"
+                }
+            }
+        ]
+    }
+}

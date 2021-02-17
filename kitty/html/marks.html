@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marks &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/kitty.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Customizing the actions taken when clicking on links" href="open_actions.html" />
+    <link rel="prev" title="Layouts" href="layouts.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#creating-markers-dynamically">Creating markers dynamically</a></li>
+<li><a class="reference internal" href="#scrolling-to-marks">Scrolling to marks</a></li>
+<li><a class="reference internal" href="#the-full-syntax-for-creating-marks">The full syntax for creating marks</a></li>
+<li><a class="reference internal" href="#arbitrary-marker-functions">Arbitrary marker functions</a></li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="layouts.html" title="previous chapter">Layouts</a></li>
+      <li>Next: <a href="open_actions.html" title="next chapter">Customizing the actions taken when clicking on links</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="marks">
+<h1>Marks<a class="headerlink" href="#marks" title="Permalink to this headline">¶</a></h1>
+<p>kitty has the ability to mark text on the screen based on regular expressions.
+This can be useful to highlight words or phrases when browsing output from long
+running programs or similar. Lets start with a few examples:</p>
+<p>Suppose we want to be able to highlight the word ERROR in the current window.
+Add the following to <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">f1</span> <span class="n">toggle_marker</span> <span class="n">text</span> <span class="mi">1</span> <span class="n">ERROR</span>
+</pre></div>
+</div>
+<p>Now when you press <kbd class="kbd docutils literal notranslate">F1</kbd> all instances of the word <code class="code docutils literal notranslate"><span class="pre">ERROR</span></code> will be
+highlighted. To turn off the highlighting, press <kbd class="kbd docutils literal notranslate">F1</kbd> again.
+If you want to make it case-insensitive, use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">f1</span> <span class="n">toggle_marker</span> <span class="n">itext</span> <span class="mi">1</span> <span class="n">ERROR</span>
+</pre></div>
+</div>
+<p>To make it match only complete words, use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">f1</span> <span class="n">toggle_marker</span> <span class="n">regex</span> <span class="mi">1</span> \<span class="n">bERROR</span>\<span class="n">b</span>
+</pre></div>
+</div>
+<p>Suppose you want to highlight both <code class="code docutils literal notranslate"><span class="pre">ERROR</span></code> and <code class="code docutils literal notranslate"><span class="pre">WARNING</span></code>, case
+insensitively:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">f1</span> <span class="n">toggle_marker</span> <span class="n">iregex</span> <span class="mi">1</span> \<span class="n">bERROR</span>\<span class="n">b</span> <span class="mi">2</span> \<span class="n">bWARNING</span>\<span class="n">b</span>
+</pre></div>
+</div>
+<p>kitty supports up to 3 mark groups (the numbers in the commands above). You
+can control the colors used for these groups in <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code> with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mark1_foreground</span> <span class="n">red</span>
+<span class="n">mark1_background</span> <span class="n">gray</span>
+<span class="n">mark2_foreground</span> <span class="n">green</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For performance reasons, matching is done per line only, and only when that line is
+altered in any way. So you cannot match text that stretches across multiple
+lines.</p>
+</div>
+<div class="section" id="creating-markers-dynamically">
+<h2>Creating markers dynamically<a class="headerlink" href="#creating-markers-dynamically" title="Permalink to this headline">¶</a></h2>
+<p>If you want to create markers dynamically rather than pre-defining them in
+<code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code> you can do so as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">f1</span> <span class="n">create_marker</span>
+<span class="nb">map</span> <span class="n">f2</span> <span class="n">remove_marker</span>
+</pre></div>
+</div>
+<p>Then pressing <kbd class="kbd docutils literal notranslate">F1</kbd> will allow you to enter the marker definition and set
+it and pressing <kbd class="kbd docutils literal notranslate">F2</kbd> will remove the marker. <code class="docutils literal notranslate"><span class="pre">create_marker</span></code> accepts
+the same syntax as <code class="docutils literal notranslate"><span class="pre">toggle_marker</span></code> above. Note that while creating
+markers, the prompt has history so you can easily re-use previous marker
+expressions.</p>
+<p>You can also use the facilities for <a class="reference internal" href="remote-control.html"><span class="doc">Controlling kitty from scripts or the shell</span></a> to dynamically
+add/remove markers.</p>
+</div>
+<div class="section" id="scrolling-to-marks">
+<h2>Scrolling to marks<a class="headerlink" href="#scrolling-to-marks" title="Permalink to this headline">¶</a></h2>
+<p>kitty has an action to scroll to the next line that contains a mark. You can
+use it by mapping it to some shortcut in <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">p</span> <span class="n">scroll_to_mark</span> <span class="n">prev</span>
+<span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">n</span> <span class="n">scroll_to_mark</span> <span class="nb">next</span>
+</pre></div>
+</div>
+<p>Then pressing <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">ctrl</kbd>+<kbd class="kbd docutils literal notranslate">p</kbd></kbd> will scroll to the first line in the scrollback
+buffer above the current top line that contains a mark. Pressing <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">ctrl</kbd>+<kbd class="kbd docutils literal notranslate">n</kbd></kbd>
+will scroll to show the first line below the current last line that contains
+a mark. If you wish to jump to a mark of a specific type, you can add that to
+the mapping:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="mi">1</span> <span class="n">scroll_to_mark</span> <span class="n">prev</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Which will scroll only to marks of type 1.</p>
+</div>
+<div class="section" id="the-full-syntax-for-creating-marks">
+<h2>The full syntax for creating marks<a class="headerlink" href="#the-full-syntax-for-creating-marks" title="Permalink to this headline">¶</a></h2>
+<p>The syntax of the <code class="code docutils literal notranslate"><span class="pre">toggle_marker</span></code> command is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">toggle_marker</span> <span class="o">&lt;</span><span class="n">marker</span><span class="o">-</span><span class="nb">type</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">specification</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Here <code class="code docutils literal notranslate"><span class="pre">marker-type</span></code> is one of:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">text</span></code> - simple substring matching</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">itext</span></code> - case-insensitive substring matching</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">regex</span></code> - A python regular expression</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">iregex</span></code> - A case-insensitive python regular expression</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">function</span></code> - An arbitrary function defined in a python file, see
+<a class="reference internal" href="#marker-funcs"><span class="std std-ref">Arbitrary marker functions</span></a>.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="arbitrary-marker-functions">
+<span id="marker-funcs"></span><h2>Arbitrary marker functions<a class="headerlink" href="#arbitrary-marker-functions" title="Permalink to this headline">¶</a></h2>
+<p>You can create your own marker functions. Create a python file named
+<code class="file docutils literal notranslate"><span class="pre">mymarker.py</span></code> and in it create a <code class="code docutils literal notranslate"><span class="pre">marker</span></code> function. This
+function receives the text of the line as input and must yield three numbers,
+the starting character position, the ending character position and the mark
+group (1-3). For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">marker</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="c1"># Function to highlight the letter X</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ch</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>Save this file somewhere and in <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code>, use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">f1</span> <span class="n">toggle_marker</span> <span class="n">function</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">mymarker</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>If you save the file in the kitty config directory, you can use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">f1</span> <span class="n">toggle_marker</span> <span class="n">function</span> <span class="n">mymarker</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

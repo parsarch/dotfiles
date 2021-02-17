@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kitty - Binary install &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/kitty.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Building kitty from source" href="build.html" />
+    <link rel="prev" title="kitty - the fast, featureful, GPU based terminal emulator" href="index.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#manually-installing">Manually installing</a></li>
+<li><a class="reference internal" href="#desktop-integration-on-linux">Desktop integration on Linux</a></li>
+<li><a class="reference internal" href="#customizing-the-installation">Customizing the installation</a></li>
+<li><a class="reference internal" href="#uninstalling">Uninstalling</a></li>
+<li><a class="reference internal" href="#building-from-source">Building from source</a></li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">kitty - the fast, featureful, GPU based terminal emulator</a></li>
+      <li>Next: <a href="build.html" title="next chapter">Building kitty from source</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="kitty-binary-install">
+<h1>kitty - Binary install<a class="headerlink" href="#kitty-binary-install" title="Permalink to this headline">¶</a></h1>
+<p>You can install pre-built binaries of <em>kitty</em> if you are on macOS or Linux using
+the following simple command:</p>
+<pre class="pre literal-block">curl -L <code class="docutils literal notranslate"><span class="pre">https://sw.kovidgoyal.net/kitty/installer.sh</span></code> | sh /dev/stdin</pre>
+<p>The binaries will be installed in the standard location for your OS,
+<code class="file docutils literal notranslate"><span class="pre">/Applications/kitty.app</span></code> on macOS and <code class="file docutils literal notranslate"><span class="pre">~/.local/kitty.app</span></code> on
+Linux. The installer only touches files in that directory. To update kitty,
+simply re-run the command.</p>
+<div class="section" id="manually-installing">
+<h2>Manually installing<a class="headerlink" href="#manually-installing" title="Permalink to this headline">¶</a></h2>
+<p>If something goes wrong or you simply do not want to run the installer, you can
+manually download and install <em>kitty</em> from the <a class="reference external" href="https://github.com/kovidgoyal/kitty/releases">GitHub releases page</a>. If you are on macOS, download
+the <code class="file docutils literal notranslate"><span class="pre">.dmg</span></code> and install as normal. If you are on Linux, download the tarball
+and extract it into a directory. The <em>kitty</em> executable will be in the
+<code class="file docutils literal notranslate"><span class="pre">bin</span></code> sub-directory.</p>
+</div>
+<div class="section" id="desktop-integration-on-linux">
+<h2>Desktop integration on Linux<a class="headerlink" href="#desktop-integration-on-linux" title="Permalink to this headline">¶</a></h2>
+<p>If you want the kitty icon to appear in the taskbar and an entry for it to be
+present in the menus, you will need to install the <code class="file docutils literal notranslate"><span class="pre">kitty.desktop</span></code> file.
+The details of the following procedure may need to be adjusted for your
+particular desktop, but it should work for most major desktop environments.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in</span>
+<span class="c1"># your PATH)</span>
+ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
+<span class="c1"># Place the kitty.desktop file somewhere it can be found by the OS</span>
+cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications
+<span class="c1"># Update the path to the kitty icon in the kitty.desktop file</span>
+sed -i <span class="s2">&quot;s|Icon=kitty|Icon=/home/</span><span class="nv">$USER</span><span class="s2">/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g&quot;</span> ~/.local/share/applications/kitty.desktop
+</pre></div>
+</div>
+</div>
+<div class="section" id="customizing-the-installation">
+<h2>Customizing the installation<a class="headerlink" href="#customizing-the-installation" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>You can specify a different install location, with <code class="docutils literal notranslate"><span class="pre">dest</span></code>:</p>
+<pre class="pre literal-block">curl -L <code class="docutils literal notranslate"><span class="pre">https://sw.kovidgoyal.net/kitty/installer.sh</span></code> | sh /dev/stdin \
+    dest=/some/other/location</pre>
+</li>
+<li><p>You can tell the installer not to launch <em>kitty</em> after installing it with
+<code class="docutils literal notranslate"><span class="pre">launch=n</span></code>:</p>
+<pre class="pre literal-block">curl -L <code class="docutils literal notranslate"><span class="pre">https://sw.kovidgoyal.net/kitty/installer.sh</span></code> | sh /dev/stdin \
+    launch=n</pre>
+</li>
+<li><p>You can use a previously downloaded dmg/tarball, with <code class="docutils literal notranslate"><span class="pre">installer</span></code>:</p>
+<pre class="pre literal-block">curl -L <code class="docutils literal notranslate"><span class="pre">https://sw.kovidgoyal.net/kitty/installer.sh</span></code> | sh /dev/stdin \
+    installer=/path/to/dmg or tarball</pre>
+</li>
+</ul>
+</div>
+<div class="section" id="uninstalling">
+<h2>Uninstalling<a class="headerlink" href="#uninstalling" title="Permalink to this headline">¶</a></h2>
+<p>All the installer does is copy the kitty files into the install directory. To
+uninstall, simply delete that directory.</p>
+</div>
+<div class="section" id="building-from-source">
+<h2>Building from source<a class="headerlink" href="#building-from-source" title="Permalink to this headline">¶</a></h2>
+<p><em>kitty</em> is easy to build from source, follow the <a class="reference internal" href="build.html"><span class="doc">instructions</span></a>.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

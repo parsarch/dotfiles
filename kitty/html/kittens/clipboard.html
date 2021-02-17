@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>clipboard - copy/paste to the system clipboard &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/kitty.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Custom kittens" href="custom.html" />
+    <link rel="prev" title="broadcast - type text in all kitty windows" href="broadcast.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="../support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#command-line-interface">Command Line Interface</a><ul>
+<li><a class="reference internal" href="#options">Options</a></li>
+</ul>
+</li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="broadcast.html" title="previous chapter">broadcast - type text in all kitty windows</a></li>
+      <li>Next: <a href="custom.html" title="next chapter">Custom kittens</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="clipboard-copy-paste-to-the-system-clipboard">
+<h1>clipboard - copy/paste to the system clipboard<a class="headerlink" href="#clipboard-copy-paste-to-the-system-clipboard" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">clipboard</span></code> kitten can be used to read or write to the system clipboard
+from the shell. It even works over SSH. Using it is as simple as:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> hooray <span class="p">|</span> kitty +kitten clipboard
+</pre></div>
+</div>
+<p>All text received on <code class="file docutils literal notranslate"><span class="pre">stdin</span></code> is copied to the clipboard.</p>
+<p>To get text from the clipboard you have to enable reading of the clipboard
+in <a class="reference internal" href="../conf.html#opt-kitty.clipboard_control"><code class="xref std std-opt docutils literal notranslate"><span class="pre">clipboard_control</span></code></a> in <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code>. Once you do that, you can
+use:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kitty +kitten clipboard --get-clipboard
+</pre></div>
+</div>
+<div class="section" id="command-line-interface">
+<h2>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kitty +kitten clipboard <span class="o">[</span>options<span class="o">]</span>
+</pre></div>
+</div>
+<p>Read or write to the system clipboard.</p>
+<p>To set the clipboard text, pipe in the new text on stdin. Use the
+<a class="reference internal" href="#cmdoption-kitty-kitten-clipboard-get-clipboard"><code class="xref std std-option docutils literal notranslate"><span class="pre">--get-clipboard</span></code></a> option to output the current clipboard contents to
+<code class="file docutils literal notranslate"><span class="pre">stdout</span></code>. Note that you must enable reading of clipboard in
+<code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code> first.</p>
+<div class="section" id="options">
+<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-clipboard-get-clipboard">
+<code class="sig-name descname">--get-clipboard</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-kitty-kitten-clipboard-get-clipboard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output the current contents of the clipboard to stdout. Note that this will not work if you have not enabled the option to allow reading the clipboard in kitty.conf
+Default: <code class="code docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-clipboard-use-primary">
+<code class="sig-name descname">--use-primary</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-kitty-kitten-clipboard-use-primary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use the primary selection rather than the clipboard on systems that support it, such as X11.
+Default: <code class="code docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-clipboard-wait-for-completion">
+<code class="sig-name descname">--wait-for-completion</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-kitty-kitten-clipboard-wait-for-completion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait till the copy to clipboard is complete before exiting. Useful if running the kitten in a dedicated, ephemeral window.
+Default: <code class="code docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

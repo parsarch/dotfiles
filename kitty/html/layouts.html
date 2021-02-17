@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layouts &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/kitty.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Marks" href="marks.html" />
+    <link rel="prev" title="Launching programs in new windows/tabs" href="launch.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#the-stack-layout">The Stack Layout</a></li>
+<li><a class="reference internal" href="#the-tall-layout">The Tall Layout</a></li>
+<li><a class="reference internal" href="#the-fat-layout">The Fat Layout</a></li>
+<li><a class="reference internal" href="#the-grid-layout">The Grid Layout</a></li>
+<li><a class="reference internal" href="#the-splits-layout">The Splits Layout</a></li>
+<li><a class="reference internal" href="#the-horizontal-layout">The Horizontal Layout</a></li>
+<li><a class="reference internal" href="#the-vertical-layout">The Vertical Layout</a></li>
+<li><a class="reference internal" href="#resizing-windows">Resizing windows</a></li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="launch.html" title="previous chapter">Launching programs in new windows/tabs</a></li>
+      <li>Next: <a href="marks.html" title="next chapter">Marks</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="layouts">
+<h1><a class="toc-backref" href="#id3">Layouts</a><a class="headerlink" href="#layouts" title="Permalink to this headline">¶</a></h1>
+<p>kitty has the ability to define its own windows that can be tiled next to each
+other in arbitrary arrangements, based on <em>Layouts</em>, see below for examples:</p>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="_images/screenshot.png"><img alt="Screenshot, showing three programs in the 'Tall' layout" src="_images/screenshot.png" style="width: 3880.0px; height: 2168.0px;" /></a>
+<p class="caption"><span class="caption-text">Screenshot, showing vim, tig and git running in <em>kitty</em> with the ‘Tall’ layout</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="_images/splits.png"><img alt="Screenshot, showing windows in the 'Splits' layout" src="_images/splits.png" style="width: 2600.0px; height: 1440.0px;" /></a>
+<p class="caption"><span class="caption-text">Screenshot, showing windows with arbitrary arrangement in the ‘Splits’
+layout</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>There are many different layouts available. They are all enabled by default,
+you can switch layouts using <a class="reference internal" href="conf.html#shortcut-kitty.Next-layout"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+l</span></code></a>. To control which layouts
+are available use <a class="reference internal" href="conf.html#opt-kitty.enabled_layouts"><code class="xref std std-opt docutils literal notranslate"><span class="pre">enabled_layouts</span></code></a>, the first listed layout becomes
+the default. Individual layouts and how to use them are described below.</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#layouts" id="id3">Layouts</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-stack-layout" id="id4">The Stack Layout</a></p></li>
+<li><p><a class="reference internal" href="#the-tall-layout" id="id5">The Tall Layout</a></p></li>
+<li><p><a class="reference internal" href="#the-fat-layout" id="id6">The Fat Layout</a></p></li>
+<li><p><a class="reference internal" href="#the-grid-layout" id="id7">The Grid Layout</a></p></li>
+<li><p><a class="reference internal" href="#the-splits-layout" id="id8">The Splits Layout</a></p></li>
+<li><p><a class="reference internal" href="#the-horizontal-layout" id="id9">The Horizontal Layout</a></p></li>
+<li><p><a class="reference internal" href="#the-vertical-layout" id="id10">The Vertical Layout</a></p></li>
+<li><p><a class="reference internal" href="#resizing-windows" id="id11">Resizing windows</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="the-stack-layout">
+<h2><a class="toc-backref" href="#id4">The Stack Layout</a><a class="headerlink" href="#the-stack-layout" title="Permalink to this headline">¶</a></h2>
+<p>This is the simplest layout it displays a single window using all available
+space, other windows are hidden behind it. It has no options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enabled_layouts</span> <span class="n">stack</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-tall-layout">
+<h2><a class="toc-backref" href="#id5">The Tall Layout</a><a class="headerlink" href="#the-tall-layout" title="Permalink to this headline">¶</a></h2>
+<p>Displays one (or optionally more) full height windows on the left half of the
+screen. Remaining windows are tiled vertically on the right half of the screen.
+There are options to control how the screen is split horizontally <code class="docutils literal notranslate"><span class="pre">bias</span></code>
+(an integer between <code class="docutils literal notranslate"><span class="pre">10</span></code> and <code class="docutils literal notranslate"><span class="pre">90</span></code>) and options to control how many
+full-height windows there are <code class="docutils literal notranslate"><span class="pre">full_size</span></code> (a positive integer). The
+<code class="docutils literal notranslate"><span class="pre">mirrored</span></code> option when set to <code class="docutils literal notranslate"><span class="pre">true</span></code> will cause the short windows to be
+on the left side of the screen instead of the right. The syntax
+for the options is shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>enabled_layouts tall:bias=50;full_size=1;mirrored=false
+
+┌──────────────┬───────────────┐
+│              │               │
+│              │               │
+│              │               │
+│              ├───────────────┤
+│              │               │
+│              │               │
+│              │               │
+│              ├───────────────┤
+│              │               │
+│              │               │
+│              │               │
+└──────────────┴───────────────┘
+</pre></div>
+</div>
+<p>In addition, you can map keys to increase or decrease the number of full size
+windows, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="p">[</span> <span class="n">layout_action</span> <span class="n">decrease_num_full_size_windows</span>
+<span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="p">]</span> <span class="n">layout_action</span> <span class="n">increase_num_full_size_windows</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-fat-layout">
+<h2><a class="toc-backref" href="#id6">The Fat Layout</a><a class="headerlink" href="#the-fat-layout" title="Permalink to this headline">¶</a></h2>
+<p>Displays one (or optionally more) full width windows on the top half of the
+screen. Remaining windows are tiled horizontally on the bottom half of the screen.
+There are options to control how the screen is split vertically <code class="docutils literal notranslate"><span class="pre">bias</span></code>
+(an integer between <code class="docutils literal notranslate"><span class="pre">10</span></code> and <code class="docutils literal notranslate"><span class="pre">90</span></code>) and options to control how many
+full-height windows there are <code class="docutils literal notranslate"><span class="pre">full_size</span></code> (a positive integer). The
+<code class="docutils literal notranslate"><span class="pre">mirrored</span></code> option when set to <code class="docutils literal notranslate"><span class="pre">true</span></code> will cause the narrow windows to be
+on the top of the screen instead of the bottom. The syntax for the options is
+shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>enabled_layouts fat:bias=50;full_size=1;mirrored=false
+
+┌──────────────────────────────┐
+│                              │
+│                              │
+│                              │
+│                              │
+├─────────┬──────────┬─────────┤
+│         │          │         │
+│         │          │         │
+│         │          │         │
+│         │          │         │
+│         │          │         │
+└─────────┴──────────┴─────────┘
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-grid-layout">
+<h2><a class="toc-backref" href="#id7">The Grid Layout</a><a class="headerlink" href="#the-grid-layout" title="Permalink to this headline">¶</a></h2>
+<p>Display windows in a balanced grid with all windows the same size except the
+last column if there are not enough windows to fill the grid. Has no options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>enabled_layouts grid
+
+┌─────────┬──────────┬─────────┐
+│         │          │         │
+│         │          │         │
+│         │          │         │
+│         │          │         │
+├─────────┼──────────┼─────────┤
+│         │          │         │
+│         │          │         │
+│         │          │         │
+│         │          │         │
+└─────────┴──────────┴─────────┘
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-splits-layout">
+<span id="splits-layout"></span><h2><a class="toc-backref" href="#id8">The Splits Layout</a><a class="headerlink" href="#the-splits-layout" title="Permalink to this headline">¶</a></h2>
+<p>This is the most flexible layout. You can create any arrangement of windows
+by splitting exiting windows repeatedly. To best use this layout you should
+define a few extra keybindings in <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">F5</span> <span class="n">launch</span> <span class="o">--</span><span class="n">location</span><span class="o">=</span><span class="n">hsplit</span>
+<span class="nb">map</span> <span class="n">F6</span> <span class="n">launch</span> <span class="o">--</span><span class="n">location</span><span class="o">=</span><span class="n">vsplit</span>
+<span class="nb">map</span> <span class="n">F7</span> <span class="n">layout_action</span> <span class="n">rotate</span>
+
+<span class="nb">map</span> <span class="n">shift</span><span class="o">+</span><span class="n">up</span> <span class="n">move_window</span> <span class="n">up</span>
+<span class="nb">map</span> <span class="n">shift</span><span class="o">+</span><span class="n">left</span> <span class="n">move_window</span> <span class="n">left</span>
+<span class="nb">map</span> <span class="n">shift</span><span class="o">+</span><span class="n">right</span> <span class="n">move_window</span> <span class="n">right</span>
+<span class="nb">map</span> <span class="n">shift</span><span class="o">+</span><span class="n">down</span> <span class="n">move_window</span> <span class="n">down</span>
+
+<span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">left</span> <span class="n">neighboring_window</span> <span class="n">left</span>
+<span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">right</span> <span class="n">neighboring_window</span> <span class="n">right</span>
+<span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">up</span> <span class="n">neighboring_window</span> <span class="n">up</span>
+<span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">down</span> <span class="n">neighboring_window</span> <span class="n">down</span>
+</pre></div>
+</div>
+<p>Now you can create horizontal and vertical splits by using <kbd class="kbd docutils literal notranslate">F5</kbd> and
+<kbd class="kbd docutils literal notranslate">F6</kbd>. You can move them around using <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">shift</kbd>+<kbd class="kbd docutils literal notranslate">arrow</kbd> <kbd class="kbd docutils literal notranslate">keys</kbd></kbd>
+and you can move focus to neighboring windows using <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">ctrl</kbd>+<kbd class="kbd docutils literal notranslate">arrow</kbd> <kbd class="kbd docutils literal notranslate">keys</kbd></kbd>.
+You can switch an existing split from horizontal to vertical and vice versa
+using <kbd class="kbd docutils literal notranslate">F7</kbd>. Finally, windows can be resized using <a class="reference internal" href="#window-resizing"><span class="std std-ref">Resizing windows</span></a>.</p>
+<p>This layout takes one option, <code class="docutils literal notranslate"><span class="pre">split_axis</span></code> that controls whether new windows
+are placed into vertical or horizontal splits, by default:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>enabled_layouts splits:split_axis=horizontal
+
+┌──────────────┬───────────────┐
+│              │               │
+│              │               │
+│              │               │
+│              ├───────┬───────┤
+│              │       │       │
+│              │       │       │
+│              │       │       │
+│              ├───────┴───────┤
+│              │               │
+│              │               │
+│              │               │
+└──────────────┴───────────────┘
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-horizontal-layout">
+<h2><a class="toc-backref" href="#id9">The Horizontal Layout</a><a class="headerlink" href="#the-horizontal-layout" title="Permalink to this headline">¶</a></h2>
+<p>All windows are shown side by side. Has no options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>enabled_layouts horizontal
+
+┌─────────┬──────────┬─────────┐
+│         │          │         │
+│         │          │         │
+│         │          │         │
+│         │          │         │
+│         │          │         │
+│         │          │         │
+│         │          │         │
+│         │          │         │
+│         │          │         │
+└─────────┴──────────┴─────────┘
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-vertical-layout">
+<h2><a class="toc-backref" href="#id10">The Vertical Layout</a><a class="headerlink" href="#the-vertical-layout" title="Permalink to this headline">¶</a></h2>
+<p>All windows are shown one below the other. Has no options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>enabled_layouts vertical
+
+┌──────────────────────────────┐
+│                              │
+│                              │
+│                              │
+├──────────────────────────────┤
+│                              │
+│                              │
+│                              │
+├──────────────────────────────┤
+│                              │
+│                              │
+│                              │
+└──────────────────────────────┘
+</pre></div>
+</div>
+</div>
+<div class="section" id="resizing-windows">
+<span id="window-resizing"></span><h2><a class="toc-backref" href="#id11">Resizing windows</a><a class="headerlink" href="#resizing-windows" title="Permalink to this headline">¶</a></h2>
+<p>You can resize windows inside layouts. Press <a class="reference internal" href="conf.html#shortcut-kitty.Start-resizing-window"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+r</span></code></a> (also
+<kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">⌘</kbd>+<kbd class="kbd docutils literal notranslate">r</kbd></kbd> on macOS) to enter resizing mode and follow the on-screen
+instructions.  In a given window layout only some operations may be possible
+for a particular window. For example, in the Tall layout you can make the first
+window wider/narrower, but not taller/shorter. Note that what you are resizing
+is actually not a window, but a row/column in the layout, all windows in that
+row/column will be resized.</p>
+<p>You can also define shortcuts in <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code> to make the active window
+wider, narrower, taller, or shorter by mapping to the <code class="docutils literal notranslate"><span class="pre">resize_window</span></code>
+action, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">left</span> <span class="n">resize_window</span> <span class="n">narrower</span>
+<span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">right</span> <span class="n">resize_window</span> <span class="n">wider</span>
+<span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">up</span> <span class="n">resize_window</span> <span class="n">taller</span>
+<span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">down</span> <span class="n">resize_window</span> <span class="n">shorter</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">resize_window</span></code> action has a second, optional argument to control
+the resizing increment (a positive integer that defaults to 1).</p>
+<p>Some layouts take options to control their behavior. For example, the <code class="docutils literal notranslate"><span class="pre">fat</span></code>
+and <code class="docutils literal notranslate"><span class="pre">tall</span></code> layouts accept the <code class="docutils literal notranslate"><span class="pre">bias</span></code> and <code class="docutils literal notranslate"><span class="pre">full_size</span></code> options to control
+how the available space is split up.
+To specify the option, in <a class="reference internal" href="conf.html#opt-kitty.enabled_layouts"><code class="xref std std-opt docutils literal notranslate"><span class="pre">kitty.conf</span></code></a> use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enabled_layouts</span> <span class="n">tall</span><span class="p">:</span><span class="n">bias</span><span class="o">=</span><span class="mi">70</span><span class="p">;</span><span class="n">full_size</span><span class="o">=</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>This will have <code class="docutils literal notranslate"><span class="pre">2</span></code> instead of a single tall window, that occupy <code class="docutils literal notranslate"><span class="pre">70%</span></code>
+instead of <code class="docutils literal notranslate"><span class="pre">50%</span></code> of available width. <code class="docutils literal notranslate"><span class="pre">bias</span></code> can be any number between 10
+and 90.</p>
+<p>Writing a new layout only requires about two hundred lines of code, so if there
+is some layout you want, take a look at one of the existing layouts in the
+<a class="reference external" href="https://github.com/kovidgoyal/kitty/tree/master/kitty/layout">layout</a>
+package and submit a pull request!</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>broadcast - type text in all kitty windows &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/kitty.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="clipboard - copy/paste to the system clipboard" href="clipboard.html" />
+    <link rel="prev" title="Support kitty development" href="../support.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="../support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#command-line-interface">Command Line Interface</a><ul>
+<li><a class="reference internal" href="#options">Options</a></li>
+</ul>
+</li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../support.html" title="previous chapter">Support kitty development</a></li>
+      <li>Next: <a href="clipboard.html" title="next chapter">clipboard - copy/paste to the system clipboard</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="broadcast-type-text-in-all-kitty-windows">
+<h1>broadcast - type text in all kitty windows<a class="headerlink" href="#broadcast-type-text-in-all-kitty-windows" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">broadcast</span></code> kitten can be used to type text simultaneously in
+all kitty windows (or a subset as desired).</p>
+<p>To use it, simply create a mapping in <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code> such as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">F1</span> <span class="n">launch</span> <span class="o">--</span><span class="n">allow</span><span class="o">-</span><span class="n">remote</span><span class="o">-</span><span class="n">control</span> <span class="n">kitty</span> <span class="o">+</span><span class="n">kitten</span> <span class="n">broadcast</span>
+</pre></div>
+</div>
+<p>Then press the <kbd class="kbd docutils literal notranslate">F1</kbd> key and whatever you type in the newly created widow
+will be sent to all kitty windows.</p>
+<p>You can use the options described below to control which windows
+are selected.</p>
+<div class="section" id="command-line-interface">
+<h2>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kitty +kitten broadcast <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>initial text to send ...<span class="o">]</span>
+</pre></div>
+</div>
+<p>Broadcast typed text to all kitty windows. By default text is sent to all windows, unless one of the matching options is specified</p>
+<div class="section" id="options">
+<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-broadcast-match">
+<span id="cmdoption-kitty-kitten-broadcast-m"></span><code class="sig-name descname">--match</code><code class="sig-prename descclassname"> &lt;MATCH&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">-m</code><code class="sig-prename descclassname"> &lt;MATCH&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-broadcast-match" title="Permalink to this definition">¶</a></dt>
+<dd><p>The window to match. Match specifications are of the form: <span class="italic">field:regexp</span>. Where field can be one of: id, title, pid, cwd, cmdline, num, env. You can use the <span class="italic">ls</span> command to get a list of windows. Note that for numeric fields such as id, pid and num the expression is interpreted as a number, not a regular expression. The field num refers to the window position in the current tab, starting from zero and counting clockwise (this is the same as the order in which the windows are reported by the <span class="italic">ls</span> command). The window id of the current window is available as the KITTY_WINDOW_ID environment variable. When using the <span class="italic">env</span> field to match on environment variables you can specify only the environment variable name or a name and value, for example, <span class="italic">env:MY_ENV_VAR=2</span></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-broadcast-match-tab">
+<span id="cmdoption-kitty-kitten-broadcast-t"></span><code class="sig-name descname">--match-tab</code><code class="sig-prename descclassname"> &lt;MATCH_TAB&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">-t</code><code class="sig-prename descclassname"> &lt;MATCH_TAB&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-broadcast-match-tab" title="Permalink to this definition">¶</a></dt>
+<dd><p>The tab to match. Match specifications are of the form: <span class="italic">field:regexp</span>. Where field can be one of: id, title, pid, cwd, env, cmdline. You can use the <span class="italic">ls</span> command to get a list of tabs. Note that for numeric fields such as id and pid the expression is interpreted as a number, not a regular expression. When using title or id, first a matching tab is looked for and if not found a matching window is looked for, and the tab for that window is used.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

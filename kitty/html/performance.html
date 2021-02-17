@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kitty Performance &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/kitty.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Working with the screen and history buffer contents" href="pipe.html" />
+    <link rel="prev" title="Customizing the actions taken when clicking on links" href="open_actions.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="open_actions.html" title="previous chapter">Customizing the actions taken when clicking on links</a></li>
+      <li>Next: <a href="pipe.html" title="next chapter">Working with the screen and history buffer contents</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="kitty-performance">
+<h1><em>kitty</em> Performance<a class="headerlink" href="#kitty-performance" title="Permalink to this headline">¶</a></h1>
+<p>The main goals for <em>kitty</em> performance are user perceived latency while typing
+and “smoothness” while scrolling as well as CPU usage. <em>kitty</em> tries hard to find
+an optimum balance for these. To that end it keeps a cache of each rendered
+glyph in video RAM so that font rendering is not a bottleneck.  Interaction
+with child programs takes place in a separate thread from rendering, to improve
+smoothness.</p>
+<p>There are two parameters you can tune to adjust the performance. <a class="reference internal" href="conf.html#opt-kitty.repaint_delay"><code class="xref std std-opt docutils literal notranslate"><span class="pre">repaint_delay</span></code></a>
+and <a class="reference internal" href="conf.html#opt-kitty.input_delay"><code class="xref std std-opt docutils literal notranslate"><span class="pre">input_delay</span></code></a>. These control the artificial delays introduced into the
+render loop to reduce CPU usage. See <a class="reference internal" href="conf.html#conf-kitty-performance"><span class="std std-ref">Performance tuning</span></a> for details.
+See also the <a class="reference internal" href="conf.html#opt-kitty.sync_to_monitor"><code class="xref std std-opt docutils literal notranslate"><span class="pre">sync_to_monitor</span></code></a> option to further decrease latency at the cost
+of some <a class="reference external" href="https://en.wikipedia.org/wiki/Screen_tearing">tearing</a> while scrolling.</p>
+<p>You can generate detailed per-function performance data using <a class="reference external" href="https://github.com/gperftools/gperftools">gperftools</a>. Build <em>kitty</em> with <cite>make
+profile</cite>. Run kitty and perform the task you want to analyse, for example,
+scrolling a large file with <cite>less</cite>. After you quit, function call statistics
+will be printed to <cite>stdout</cite> and you can use tools like <em>kcachegrind</em> for more
+detailed analysis.</p>
+<p>Here are some CPU usage numbers for the task of scrolling a file continuously
+in less.  The CPU usage is for the terminal process and X together and is
+measured using htop.  The measurements are taken at the same font and window
+size for all terminals on a <code class="docutils literal notranslate"><span class="pre">Intel(R)</span> <span class="pre">Core(TM)</span> <span class="pre">i7-4820K</span> <span class="pre">CPU</span> <span class="pre">&#64;</span> <span class="pre">3.70GHz</span></code> CPU
+with a <code class="docutils literal notranslate"><span class="pre">Advanced</span> <span class="pre">Micro</span> <span class="pre">Devices,</span> <span class="pre">Inc.</span> <span class="pre">[AMD/ATI]</span> <span class="pre">Cape</span> <span class="pre">Verde</span> <span class="pre">XT</span> <span class="pre">[Radeon</span> <span class="pre">HD</span>
+<span class="pre">7770/8760</span> <span class="pre">/</span> <span class="pre">R7</span> <span class="pre">250X]</span></code> GPU.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Terminal</p></th>
+<th class="head"><p>CPU usage (X + terminal)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><em>kitty</em></p></td>
+<td><p>6 - 8%</p></td>
+</tr>
+<tr class="row-odd"><td><p>xterm</p></td>
+<td><p>5 - 7% (but scrolling was extremely janky)</p></td>
+</tr>
+<tr class="row-even"><td><p>termite</p></td>
+<td><p>10 - 13%</p></td>
+</tr>
+<tr class="row-odd"><td><p>urxvt</p></td>
+<td><p>12 - 14%</p></td>
+</tr>
+<tr class="row-even"><td><p>gnome-terminal</p></td>
+<td><p>15 - 17%</p></td>
+</tr>
+<tr class="row-odd"><td><p>konsole</p></td>
+<td><p>29 - 31%</p></td>
+</tr>
+</tbody>
+</table>
+<p>As you can see, <em>kitty</em> uses much less CPU than all terminals, except xterm, but
+its scrolling “smoothness” is much better than that of xterm (at least to my,
+admittedly biased, eyes).</p>
+<div class="admonition note" id="perf-cat">
+<p class="admonition-title">Note</p>
+<p>Some people have asked why kitty does not perform better than terminal XXX in
+the test of sinking large amounts of data, such as catting a large text
+file. The answer is because this is not a goal for kitty. kitty
+deliberately throttles input parsing and output rendering to minimize
+resource usage while still being able to sink output faster than any real
+world program can produce it. Reducing CPU usage, and hence battery drain
+while achieving instant response times and smooth scrolling to a human eye
+is a far more important goal.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

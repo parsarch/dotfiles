@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Working with the screen and history buffer contents &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/kitty.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Extensions to the xterm protocol" href="protocol-extensions.html" />
+    <link rel="prev" title="kitty Performance" href="performance.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#the-piping-environment">The piping environment</a></li>
+<li><a class="reference internal" href="#input-placeholders">Input placeholders</a></li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="performance.html" title="previous chapter"><em>kitty</em> Performance</a></li>
+      <li>Next: <a href="protocol-extensions.html" title="next chapter">Extensions to the xterm protocol</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="working-with-the-screen-and-history-buffer-contents">
+<h1>Working with the screen and history buffer contents<a class="headerlink" href="#working-with-the-screen-and-history-buffer-contents" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The pipe action has been deprecated in favor of the
+<a class="reference internal" href="launch.html"><span class="doc">launch</span></a> action which is more powerful.</p>
+</div>
+<p>You can pipe the contents of the current screen and history buffer as
+<code class="file docutils literal notranslate"><span class="pre">STDIN</span></code> to an arbitrary program using the <code class="docutils literal notranslate"><span class="pre">pipe</span></code> function. The program
+can be displayed in a kitty window or overlay.</p>
+<p>For example, the following in <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code> will open the scrollback
+buffer in less in an overlay window, when you press <kbd class="kbd docutils literal notranslate">F1</kbd>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">f1</span> <span class="n">pipe</span> <span class="nd">@ansi</span> <span class="n">overlay</span> <span class="n">less</span> <span class="o">+</span><span class="n">G</span> <span class="o">-</span><span class="n">R</span>
+</pre></div>
+</div>
+<p>The syntax of the <code class="docutils literal notranslate"><span class="pre">pipe</span></code> function is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipe</span> <span class="o">&lt;</span><span class="nb">input</span> <span class="n">placeholder</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">destination</span> <span class="n">window</span> <span class="nb">type</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">command</span> <span class="n">line</span> <span class="n">to</span> <span class="n">run</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="section" id="the-piping-environment">
+<h2>The piping environment<a class="headerlink" href="#the-piping-environment" title="Permalink to this headline">¶</a></h2>
+<p>The program to which the data is piped has a special environment variable
+declared, <code class="docutils literal notranslate"><span class="pre">KITTY_PIPE_DATA</span></code> whose contents are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">KITTY_PIPE_DATA</span><span class="o">=</span><span class="p">{</span><span class="n">scrolled_by</span><span class="p">}:{</span><span class="n">cursor_x</span><span class="p">},{</span><span class="n">cursor_y</span><span class="p">}:{</span><span class="n">lines</span><span class="p">},{</span><span class="n">columns</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">scrolled_by</span></code> is the number of lines kitty is currently scrolled by,
+<code class="docutils literal notranslate"><span class="pre">cursor_(x|y)</span></code> is the position of the cursor on the screen with <code class="docutils literal notranslate"><span class="pre">(1,1)</span></code>
+being the top left corner and <code class="docutils literal notranslate"><span class="pre">{lines},{columns}</span></code> being the number of rows
+and columns of the screen.</p>
+<p>You can choose where to run the pipe program:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">overlay</span></code></dt><dd><p>An overlay window over the current kitty window</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">window</span></code></dt><dd><p>A new kitty window</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">os_window</span></code></dt><dd><p>A new top-level window</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tab</span></code></dt><dd><p>A new window in a new tab</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">clipboard,</span> <span class="pre">primary</span></code></dt><dd><p>Copy the text directly to the clipboard. In this case the specified program
+is not run, so use some dummy program name for it.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">none</span></code></dt><dd><p>Run it in the background</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="input-placeholders">
+<h2>Input placeholders<a class="headerlink" href="#input-placeholders" title="Permalink to this headline">¶</a></h2>
+<p>There are various different kinds of placeholders</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">&#64;selection</span></code></dt><dd><p>Plain text, currently selected text</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&#64;text</span></code></dt><dd><p>Plain text, current screen + scrollback buffer</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&#64;ansi</span></code></dt><dd><p>Text with formatting, current screen + scrollback buffer</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&#64;screen</span></code></dt><dd><p>Plain text, only current screen</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&#64;ansi_screen</span></code></dt><dd><p>Text with formatting, only current screen</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&#64;alternate</span></code></dt><dd><p>Plain text, secondary screen. The secondary screen is the screen not currently displayed. For
+example if you run a fullscreen terminal application, the secondary screen will
+be the screen you return to when quitting the application.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&#64;ansi_alternate</span></code></dt><dd><p>Text with formatting, secondary screen.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&#64;alternate_scrollback</span></code></dt><dd><p>Plain text, secondary screen + scrollback, if any.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&#64;ansi_alternate_scrollback</span></code></dt><dd><p>Text with formatting, secondary screen + scrollback, if any.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">none</span></code></dt><dd><p>No input</p>
+</dd>
+</dl>
+<p>You can also add the suffix <code class="docutils literal notranslate"><span class="pre">_wrap</span></code> to the placeholder, in which case kitty
+will insert the carriage return at every line wrap location (where long lines
+are wrapped at screen edges). This is useful if you want to pipe to program
+that wants to duplicate the screen layout of the screen.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

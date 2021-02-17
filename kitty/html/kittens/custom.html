@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom kittens &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/kitty.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="kitty-diff - A fast side-by-side diff tool with syntax highlighting and images" href="diff.html" />
+    <link rel="prev" title="clipboard - copy/paste to the system clipboard" href="clipboard.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="../support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#passing-arguments-to-kittens">Passing arguments to kittens</a></li>
+<li><a class="reference internal" href="#passing-the-contents-of-the-screen-to-the-kitten">Passing the contents of the screen to the kitten</a></li>
+<li><a class="reference internal" href="#using-kittens-to-script-kitty-without-any-terminal-ui">Using kittens to script kitty, without any terminal UI</a></li>
+<li><a class="reference internal" href="#sending-mouse-events">Sending mouse events</a></li>
+<li><a class="reference internal" href="#debugging-kittens">Debugging kittens</a></li>
+<li><a class="reference internal" href="#kittens-created-by-kitty-users">Kittens created by kitty users</a></li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="clipboard.html" title="previous chapter">clipboard - copy/paste to the system clipboard</a></li>
+      <li>Next: <a href="diff.html" title="next chapter">kitty-diff - A fast side-by-side diff tool with syntax highlighting and images</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="custom-kittens">
+<h1>Custom kittens<a class="headerlink" href="#custom-kittens" title="Permalink to this headline">¶</a></h1>
+<p>You can easily create your own kittens to extend kitty. They are just
+terminal programs written in Python. When launching a kitten, kitty will
+open an overlay window over the current window and optionally pass the
+contents of the current window/scrollback to the kitten over its <code class="file docutils literal notranslate"><span class="pre">STDIN</span></code>.
+The kitten can then perform whatever actions it likes, just as a normal
+terminal program. After execution of the kitten is complete, it has access
+to the running kitty instance so it can perform arbitrary actions
+such as closing windows, pasting text, etc.</p>
+<p>Let’s see a simple example of creating a kitten. It will ask the user for some
+input and paste it into the terminal window.</p>
+<p>Create a file in the kitty config folder, <code class="file docutils literal notranslate"><span class="pre">~/.config/kitty/mykitten.py</span></code>
+(you might need to adjust the path to wherever the kitty config folder is on
+your machine).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">kitty.boss</span> <span class="kn">import</span> <span class="n">Boss</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="c1"># this is the main entry point of the kitten, it will be executed in</span>
+    <span class="c1"># the overlay window when the kitten is launched</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter some text: &#39;</span><span class="p">)</span>
+    <span class="c1"># whatever this function returns will be available in the</span>
+    <span class="c1"># handle_result() function</span>
+    <span class="k">return</span> <span class="n">answer</span>
+
+<span class="k">def</span> <span class="nf">handle_result</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">answer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_window_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">boss</span><span class="p">:</span> <span class="n">Boss</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># get the kitty window into which to paste answer</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">boss</span><span class="o">.</span><span class="n">window_id_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">target_window_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">w</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now in <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code> add the lines:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">k</span> <span class="n">kitten</span> <span class="n">mykitten</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Start kitty and press <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">ctrl</kbd>+<kbd class="kbd docutils literal notranslate">k</kbd></kbd> and you should see the kitten running.
+The best way to develop your own kittens is to modify one of the built in
+kittens. Look in the kittens sub-directory of the kitty source code for those.
+Or see below for a list of <a class="reference internal" href="#external-kittens"><span class="std std-ref">third-party kittens</span></a>,
+that other kitty users have created.</p>
+<div class="section" id="passing-arguments-to-kittens">
+<h2>Passing arguments to kittens<a class="headerlink" href="#passing-arguments-to-kittens" title="Permalink to this headline">¶</a></h2>
+<p>You can pass arguments to kittens by defining them in the map directive in
+<code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code>. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">k</span> <span class="n">kitten</span> <span class="n">mykitten</span><span class="o">.</span><span class="n">py</span> <span class="n">arg1</span> <span class="n">arg2</span>
+</pre></div>
+</div>
+<p>These will be available as the <code class="docutils literal notranslate"><span class="pre">args</span></code> parameter in the <code class="docutils literal notranslate"><span class="pre">main()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">handle_result()</span></code> functions. Note also that the current working directory
+of the kitten is set to the working directory of whatever program is
+running in the active kitty window. The special argument <code class="docutils literal notranslate"><span class="pre">&#64;selection</span></code>
+is replaced by the currently selected text in the active kitty window.</p>
+</div>
+<div class="section" id="passing-the-contents-of-the-screen-to-the-kitten">
+<h2>Passing the contents of the screen to the kitten<a class="headerlink" href="#passing-the-contents-of-the-screen-to-the-kitten" title="Permalink to this headline">¶</a></h2>
+<p>If you would like your kitten to have access to the contents of the screen
+and/or the scrollback buffer, you just need to add an annotation to the <code class="docutils literal notranslate"><span class="pre">handle_result()</span></code>
+function, telling kitty what kind of input your kitten would like. For example:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># in main, STDIN is for the kitten process and will contain</span>
+<span class="c1"># the contents of the screen</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c1"># in handle_result, STDIN is for the kitty process itself, rather</span>
+<span class="c1"># than the kitten process and should not be read from.</span>
+<span class="kn">from</span> <span class="nn">kittens.tui.handler</span> <span class="kn">import</span> <span class="n">result_handler</span>
+<span class="nd">@result_handler</span><span class="p">(</span><span class="n">type_of_input</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">handle_result</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">stdin_data</span><span class="p">,</span> <span class="n">target_window_id</span><span class="p">,</span> <span class="n">boss</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>This will send the plain text of the active window to the kitten’s
+<code class="file docutils literal notranslate"><span class="pre">STDIN</span></code>. For text with formatting escape codes, use <code class="docutils literal notranslate"><span class="pre">ansi</span></code>
+instead. If you want line wrap markers as well, use <code class="docutils literal notranslate"><span class="pre">screen-ansi</span></code>
+or just <code class="docutils literal notranslate"><span class="pre">screen</span></code>. For the scrollback buffer as well, use
+<code class="docutils literal notranslate"><span class="pre">history</span></code>, <code class="docutils literal notranslate"><span class="pre">ansi-history</span></code> or <code class="docutils literal notranslate"><span class="pre">screen-history</span></code>. To get
+the currently selected text, use <code class="docutils literal notranslate"><span class="pre">selection</span></code>.</p>
+</div>
+<div class="section" id="using-kittens-to-script-kitty-without-any-terminal-ui">
+<h2>Using kittens to script kitty, without any terminal UI<a class="headerlink" href="#using-kittens-to-script-kitty-without-any-terminal-ui" title="Permalink to this headline">¶</a></h2>
+<p>If you would like your kitten to script kitty, without bothering to write a
+terminal program, you can tell the kittens system to run the
+<code class="docutils literal notranslate"><span class="pre">handle_result()</span></code> function without first running the <code class="docutils literal notranslate"><span class="pre">main()</span></code> function.</p>
+<p>For example, here is a kitten that “zooms/unzooms” the current terminal window
+by switching to the stack layout or back to the previous layout.</p>
+<p>Create a file in the kitty config folder, <code class="file docutils literal notranslate"><span class="pre">~/.config/kitty/zoom_toggle.py</span></code></p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="kn">from</span> <span class="nn">kittens.tui.handler</span> <span class="kn">import</span> <span class="n">result_handler</span>
+<span class="nd">@result_handler</span><span class="p">(</span><span class="n">no_ui</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">handle_result</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">answer</span><span class="p">,</span> <span class="n">target_window_id</span><span class="p">,</span> <span class="n">boss</span><span class="p">):</span>
+    <span class="n">tab</span> <span class="o">=</span> <span class="n">boss</span><span class="o">.</span><span class="n">active_tab</span>
+    <span class="k">if</span> <span class="n">tab</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">tab</span><span class="o">.</span><span class="n">current_layout</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;stack&#39;</span><span class="p">:</span>
+            <span class="n">tab</span><span class="o">.</span><span class="n">last_used_layout</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tab</span><span class="o">.</span><span class="n">goto_layout</span><span class="p">(</span><span class="s1">&#39;stack&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now in kitty.conf add:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="n">f11</span> <span class="n">kitten</span> <span class="n">zoom_toggle</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Pressing <kbd class="kbd docutils literal notranslate">F11</kbd> will now act as a zoom toggle function. You can get even
+more fancy, switching the kitty OS window to fullscreen as well as changing the
+layout, by simply adding the line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">boss</span><span class="o">.</span><span class="n">toggle_fullscreen</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To the <code class="docutils literal notranslate"><span class="pre">handle_result()</span></code> function, above.</p>
+</div>
+<div class="section" id="sending-mouse-events">
+<span id="send-mouse-event"></span><h2>Sending mouse events<a class="headerlink" href="#sending-mouse-events" title="Permalink to this headline">¶</a></h2>
+<p>If the program running in a window is receiving mouse events you can simulate
+those using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kitty.fast_data_types</span> <span class="kn">import</span> <span class="n">send_mouse_event</span>
+<span class="n">send_mouse_event</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">button</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">mods</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">screen</span></code> is the <code class="docutils literal notranslate"><span class="pre">screen</span></code> attribute of the window you want to send the event
+to. <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are the 0-indexed coordinates. <code class="docutils literal notranslate"><span class="pre">button</span></code> is a number using
+the same numbering as X11 (left: <code class="docutils literal notranslate"><span class="pre">1</span></code>, middle: <code class="docutils literal notranslate"><span class="pre">2</span></code>, right: <code class="docutils literal notranslate"><span class="pre">3</span></code>, scroll up:
+<code class="docutils literal notranslate"><span class="pre">4</span></code>, scroll down: <code class="docutils literal notranslate"><span class="pre">5</span></code>, scroll left: <code class="docutils literal notranslate"><span class="pre">6</span></code>, scroll right: <code class="docutils literal notranslate"><span class="pre">7</span></code>, back:
+<code class="docutils literal notranslate"><span class="pre">8</span></code>, forward: <code class="docutils literal notranslate"><span class="pre">9</span></code>). <code class="docutils literal notranslate"><span class="pre">action</span></code> is one of <code class="docutils literal notranslate"><span class="pre">PRESS</span></code>, <code class="docutils literal notranslate"><span class="pre">RELEASE</span></code>, <code class="docutils literal notranslate"><span class="pre">DRAG</span></code>
+or <code class="docutils literal notranslate"><span class="pre">MOVE</span></code>. <code class="docutils literal notranslate"><span class="pre">mods</span></code> is a bitmask of <code class="docutils literal notranslate"><span class="pre">GLFW_MOD_{mod}</span></code> where <code class="docutils literal notranslate"><span class="pre">{mod}</span></code> is one
+of <code class="docutils literal notranslate"><span class="pre">SHIFT</span></code>, <code class="docutils literal notranslate"><span class="pre">CONTROL</span></code> or <code class="docutils literal notranslate"><span class="pre">ALT</span></code>. All the mentioned constants are imported
+from <code class="docutils literal notranslate"><span class="pre">kitty.fast_data_types</span></code>.</p>
+<p>For example, to send a left click at position x: 2, y: 3 to the active window:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kitty.fast_data_types</span> <span class="kn">import</span> <span class="n">send_mouse_event</span><span class="p">,</span> <span class="n">PRESS</span>
+<span class="n">send_mouse_event</span><span class="p">(</span><span class="n">boss</span><span class="o">.</span><span class="n">active_window</span><span class="o">.</span><span class="n">screen</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">PRESS</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The function will only send the event if the program is receiving events of
+that type, and will return <code class="docutils literal notranslate"><span class="pre">True</span></code> if it sent the event, and <code class="docutils literal notranslate"><span class="pre">False</span></code> if not.</p>
+</div>
+<div class="section" id="debugging-kittens">
+<h2>Debugging kittens<a class="headerlink" href="#debugging-kittens" title="Permalink to this headline">¶</a></h2>
+<p>The part of the kitten that runs in <code class="docutils literal notranslate"><span class="pre">main()</span></code> is just a normal program and
+the output of print statements will be visible in the kitten window. Or
+alternately, you can use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kittens.tui.loop</span> <span class="kn">import</span> <span class="n">debug</span>
+<span class="n">debug</span><span class="p">(</span><span class="s1">&#39;whatever&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">debug()</span></code> function is just like <code class="docutils literal notranslate"><span class="pre">print()</span></code> except that the output
+will appear in the <code class="docutils literal notranslate"><span class="pre">STDOUT</span></code> of the kitty process inside which the kitten is
+running.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">handle_result()</span></code> part of the kitten runs inside the kitty process.
+The output of print statements will go to the <code class="docutils literal notranslate"><span class="pre">STDOUT</span></code> of the kitty process.
+So if you run kitty from another kitty instance, the output will be visible
+in the first kitty instance.</p>
+</div>
+<div class="section" id="kittens-created-by-kitty-users">
+<span id="external-kittens"></span><h2>Kittens created by kitty users<a class="headerlink" href="#kittens-created-by-kitty-users" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt><a class="reference external" href="https://github.com/knubie/vim-kitty-navigator">vim-kitty-navigator</a></dt><dd><p>Allows you to navigate seamlessly between vim and kitty splits using a consistent set of hotkeys.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/yurikhan/kitty-smart-scroll">smart-scroll</a></dt><dd><p>Makes the kitty scroll bindings work in full screen applications</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/kovidgoyal/kitty/issues/1222">insert password</a></dt><dd><p>Insert a password from a CLI password manager, taking care to only do it at
+a password prompt.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/GermainZ/kitty-weechat-hints">weechat-hints</a></dt><dd><p>URL hints kitten for WeeChat that works without having to use WeeChat’s
+raw-mode.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

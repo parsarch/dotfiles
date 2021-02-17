@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>icat - Display images in the terminal &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/kitty.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Draw a GPU accelerated dock panel on your desktop" href="panel.html" />
+    <link rel="prev" title="Hyperlinked grep" href="hyperlinked_grep.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="../support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#command-line-interface">Command Line Interface</a><ul>
+<li><a class="reference internal" href="#options">Options</a></li>
+</ul>
+</li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="hyperlinked_grep.html" title="previous chapter">Hyperlinked grep</a></li>
+      <li>Next: <a href="panel.html" title="next chapter">Draw a GPU accelerated dock panel on your desktop</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="icat-display-images-in-the-terminal">
+<h1>icat - Display images in the terminal<a class="headerlink" href="#icat-display-images-in-the-terminal" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">icat</span></code> kitten can be used to display arbitrary images in the <em>kitty</em>
+terminal. Using it is as simple as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kitty</span> <span class="o">+</span><span class="n">kitten</span> <span class="n">icat</span> <span class="n">image</span><span class="o">.</span><span class="n">jpeg</span>
+</pre></div>
+</div>
+<p>It supports all image types supported by <a class="reference external" href="https://www.imagemagick.org">ImageMagick</a>. It even works over SSH. For details, see
+the <a class="reference internal" href="../graphics-protocol.html"><span class="doc">kitty graphics protocol</span></a>.</p>
+<p>You might want to create an alias in your shell’s configuration files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">alias</span> <span class="n">icat</span><span class="o">=</span><span class="s2">&quot;kitty +kitten icat&quot;</span>
+</pre></div>
+</div>
+<p>Then you can simply use <code class="docutils literal notranslate"><span class="pre">icat</span> <span class="pre">image.png</span></code> to view images.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="https://www.imagemagick.org">ImageMagick</a> must be installed for <code class="docutils literal notranslate"><span class="pre">icat</span></code> to
+work.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>kitty’s image display protocol may not work when used within a terminal
+multiplexer such as <code class="docutils literal notranslate"><span class="pre">screen</span></code> or <code class="docutils literal notranslate"><span class="pre">tmux</span></code>, depending on whether the
+multiplexer has added support for it or not.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">icat</span></code> kitten has various command line arguments to allow it to be used
+from inside other programs to display images. In particular, <a class="reference internal" href="#cmdoption-kitty-kitten-icat-place"><code class="xref std std-option docutils literal notranslate"><span class="pre">--place</span></code></a>,
+<a class="reference internal" href="#cmdoption-kitty-kitten-icat-detect-support"><code class="xref std std-option docutils literal notranslate"><span class="pre">--detect-support</span></code></a> and <a class="reference internal" href="#cmdoption-kitty-kitten-icat-print-window-size"><code class="xref std std-option docutils literal notranslate"><span class="pre">--print-window-size</span></code></a>.</p>
+<div class="section" id="command-line-interface">
+<h2>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kitty +kitten icat <span class="o">[</span>options<span class="o">]</span> image-file-or-url-or-directory ...
+</pre></div>
+</div>
+<p>A cat like utility to display images in the terminal. You can specify multiple image files and/or directories. Directories are scanned recursively for image files. If STDIN is not a terminal, image data will be read from it as well. You can also specify HTTP(S) or FTP URLs which will be automatically downloaded and displayed.</p>
+<div class="section" id="options">
+<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-icat-align">
+<code class="sig-name descname">--align</code><code class="sig-prename descclassname"> &lt;ALIGN&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-icat-align" title="Permalink to this definition">¶</a></dt>
+<dd><p>Horizontal alignment for the displayed image.
+Default: <code class="code docutils literal notranslate"><span class="pre">center</span></code>
+Choices: <code class="code docutils literal notranslate"><span class="pre">center,</span> <span class="pre">left,</span> <span class="pre">right</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-icat-place">
+<code class="sig-name descname">--place</code><code class="sig-prename descclassname"> &lt;PLACE&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-icat-place" title="Permalink to this definition">¶</a></dt>
+<dd><p>Choose where on the screen to display the image. The image will be scaled to fit into the specified rectangle. The syntax for specifying rectangles is &lt;<span class="italic">width</span>&gt;x&lt;<span class="italic">height</span>&gt;&#64;&lt;<span class="italic">left</span>&gt;x&lt;<span class="italic">top</span>&gt;. All measurements are in cells (i.e. cursor positions) with the origin <span class="italic">(0, 0)</span> at the top-left corner of the screen.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-icat-scale-up">
+<code class="sig-name descname">--scale-up</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-kitty-kitten-icat-scale-up" title="Permalink to this definition">¶</a></dt>
+<dd><p>When used in combination with <a class="reference internal" href="#cmdoption-kitty-kitten-icat-place"><code class="xref std std-option docutils literal notranslate"><span class="pre">--place</span></code></a> it will cause images that are smaller than the specified area to be scaled up to use as much of the specified area as possible.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-icat-clear">
+<code class="sig-name descname">--clear</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-kitty-kitten-icat-clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all images currently displayed on the screen.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-icat-transfer-mode">
+<code class="sig-name descname">--transfer-mode</code><code class="sig-prename descclassname"> &lt;TRANSFER_MODE&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-icat-transfer-mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Which mechanism to use to transfer images to the terminal. The default is to auto-detect. <span class="italic">file</span> means to use a temporary file and <span class="italic">stream</span> means to send the data via terminal escape codes. Note that if you use the <span class="italic">file</span> transfer mode and you are connecting over a remote session then image display will not work.
+Default: <code class="code docutils literal notranslate"><span class="pre">detect</span></code>
+Choices: <code class="code docutils literal notranslate"><span class="pre">detect,</span> <span class="pre">file,</span> <span class="pre">stream</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-icat-detect-support">
+<code class="sig-name descname">--detect-support</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-kitty-kitten-icat-detect-support" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detect support for image display in the terminal. If not supported, will exit with exit code 1, otherwise will exit with code 0 and print the supported transfer mode to stderr, which can be used with the <a class="reference internal" href="#cmdoption-kitty-kitten-icat-transfer-mode"><code class="xref std std-option docutils literal notranslate"><span class="pre">--transfer-mode</span></code></a> option.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-icat-detection-timeout">
+<code class="sig-name descname">--detection-timeout</code><code class="sig-prename descclassname"> &lt;DETECTION_TIMEOUT&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-icat-detection-timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>The amount of time (in seconds) to wait for a response form the terminal, when detecting image display support.
+Default: <code class="code docutils literal notranslate"><span class="pre">10</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-icat-print-window-size">
+<code class="sig-name descname">--print-window-size</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-kitty-kitten-icat-print-window-size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print out the window size as <span class="italic">widthxheight</span> (in pixels) and quit. This is a convenience method to query the window size if using kitty icat from a scripting language that cannot make termios calls.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-icat-stdin">
+<code class="sig-name descname">--stdin</code><code class="sig-prename descclassname"> &lt;STDIN&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-icat-stdin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read image data from stdin. The default is to do it automatically, when STDIN is not a terminal, but you can turn it off or on explicitly, if needed.
+Default: <code class="code docutils literal notranslate"><span class="pre">detect</span></code>
+Choices: <code class="code docutils literal notranslate"><span class="pre">detect,</span> <span class="pre">no,</span> <span class="pre">yes</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-icat-silent">
+<code class="sig-name descname">--silent</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-kitty-kitten-icat-silent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not print out anything to stdout during operation.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-icat-z-index">
+<span id="cmdoption-kitty-kitten-icat-z"></span><code class="sig-name descname">--z-index</code><code class="sig-prename descclassname"> &lt;Z_INDEX&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">-z</code><code class="sig-prename descclassname"> &lt;Z_INDEX&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-icat-z-index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Z-index of the image. When negative, text will be displayed on top of the image. Use a double minus for values under the threshold for drawing images under cell background colors. For example, –1 evaluates as -1,073,741,825.
+Default: <code class="code docutils literal notranslate"><span class="pre">0</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-icat-hold">
+<code class="sig-name descname">--hold</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-kitty-kitten-icat-hold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait for keypress before exiting after displaying the images.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

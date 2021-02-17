@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hyperlinked grep &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/kitty.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="icat - Display images in the terminal" href="icat.html" />
+    <link rel="prev" title="Hints" href="hints.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="../support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="hints.html" title="previous chapter">Hints</a></li>
+      <li>Next: <a href="icat.html" title="next chapter">icat - Display images in the terminal</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="hyperlinked-grep">
+<h1>Hyperlinked grep<a class="headerlink" href="#hyperlinked-grep" title="Permalink to this headline">¶</a></h1>
+<p>This kitten allows you to search your files using <a class="reference external" href="https://www.google.com/search?q=ripgrep">ripgrep</a> and open the results
+directly in your favorite editor in the terminal, at the line containing
+the search result, simply by clicking on the result you want.</p>
+<p>To set it up, first create <code class="file docutils literal notranslate"><span class="pre">~/.config/kitty/open-actions.conf</span></code> with the
+following contents:</p>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="c1"># Open any file with a fragment in vim, fragments are generated</span><span class="w"></span>
+<span class="c1"># by the hyperlink_grep kitten and nothing else so far.</span><span class="w"></span>
+<span class="nv">protocol</span><span class="w"> </span><span class="s">file</span><span class="w"></span>
+<span class="nv">fragment_matches</span><span class="w"> </span><span class="s">[0-9]+</span><span class="w"></span>
+<span class="nv">action</span><span class="w"> </span><span class="s">launch --type=overlay vim +${FRAGMENT} ${FILE_PATH}</span><span class="w"></span>
+
+<span class="c1"># Open text files without fragments in the editor</span><span class="w"></span>
+<span class="nv">protocol</span><span class="w"> </span><span class="s">file</span><span class="w"></span>
+<span class="nv">mime</span><span class="w"> </span><span class="s">text/*</span><span class="w"></span>
+<span class="nv">action</span><span class="w"> </span><span class="s">launch --type=overlay ${EDITOR} ${FILE_PATH}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Now, run a search with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kitty</span> <span class="o">+</span><span class="n">kitten</span> <span class="n">hyperlinked_grep</span> <span class="n">something</span>
+</pre></div>
+</div>
+<p>Hold down the <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">ctrl</kbd>+<kbd class="kbd docutils literal notranslate">shift</kbd></kbd> keys and click on any of the
+result lines, to open the file in vim at the matching line. If
+you use some editor other than vim, you should adjust the
+<code class="file docutils literal notranslate"><span class="pre">open-actions.conf</span></code> file accordingly.</p>
+<p>Finally, add an alias to your shell’s rc files to invoke the kitten as <code class="docutils literal notranslate"><span class="pre">hg</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">alias</span> <span class="n">hg</span><span class="o">=</span><span class="s1">&#39;kitty +kitten hyperlinked_grep&#39;</span>
+</pre></div>
+</div>
+<p>You can now run searches with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hg</span> <span class="n">some</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">term</span>
+</pre></div>
+</div>
+<p>If you want to enable completion, for the kitten, you can delegate completion
+to rg. For that, instead of using an alias create a simple wrapper script named
+<code class="file docutils literal notranslate"><span class="pre">hg</span></code> somewhere in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="nb">exec</span> kitty +kitten hyperlinked_grep <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>Then, for example, for ZSH, add the following to <code class="file docutils literal notranslate"><span class="pre">.zshrc</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">compdef</span> <span class="n">_rg</span> <span class="n">hg</span>
+</pre></div>
+</div>
+<p>To learn more about kitty’s powerful framework for customizing URL click
+actions, <a class="reference internal" href="../open_actions.html"><span class="doc">see here</span></a>.</p>
+<p>Hopefully, someday this functionality will make it into some <a class="reference external" href="https://github.com/BurntSushi/ripgrep/issues/665">upstream grep</a>
+program directly removing the need for this kitten.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While you can pass any of ripgrep’s comand line options to the kitten and
+they will be forwarded to rg, do not use options that change the output
+formatting as the kitten works by parsing the output from ripgrep.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

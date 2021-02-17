@@ -258,6 +258,7 @@ source $VIMRUNTIME/menu.vim
 :nnoremap i l
 :nnoremap o k
 :nnoremap h d
+:nnoremap k n
 :nnoremap hh dd
 :nnoremap d w
 :nnoremap r e

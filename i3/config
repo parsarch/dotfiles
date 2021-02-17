@@ -17,6 +17,8 @@ set	$ws6 		"󰟃 "
 workspace_auto_back_and_forth yes
 exec_always ~/.config/autostart.sh
 popup_during_fullscreen smart
+bindsym $alt+Tab focus right
+bindsym $alt+shift+Tab focus left
 bindsym --release $mod+bracketright exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 bindsym --release $mod+shift+bracketright exec playerctl next
 bindsym --release $mod+bracketleft exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
@@ -24,13 +26,13 @@ bindsym --release $mod+shift+bracketleft exec playerctl previous
 bindsym --release $mod+shift+apostrophe exec playerctl play-pause
 bindsym --release $mod+apostrophe exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 bindsym $mod+v exec firefox
-bindsym $mod+r exec alacritty -e "vifm"
+bindsym $mod+r exec nautilus
 bindsym $mod+Print exec ~/.config/i3/scsh.sh
-#bindsym $mod+Print exec scrot -q 100 '%Y-%m-%d_%H:%m:%S.png' -e 'mv $f ~/shots/'
-bindsym $mod+b exec XDG_CURRENT_DESKTOP=gnome telegram
+bindsym $mod+shift+Print exec ~/.config/i3/scshf.sh
+bindsym $mod+b exec XDG_CURRENT_DESKTOP=gnome telegram-desktop
 bindsym $mod+c exec vlc
 bindsym $mod+s exec spotify
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec kitty
 bindsym $mod+q kill
 bindsym $mod+w exec sh ~/.config/rofi/appmenu/launcher.sh
 #bindsym $mod+r exec xfce4-popup-whiskermenu
@@ -38,7 +40,7 @@ bindsym $mod+n focus left
 bindsym $mod+e focus down
 bindsym $mod+o focus up
 bindsym $mod+i focus right
-bindsym $mod+h exec discord-canary --proxy-server="socks5://127.0.0.1:9050"
+bindsym $mod+h exec discord
 bindsym $mod+Shift+n move left
 bindsym $mod+Shift+e move down
 bindsym $mod+Shift+o move up
@@ -80,6 +82,7 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 exec --no-startup-id sh ~/.config/polybar/scripts/updates-pre.sh
+#exec --no-startup-id lxpolkit
 for_window\
 	[\
 	window_type="menu"\
@@ -100,7 +103,7 @@ gaps inner 5
 smart_borders on
 for_window [class="yakuake"] floating enable border none
 for_window [class="Spotify"] border none
-font pango:Nova Round 9
+font pango:NovaMono 10
 floating_modifier $mod
 assign	[\
 	class="opera"\
@@ -116,7 +119,7 @@ assign	[\
 assign [class="Gimp-2.10"] $ws5
 for_window [class="Spotify"] move to workspace $ws4
 #	<colorclass>		    <border>	<background>    <text>	<indicator>	<child_border>
-	client.focused 		    $red		$red		    $white	$blue		$red
-	client.focused_inactive	$bg		    $bg		        $white	$bg		    $bg
-    client.unfocused  	    $bg 		$bglight	    $white	$red		$bglighter
-	client.urgent		    $yellow		$yellow		    $bg	    $yellow		$yellow
+	client.focused 		    $bglight		$bglighter		      $white	  $blue		    $red
+	client.focused_inactive	$bg		$bg		        $white	  $bg		      $bg
+  client.unfocused  	    $bg 	$bg	          $white	  $red		    $bglighter
+	client.urgent		    $yellow		$yellow		    $bg	      $yellow		  $yellow

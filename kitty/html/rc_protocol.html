@@ -1,0 +1,536 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation for the kitty remote control protocol &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/kitty.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Controlling kitty from scripts or the shell" href="remote-control.html" />
+    <link rel="prev" title="Extensions to the xterm protocol" href="protocol-extensions.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#close-tab">close-tab</a></li>
+<li><a class="reference internal" href="#close-window">close-window</a></li>
+<li><a class="reference internal" href="#create-marker">create-marker</a></li>
+<li><a class="reference internal" href="#detach-tab">detach-tab</a></li>
+<li><a class="reference internal" href="#detach-window">detach-window</a></li>
+<li><a class="reference internal" href="#disable-ligatures">disable-ligatures</a></li>
+<li><a class="reference internal" href="#focus-tab">focus-tab</a></li>
+<li><a class="reference internal" href="#focus-window">focus-window</a></li>
+<li><a class="reference internal" href="#get-colors">get-colors</a></li>
+<li><a class="reference internal" href="#get-text">get-text</a></li>
+<li><a class="reference internal" href="#goto-layout">goto-layout</a></li>
+<li><a class="reference internal" href="#kitten">kitten</a></li>
+<li><a class="reference internal" href="#last-used-layout">last-used-layout</a></li>
+<li><a class="reference internal" href="#launch">launch</a></li>
+<li><a class="reference internal" href="#ls">ls</a></li>
+<li><a class="reference internal" href="#new-window">new-window</a></li>
+<li><a class="reference internal" href="#remove-marker">remove-marker</a></li>
+<li><a class="reference internal" href="#resize-window">resize-window</a></li>
+<li><a class="reference internal" href="#scroll-window">scroll-window</a></li>
+<li><a class="reference internal" href="#send-text">send-text</a></li>
+<li><a class="reference internal" href="#set-background-image">set-background-image</a></li>
+<li><a class="reference internal" href="#set-background-opacity">set-background-opacity</a></li>
+<li><a class="reference internal" href="#set-colors">set-colors</a></li>
+<li><a class="reference internal" href="#set-font-size">set-font-size</a></li>
+<li><a class="reference internal" href="#set-spacing">set-spacing</a></li>
+<li><a class="reference internal" href="#set-tab-title">set-tab-title</a></li>
+<li><a class="reference internal" href="#set-window-title">set-window-title</a></li>
+<li><a class="reference internal" href="#signal-child">signal-child</a></li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="protocol-extensions.html" title="previous chapter">Extensions to the xterm protocol</a></li>
+      <li>Next: <a href="remote-control.html" title="next chapter">Controlling kitty from scripts or the shell</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="documentation-for-the-kitty-remote-control-protocol">
+<h1>Documentation for the kitty remote control protocol<a class="headerlink" href="#documentation-for-the-kitty-remote-control-protocol" title="Permalink to this headline">¶</a></h1>
+<p>The kitty remote control protocol is a simple protocol that involves sending
+data to kitty in the form of JSON. Any individual command of kitty has the
+form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">P</span><span class="nd">@kitty</span><span class="o">-</span><span class="n">cmd</span><span class="o">&lt;</span><span class="n">JSON</span> <span class="nb">object</span><span class="o">&gt;&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;ESC&gt;</span></code> is the byte <code class="docutils literal notranslate"><span class="pre">0x1b</span></code>. The JSON object has the form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;cmd&quot;</span><span class="p">:</span> <span class="s2">&quot;command name&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">kitty</span> <span class="n">version</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;no_response&quot;</span><span class="p">:</span> <span class="n">Optional</span> <span class="n">Boolean</span><span class="p">,</span>
+    <span class="s2">&quot;payload&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Optional</span> <span class="n">JSON</span> <span class="nb">object</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">version</span></code> above is an array of the form <code class="code docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">14,</span> <span class="pre">2]</span></code>. If you are developing a
+standalone client, use the kitty version that you are developing against. Using
+a version greater than the version of the kitty instance you are talking to,
+will cause a failure.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">no_response</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code> if you don’t want a response from kitty.</p>
+<p>The optional payload is a JSON object that is specific to the actual command being sent.
+The fields in the object for every command are documented below.</p>
+<div class="section" id="close-tab">
+<h2>close-tab<a class="headerlink" href="#close-tab" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which tab to close</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">self</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to close the window the command is run in</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="close-window">
+<h2>close-window<a class="headerlink" href="#close-window" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which window to close</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">self</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to close the window the command is run in</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="create-marker">
+<h2>create-marker<a class="headerlink" href="#create-marker" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which window to detach</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">self</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to detach the window the command is run in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">marker_spec</span> <span class="pre">(optional)</span></code></dt><dd><p>A list or arguments that define the marker specification, for example: [‘text’, ‘1’, ‘ERROR’]</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="detach-tab">
+<h2>detach-tab<a class="headerlink" href="#detach-tab" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which tab to detach</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">target</span> <span class="pre">(optional)</span></code></dt><dd><p>Which OS Window to move the detached tab to</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">self</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to detach the tab the command is run in</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="detach-window">
+<h2>detach-window<a class="headerlink" href="#detach-window" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which window to detach</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">target</span> <span class="pre">(optional)</span></code></dt><dd><p>Which tab to move the detached window to</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">self</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to detach the window the command is run in</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="disable-ligatures">
+<h2>disable-ligatures<a class="headerlink" href="#disable-ligatures" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">strategy</span> <span class="pre">(required)</span></code></dt><dd><p>One of <code class="code docutils literal notranslate"><span class="pre">never</span></code>, <code class="code docutils literal notranslate"><span class="pre">always</span></code> or <code class="code docutils literal notranslate"><span class="pre">cursor</span></code></p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match_window</span> <span class="pre">(optional)</span></code></dt><dd><p>Window to change opacity in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match_tab</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Tab to change opacity in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">all</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating operate on all windows</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="focus-tab">
+<h2>focus-tab<a class="headerlink" href="#focus-tab" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The tab to focus</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="focus-window">
+<h2>focus-window<a class="headerlink" href="#focus-window" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The window to focus</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="get-colors">
+<h2>get-colors<a class="headerlink" href="#get-colors" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The window to get the colors for</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">configured</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to get configured or current colors</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="get-text">
+<h2>get-text<a class="headerlink" href="#get-text" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The tab to focus</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">extent</span> <span class="pre">(default:</span> <span class="pre">screen)</span></code></dt><dd><p>One of <code class="code docutils literal notranslate"><span class="pre">screen</span></code>, <code class="code docutils literal notranslate"><span class="pre">all</span></code>, or <code class="code docutils literal notranslate"><span class="pre">selection</span></code></p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">ansi</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean, if True send ANSI formatting codes</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">self</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean, if True use window command was run in</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="goto-layout">
+<h2>goto-layout<a class="headerlink" href="#goto-layout" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">layout</span> <span class="pre">(required)</span></code></dt><dd><p>The new layout name</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which tab to change the layout of</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="kitten">
+<h2>kitten<a class="headerlink" href="#kitten" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">kitten</span> <span class="pre">(required)</span></code></dt><dd><p>The name of the kitten to run</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">args</span> <span class="pre">(optional)</span></code></dt><dd><p>Arguments to pass to the kitten as a list</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The window to run the kitten over</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="last-used-layout">
+<h2>last-used-layout<a class="headerlink" href="#last-used-layout" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which tab to change the layout of</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">all</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean to match all tabs</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="launch">
+<h2>launch<a class="headerlink" href="#launch" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">args</span> <span class="pre">(required)</span></code></dt><dd><p>The command line to run in the new window, as a list, use an empty list to run the default shell</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The tab to open the new window in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">window_title</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Title for the new window</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">cwd</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Working directory for the new window</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">env</span> <span class="pre">(default:</span> <span class="pre">[])</span></code></dt><dd><p>List of environment variables of the form NAME=VALUE</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">tab_title</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Title for the new tab</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">type</span> <span class="pre">(default:</span> <span class="pre">window)</span></code></dt><dd><p>The type of window to open</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">keep_focus</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether the current window should retain focus or not</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">copy_colors</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to copy the colors from the current window</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">copy_cmdline</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to copy the cmdline from the current window</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">copy_env</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to copy the environ from the current window</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">location</span> <span class="pre">(default:</span> <span class="pre">default)</span></code></dt><dd><p>Where in the tab to open the new window</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">allow_remote_control</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to allow remote control from the new window</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">stdin_source</span> <span class="pre">(default:</span> <span class="pre">none)</span></code></dt><dd><p>Where to get stdin for thew process from</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">stdin_add_formatting</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to add formatting codes to stdin</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">stdin_add_line_wrap_markers</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to add line wrap markers to stdin</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">no_response</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to send back the window id</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">marker</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Specification for marker for new window, for example: “text 1 ERROR”</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="ls">
+<h2>ls<a class="headerlink" href="#ls" title="Permalink to this headline">¶</a></h2>
+<p>No payload</p>
+</div>
+<div class="section" id="new-window">
+<h2>new-window<a class="headerlink" href="#new-window" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">args</span> <span class="pre">(required)</span></code></dt><dd><p>The command line to run in the new window, as a list, use an empty list to run the default shell</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The tab to open the new window in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">title</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Title for the new window</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">cwd</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Working directory for the new window</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">tab_title</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Title for the new tab</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">window_type</span> <span class="pre">(default:</span> <span class="pre">kitty)</span></code></dt><dd><p>One of <code class="code docutils literal notranslate"><span class="pre">kitty</span></code> or <code class="code docutils literal notranslate"><span class="pre">os</span></code></p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">keep_focus</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether the current window should retain focus or not</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="remove-marker">
+<h2>remove-marker<a class="headerlink" href="#remove-marker" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which window to remove the marker from</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">self</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to detach the window the command is run in</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="resize-window">
+<h2>resize-window<a class="headerlink" href="#resize-window" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which window to resize</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">self</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to close the window the command is run in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">increment</span> <span class="pre">(default:</span> <span class="pre">2)</span></code></dt><dd><p>Integer specifying the resize increment</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">axis</span> <span class="pre">(default:</span> <span class="pre">horizontal)</span></code></dt><dd><p>One of <code class="code docutils literal notranslate"><span class="pre">horizontal,</span> <span class="pre">vertical</span></code> or <code class="code docutils literal notranslate"><span class="pre">reset</span></code></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="scroll-window">
+<h2>scroll-window<a class="headerlink" href="#scroll-window" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">amount</span> <span class="pre">(required)</span></code></dt><dd><p>The amount to scroll, a two item list with the first item being              either a number or the keywords, start and end.              And the second item being either ‘p’ for pages or ‘l’ for lines.</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The window to scroll</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="send-text">
+<h2>send-text<a class="headerlink" href="#send-text" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">data</span> <span class="pre">(required)</span></code></dt><dd><p>The data being sent. Can be either: text: followed by text or base64: followed by standard base64 encoded bytes</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>A string indicating the window to send text to</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match_tab</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>A string indicating the tab to send text to</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">all</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>A boolean indicating all windows should be matched.</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">exclude_active</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>A boolean that prevents sending text to the active window</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="set-background-image">
+<h2>set-background-image<a class="headerlink" href="#set-background-image" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">data</span> <span class="pre">(required)</span></code></dt><dd><p>Chunk of at most 512 bytes of PNG data, base64 encoded. Must send an empty chunk to indicate end of image.     Or the special value - to indicate image must be removed.</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">img_id</span> <span class="pre">(required)</span></code></dt><dd><p>Unique uuid (as string) used for chunking</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Window to change opacity in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">layout</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The image layout</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">all</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating operate on all windows</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">configured</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating if the configured value should be changed</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="set-background-opacity">
+<h2>set-background-opacity<a class="headerlink" href="#set-background-opacity" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">opacity</span> <span class="pre">(required)</span></code></dt><dd><p>A number between 0.1 and 1</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match_window</span> <span class="pre">(optional)</span></code></dt><dd><p>Window to change opacity in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match_tab</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Tab to change opacity in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">all</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating operate on all windows</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="set-colors">
+<h2>set-colors<a class="headerlink" href="#set-colors" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">colors</span> <span class="pre">(required)</span></code></dt><dd><p>An object mapping names to colors as 24-bit RGB integers</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">cursor_text_color</span> <span class="pre">(optional)</span></code></dt><dd><p>A 24-bit color for text under the cursor, or null to use background.</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match_window</span> <span class="pre">(optional)</span></code></dt><dd><p>Window to change colors in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match_tab</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Tab to change colors in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">all</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating change colors everywhere or not</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">configured</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to change the configured colors. Must be True if reset is True</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">reset</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating colors should be reset to startup values</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="set-font-size">
+<h2>set-font-size<a class="headerlink" href="#set-font-size" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">size</span> <span class="pre">(required)</span></code></dt><dd><p>The new font size in pts (a positive number)</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">all</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean whether to change font size in the current window or all windows</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">increment_op</span> <span class="pre">(optional)</span></code></dt><dd><p>The string <code class="docutils literal notranslate"><span class="pre">+</span></code> or <code class="docutils literal notranslate"><span class="pre">-</span></code> to interpret size as an increment</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="set-spacing">
+<h2>set-spacing<a class="headerlink" href="#set-spacing" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">settings</span> <span class="pre">(required)</span></code></dt><dd><p>An object mapping margins/paddings using canonical form {‘margin-top’: 50, ‘padding-left’: null} etc</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match_window</span> <span class="pre">(optional)</span></code></dt><dd><p>Window to change colors in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match_tab</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Tab to change colors in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">all</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating change colors everywhere or not</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">configured</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to change the configured colors. Must be True if reset is True</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="set-tab-title">
+<h2>set-tab-title<a class="headerlink" href="#set-tab-title" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">title</span> <span class="pre">(required)</span></code></dt><dd><p>The new title</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which tab to change the title of</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="set-window-title">
+<h2>set-window-title<a class="headerlink" href="#set-window-title" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">title</span> <span class="pre">(optional)</span></code></dt><dd><p>The new title</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which windows to change the title in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">temporary</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating if the change is temporary or permanent</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="signal-child">
+<h2>signal-child<a class="headerlink" href="#signal-child" title="Permalink to this headline">¶</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">signals</span> <span class="pre">(optional)</span></code></dt><dd><p>The signals, a list of names, such as SIGTERM, SIGKILL, SIGUSR1, etc.</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which windows to change the title in</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

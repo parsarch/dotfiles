@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Remote files &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/kitty.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Unicode input" href="unicode-input.html" />
+    <link rel="prev" title="Query terminal" href="query_terminal.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="../support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="query_terminal.html" title="previous chapter">Query terminal</a></li>
+      <li>Next: <a href="unicode-input.html" title="next chapter">Unicode input</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="remote-files">
+<h1>Remote files<a class="headerlink" href="#remote-files" title="Permalink to this headline">¶</a></h1>
+<p><em>kitty</em> has the ability to easily <em>Edit</em>, <em>Open</em> or <em>Download</em> files
+from a computer into which you are SSHed. In your SSH session run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ls</span> <span class="o">--</span><span class="n">hyperlink</span><span class="o">=</span><span class="n">auto</span>
+</pre></div>
+</div>
+<p>Then hold down <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">ctrl</kbd>+<kbd class="kbd docutils literal notranslate">shift</kbd></kbd> and click the name of the file.</p>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/remote_file.png"><img alt="Remote file actions" src="../_images/remote_file.png" style="width: 1271.0px; height: 559.0px;" /></a>
+<p class="caption"><span class="caption-text">Remote file actions</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p><em>kitty</em> will ask you what you want to do with the remote file. You can choose
+to <em>Edit</em> it in which case kitty will download it and open it locally in your
+<code class="docutils literal notranslate"><span class="pre">EDITOR</span></code>. As you make changes to the file, they are automatically transferred
+to the remote computer. Note that this happens without needing to install <em>any</em>
+special software on the server, beyond <code class="docutils literal notranslate"><span class="pre">ls</span></code> that supports hyperlinks.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Nested SSH sessions are not supported. The kitten will always try to copy
+remote files from the first SSH host. This is because there is no way for
+<em>kitty</em> to detect and follow a nested SSH session robustly.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have not setup automatic password-less SSH access, then, when
+editing starts you will be asked to enter your password just once,
+thereafter the SSH connection will be re-used.</p>
+</div>
+<p>Similarly, you can choose to save the file to the local computer or download
+and open it in its default file handler.</p>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

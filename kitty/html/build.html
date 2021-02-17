@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Building kitty from source &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/kitty.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="kitty - Binary install" href="binary.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li><a class="reference internal" href="#install-and-run-from-source">Install and run from source</a></li>
+<li><a class="reference internal" href="#building-kitty-app-on-macos-from-source">Building kitty.app on macOS from source</a></li>
+<li><a class="reference internal" href="#build-and-run-from-source-with-nix">Build and run from source with Nix</a></li>
+<li><a class="reference internal" href="#note-for-linux-macos-packagers">Note for Linux/macOS packagers</a></li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="binary.html" title="previous chapter">kitty - Binary install</a></li>
+      <li>Next: <a href="changelog.html" title="next chapter">Changelog</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="building-kitty-from-source">
+<h1>Building kitty from source<a class="headerlink" href="#building-kitty-from-source" title="Permalink to this headline">¶</a></h1>
+<a class="reference external image-reference" href="https://github.com/kovidgoyal/kitty/actions?query=workflow%3ACI"><img alt="Build status" src="https://github.com/kovidgoyal/kitty/workflows/CI/badge.svg" /></a>
+<p><em>kitty</em> is designed to run from source, for easy hackability. Make sure
+the following dependencies are installed first.</p>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Run-time dependencies:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>python &gt;= 3.5</p></li>
+<li><p>harfbuzz &gt;= 1.5.0</p></li>
+<li><p>zlib</p></li>
+<li><p>libpng</p></li>
+<li><p>liblcms2</p></li>
+<li><p>freetype (not needed on macOS)</p></li>
+<li><p>fontconfig (not needed on macOS)</p></li>
+<li><p>libcanberra (not needed on macOS)</p></li>
+<li><p>ImageMagick (optional, needed to use the <code class="docutils literal notranslate"><span class="pre">kitty</span> <span class="pre">icat</span></code> tool to display images in the terminal)</p></li>
+<li><p>pygments (optional, need for syntax highlighting in <code class="docutils literal notranslate"><span class="pre">kitty</span> <span class="pre">+kitten</span> <span class="pre">diff</span></code>)</p></li>
+</ul>
+</div></blockquote>
+<p>Build-time dependencies:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>gcc or clang</p></li>
+<li><p>pkg-config</p></li>
+<li><p>For building on Linux in addition to the above dependencies you might also need to install the <code class="docutils literal notranslate"><span class="pre">-dev</span></code> packages for:
+<code class="docutils literal notranslate"><span class="pre">libdbus-1-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">libxcursor-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">libxrandr-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">libxi-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">libxinerama-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">libgl1-mesa-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">libxkbcommon-x11-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">libfontconfig-dev</span></code>, and <code class="docutils literal notranslate"><span class="pre">libpython3-dev</span></code>,
+if they are not already installed by your distro.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="install-and-run-from-source">
+<h2>Install and run from source<a class="headerlink" href="#install-and-run-from-source" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/kovidgoyal/kitty <span class="o">&amp;&amp;</span> <span class="nb">cd</span> kitty
+</pre></div>
+</div>
+<p>Now build the native code parts of <em>kitty</em> with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span>
+</pre></div>
+</div>
+<p>You can run <em>kitty</em>, as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">kitty</span><span class="o">/</span><span class="n">launcher</span><span class="o">/</span><span class="n">kitty</span>
+</pre></div>
+</div>
+<p>If that works, you can create a symlink to the launcher in <code class="file docutils literal notranslate"><span class="pre">~/bin</span></code> or
+some other directory on your PATH so that you can run <em>kitty</em> using
+just <code class="docutils literal notranslate"><span class="pre">kitty</span></code>.</p>
+</div>
+<div class="section" id="building-kitty-app-on-macos-from-source">
+<h2>Building kitty.app on macOS from source<a class="headerlink" href="#building-kitty-app-on-macos-from-source" title="Permalink to this headline">¶</a></h2>
+<p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">app</span>
+</pre></div>
+</div>
+<p>This <code class="file docutils literal notranslate"><span class="pre">kitty.app</span></code> unlike the released one does not include its own copy of
+python and the other dependencies. So if you ever un-install/upgrade those dependencies
+you might have to rebuild the app.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The released <code class="file docutils literal notranslate"><span class="pre">kitty.dmg</span></code> includes all dependencies, unlike the
+<code class="file docutils literal notranslate"><span class="pre">kitty.app</span></code> built above and is built automatically by using the
+<code class="file docutils literal notranslate"><span class="pre">kitty</span></code> branch of <a class="reference external" href="https://github.com/kovidgoyal/build-calibre">build-calibre</a> however, that is designed to
+run on Linux and is not for the faint of heart.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Apple disallows certain functionality, such as notifications for unsigned applications.
+If you need this functionality, you can try signing the built kitty.app with
+a self signed certificate, see for example, <a class="reference external" href="https://stackoverflow.com/questions/27474751/how-can-i-codesign-an-app-without-being-in-the-mac-developer-program/27474942">here</a>.</p>
+</div>
+</div>
+<div class="section" id="build-and-run-from-source-with-nix">
+<h2>Build and run from source with Nix<a class="headerlink" href="#build-and-run-from-source-with-nix" title="Permalink to this headline">¶</a></h2>
+<p>On NixOS or any other Linux or macOS system with the Nix package manager
+installed, execute <a class="reference external" href="https://nixos.org/guides/nix-pills/developing-with-nix-shell.html">nix-shell</a> to create
+the correct environment to build kitty or use <code class="docutils literal notranslate"><span class="pre">nix-shell</span> <span class="pre">--pure</span></code> instead to
+eliminate most of the influence of the outside system, e.g. globally installed
+packages. <code class="docutils literal notranslate"><span class="pre">nix-shell</span></code> will automatically fetch all required dependencies and
+make them available in the newly spawned shell.</p>
+<p>Then proceed with <code class="docutils literal notranslate"><span class="pre">make</span></code> or <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">app</span></code> according to the platform specific instructions above.</p>
+</div>
+<div class="section" id="note-for-linux-macos-packagers">
+<h2>Note for Linux/macOS packagers<a class="headerlink" href="#note-for-linux-macos-packagers" title="Permalink to this headline">¶</a></h2>
+<p>The released <em>kitty</em> source code is available as a <a class="reference external" href="https://github.com/kovidgoyal/kitty/releases/download/v0.19.3/kitty-0.19.3.tar.xz">tarball</a> from
+<a class="reference external" href="https://github.com/kovidgoyal/kitty/releases">the GitHub releases page</a>.</p>
+<p>While <em>kitty</em> does use python, it is not a traditional python package, so please
+do not install it in site-packages.
+Instead run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">linux</span><span class="o">-</span><span class="n">package</span>
+</pre></div>
+</div>
+<p>This will install <em>kitty</em> into the directory <code class="file docutils literal notranslate"><span class="pre">linux-package</span></code>. You can run <em>kitty</em>
+with <code class="file docutils literal notranslate"><span class="pre">linux-package/bin/kitty</span></code>.  All the files needed to run kitty will be in
+<code class="file docutils literal notranslate"><span class="pre">linux-package/lib/kitty</span></code>. The terminfo file will be installed into
+<code class="file docutils literal notranslate"><span class="pre">linux-package/share/terminfo</span></code>. Simply copy these files into <code class="file docutils literal notranslate"><span class="pre">/usr</span></code> to install
+<em>kitty</em>. In other words, <code class="file docutils literal notranslate"><span class="pre">linux-package</span></code> is the staging area into which <em>kitty</em> is
+installed. You can choose a different staging area, by passing the <code class="docutils literal notranslate"><span class="pre">--prefix</span></code>
+argument to <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code>.</p>
+<p>You should probably split <em>kitty</em> into two packages, <code class="file docutils literal notranslate"><span class="pre">kitty-terminfo</span></code> that
+installs the terminfo file and <code class="file docutils literal notranslate"><span class="pre">kitty</span></code> that installs the main program.
+This allows users to install the terminfo file on servers into which they ssh,
+without needing to install all of <em>kitty</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need a couple of extra dependencies to build linux-package.
+<code class="file docutils literal notranslate"><span class="pre">tic</span></code> to compile terminfo files, usually found in the
+development package of <code class="file docutils literal notranslate"><span class="pre">ncurses</span></code>. Also, if you are building from
+a git checkout instead of the released source code tarball, you will
+need <code class="file docutils literal notranslate"><span class="pre">sphinx-build</span></code> from the <a class="reference external" href="https://www.sphinx-doc.org/">Sphinx documentation generator</a>.</p>
+</div>
+<p>This applies to creating packages for <em>kitty</em> for macOS package managers such as
+brew or MacPorts as well.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>kitty</em> has its own update check mechanism, if you would like to turn
+it off for your package, use
+<code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">setup.py</span> <span class="pre">linux-package</span> <span class="pre">--update-check-interval=0</span></code></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

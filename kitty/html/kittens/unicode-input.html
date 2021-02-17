@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unicode input &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/kitty.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="close-tab" href="../generated/rc.html" />
+    <link rel="prev" title="Remote files" href="remote_file.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="../support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#command-line-interface">Command Line Interface</a><ul>
+<li><a class="reference internal" href="#options">Options</a></li>
+</ul>
+</li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="remote_file.html" title="previous chapter">Remote files</a></li>
+      <li>Next: <a href="../generated/rc.html" title="next chapter">close-tab</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="unicode-input">
+<h1>Unicode input<a class="headerlink" href="#unicode-input" title="Permalink to this headline">¶</a></h1>
+<p>You can input unicode characters by name, hex code, recently used and even an editable favorites list.
+Press <a class="reference internal" href="../conf.html#shortcut-kitty.Unicode-input"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+u</span></code></a> to start the unicode input widget, shown below.</p>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/unicode.png"><img alt="A screenshot of the unicode input widget" src="../_images/unicode.png" style="width: 1293.0px; height: 444.0px;" /></a>
+<p class="caption"><span class="caption-text">A screenshot of the unicode input widget</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>In <span class="guilabel">Code</span> mode, you enter a unicode character by typing in the hex code for the
+character and pressing enter, for example, type in <code class="docutils literal notranslate"><span class="pre">2716</span></code> and press enter to get
+✖. You can also choose a character from the list of recently used characters by
+typing a leading period and then the two character index and pressing Enter.
+The up and down arrow keys can be used to choose the previous and next unicode
+symbol respectively.</p>
+<p>In <span class="guilabel">Name</span> mode you instead type words from the character name and use the arrow
+keys/tab to select the character from the displayed matches. You can also type
+a leading period and the index for the match if you don’t like to use arrow
+keys.</p>
+<p>You can switch between modes using either the function keys or by pressing
+<kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">[</kbd></kbd> and <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">]</kbd></kbd>.</p>
+<div class="section" id="command-line-interface">
+<h2>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kitty +kitten unicode_input <span class="o">[</span>options<span class="o">]</span>
+</pre></div>
+</div>
+<p>Input a unicode character</p>
+<div class="section" id="options">
+<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<dl class="std option">
+<dt id="cmdoption-kitty-kitten-unicode_input-emoji-variation">
+<span id="cmdoption-kitty-kitten-unicode-input-emoji-variation"></span><code class="sig-name descname">--emoji-variation</code><code class="sig-prename descclassname"> &lt;EMOJI_VARIATION&gt;</code><a class="headerlink" href="#cmdoption-kitty-kitten-unicode_input-emoji-variation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to use the textual or the graphical form for emoji. By default the default form specified in the unicode standard for the symbol is used.
+Default: <code class="code docutils literal notranslate"><span class="pre">none</span></code>
+Choices: <code class="code docutils literal notranslate"><span class="pre">graphic,</span> <span class="pre">none,</span> <span class="pre">text</span></code></p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

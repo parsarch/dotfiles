@@ -1,0 +1,89 @@
+.. highlight:: sh
+.. code-block:: sh
+
+  launch [options] [program-to-run ...]
+
+Launch an arbitrary program in a new kitty window/tab. Note that
+if you specify a program-to-run you can use the special placeholder
+:code:`@selection` which will be replaced by the current selection.
+
+
+Options
+______________________________
+.. option:: --title <WINDOW_TITLE>, --window-title <WINDOW_TITLE>
+
+    The title to set for the new window. By default, title is controlled by the child process.
+
+.. option:: --tab-title <TAB_TITLE>
+
+    The title for the new tab if launching in a new tab. By default, the title of the active window in the tab is used as the tab title.
+
+.. option:: --type <TYPE>
+
+    Where to launch the child process, in a new kitty window in the current tab, a new tab, or a new OS window or an overlay over the current window. Note that if the current window already has an overlay, then it will open a new window. The value of background means the process will be run in the background. The values clipboard and primary are meant to work with :option:`launch --stdin-source` to copy data to the system clipboard or primary selection.
+    Default: :code:`window`
+    Choices: :code:`background, clipboard, os-window, overlay, primary, tab, window`
+
+.. option:: --keep-focus
+
+    Keep the focus on the currently active window instead of switching to the newly opened window.
+
+.. option:: --cwd <CWD>
+
+    The working directory for the newly launched child. Use the special value :code:`current` to use the working directory of the currently active window.
+
+.. option:: --env <ENV>
+
+    Environment variables to set in the child process. Can be specified multiple times to set different environment variables. Syntax: :italic:`name=value`.
+
+.. option:: --copy-colors
+
+    Set the colors of the newly created window to be the same as the colors in the currently active window.
+
+.. option:: --copy-cmdline
+
+    Ignore any specified command line and instead use the command line from the currently active window.
+
+.. option:: --copy-env
+
+    Copy the environment variables from the currently active window into the newly launched child process. Note that most shells only set environment variables for child processes, so this will only copy the environment variables that the shell process itself has not the environment variables child processes inside the shell see. To copy that enviroment, use the kitty remote control feature with :code:`kitty @launch --copy-env`.
+
+.. option:: --location <LOCATION>
+
+    Where to place the newly created window when it is added to a tab which already has existing windows in it. :code:`after` and :code:`before` place the new window before or after the active window. :code:`neighbor` is a synonym for :code:`after`. Also applies to creating a new tab, where the value of :code:`after` will cause the new tab to be placed next to the current tab instead of at the end. The values of :code:`vsplit` and :code:`hsplit` are only used by the :code:`splits` layout and control if the new window is placed in a vertical or horizontal split with the currently active window. The default is to place the window in a layout dependent manner, typically, after the currently active window.
+    Default: :code:`default`
+    Choices: :code:`after, before, default, first, hsplit, last, neighbor, vsplit`
+
+.. option:: --allow-remote-control
+
+    Programs running in this window can control kitty (if remote control is enabled). Note that any program with the right level of permissions can still write to the pipes of any other program on the same computer and therefore can control kitty. It can, however, be useful to block programs running on other computers (for example, over ssh) or as other users.
+
+.. option:: --stdin-source <STDIN_SOURCE>
+
+    Pass the screen contents as :code:`STDIN` to the child process. :code:`@selection` is the currently selected text. :code:`@screen` is the contents of the currently active window. :code:`@screen_scrollback` is the same as :code:`@screen`, but includes the scrollback buffer as well. :code:`@alternate` is the secondary screen of the current active window. For example if you run a full screen terminal application, the secondary screen will be the screen you return to when quitting the application.
+    Default: :code:`none`
+    Choices: :code:`@alternate, @alternate_scrollback, @screen, @screen_scrollback, @selection, none`
+
+.. option:: --stdin-add-formatting
+
+    When using :option:`launch --stdin-source` add formatting escape codes, without this only plain text will be sent.
+
+.. option:: --stdin-add-line-wrap-markers
+
+    When using :option:`launch --stdin-source` add a carriage return at every line wrap location (where long lines are wrapped at screen edges). This is useful if you want to pipe to program that wants to duplicate the screen layout of the screen.
+
+.. option:: --marker <MARKER>
+
+    Create a marker that highlights text in the newly created window. The syntax is the same as for the :code:`toggle_marker` map action (see :doc:`/marks`).
+
+.. option:: --os-window-class <OS_WINDOW_CLASS>
+
+    Set the WM_CLASS property on X11 and the application id property on Wayland for the newly created OS Window when using :option:`launch --type`:code:`=os-window`. Defaults to whatever is used by the parent kitty process, which in turn defaults to :code:`kitty`.
+
+.. option:: --os-window-name <OS_WINDOW_NAME>
+
+    Set the WM_NAME property on X11 for the newly created OS Window when using :option:`launch --type`:code:`=os-window`. Defaults to :option:`launch --os-window-class`.
+
+.. option:: --watcher <WATCHER>, -w <WATCHER>
+
+    Path to a python file. Appropriately named functions in this file will be called for various events, such as when the window is resized, focused or closed. See the section on watchers in the launch command documentation :doc:`launch`. Relative paths are resolved relative to the kitty config directory.

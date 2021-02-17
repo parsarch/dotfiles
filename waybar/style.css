@@ -1,0 +1,298 @@
+* {
+    border: none;
+    border-radius: 0;
+    /* `otf-font-awesome` is required to be installed for icons */
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: transparent;
+    color: #d8dee9;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/*
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: #FFFFFF;
+}
+*/
+
+window#waybar.termite {
+    background-color: #3F3F3F;
+}
+
+window#waybar.chromium {
+    background-color: #000000;
+    border: none;
+}
+
+#workspaces button {
+/*    margin: 0 -10px;*/
+    background-color: transparent;
+    color: #d8dee9;
+    /* Use box-shadow instead of border so the text isn't offset */
+    font-family: "Material Design Icons";
+    font-size: 14px;
+    border-bottom: 2px solid #d8dee9;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button:hover {
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid #bf616a;
+}
+
+#workspaces button.focused {
+color: #bf616a;
+    border-bottom: 2px solid #bf616a;
+}
+
+#workspaces button.urgent {
+    background-color: #d08770;
+    border-bottom: 2px solid #d08770;
+}
+
+#mode {
+    background-color: #64727D;
+    border-bottom: 2px solid #d8dee9;
+}
+
+/*#clock,
+#battery,
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,*/
+#mpd {
+    padding: 0 10px;
+    margin: 0 4px;
+    color: #d8dee9;
+}
+
+#window{
+    background: #2e3440;
+    border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+    margin: 2 2px ;
+    padding: 2 5px ;
+}
+#workspaces {
+    margin: 0 4px;
+    padding: 2 5px ;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: -5;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#clock {
+    background-color: #2e3440;
+    border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+    margin: 2 2px ;
+    padding: 2 5px ;
+}
+
+#battery {
+    background-color: #d8dee9;
+    color: #000000;
+    border-bottom: 2px solid #bf616a;
+}
+
+#battery.charging {
+    color: #d8dee9;
+    background-color: #26A65B;
+    border-bottom: 2px solid #bf616a;
+}
+
+@keyframes blink {
+    to {
+        background-color: #d8dee9;
+        color: #000000;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: #f53c3c;
+    color: #d8dee9;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    border-bottom: 2px solid #bf616a;
+}
+
+label:focus {
+    background-color: #000000;
+    border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+}
+
+#cpu {
+    background-color: #2e3440;
+    margin: 2 2px ;
+    padding: 2 5px ;
+    color: #d8dee9;
+    border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+}
+
+#memory {
+    background-color: #2e3440;
+    margin: 2 2px ;
+    padding: 2 5px ;
+    border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+}
+
+#backlight {
+    background-color: #90b1b1;
+    border-bottom: 2px solid #bf616a;
+}
+
+#network {
+    background-color: #2e3440;
+    border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+    margin: 2 2px ;
+    padding: 2 5px ;
+}
+
+#network.disconnected {
+    background-color: #2e3440;
+    border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+    margin: 2 2px ;
+    padding: 2 5px ;
+}
+
+#pulseaudio {
+    background-color: #2e3440;
+    color: #d8dee9;
+    border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+    margin: 2 2px ;
+    padding: 2 5px ;
+}
+
+#pulseaudio.muted {
+    background-color: #2e3440;
+    color: #d8dee9;
+    border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+    margin: 2 2px ;
+    padding: 2 5px ;
+}
+
+#custom-media {
+    background-color: #2e3440;
+    color: #d8dee9;
+    min-width: 100px;
+    border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+    margin: 2 2px ;
+    padding: 2 5px ;
+}
+
+#custom-media.custom-spotify {
+    background-color: #2e3440;
+    border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+    margin: 2 2px ;
+    padding: 2 5px ;
+}
+
+#custom-media.custom-vlc {
+    background-color: #2e3440;
+    border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+    margin: 2 2px ;
+    padding: 2 5px ;
+}
+
+#temperature {
+    background-color: #2e3440;
+    border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+    margin: 2 2px ;
+    padding: 2 5px ;
+}
+
+#temperature.critical {
+    background-color: #2e3440;
+    border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+    margin: 2 2px ;
+    padding: 2 5px ;
+}
+
+#tray {
+    background-color: #2e3440;
+    border-bottom: 2px solid #bf616a;
+    margin: 2 2px ;
+    padding: 2 5px ;
+}
+
+#idle_inhibitor {
+    background-color: #2e3440;
+    font-size: 12px;
+}
+
+#idle_inhibitor.activated {
+    background-color: #2e3440;
+    color: #2d3436;
+    font-size: 12px;
+}
+
+#mpd {
+    background-color: #2e3440;
+    color: #2a5c45;
+    font-size: 12px;
+}
+
+#mpd.disconnected {
+    background-color: #2e3440;
+    font-size: 12px;
+}
+
+#mpd.stopped {
+    background-color: #2e3440;
+    font-size: 12px;
+}
+
+#mpd.paused {
+    background-color: #2e3440;
+    font-size: 12px;
+}
+
+#language {
+    background: #2e3440;
+    color: #d8dee9;
+    padding: 2 5px;
+    margin: 2 5px;
+    padding: 2 5px ;
+    min-width: 16px;
+    font-size: 12px;
+    border-bottom: 2px solid #bf616a;
+}

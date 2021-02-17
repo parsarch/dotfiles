@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Options &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/kitty.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="../support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>launch <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>program-to-run ...<span class="o">]</span>
+</pre></div>
+</div>
+<p>Launch an arbitrary program in a new kitty window/tab. Note that
+if you specify a program-to-run you can use the special placeholder
+<code class="code docutils literal notranslate"><span class="pre">&#64;selection</span></code> which will be replaced by the current selection.</p>
+<div class="section" id="options">
+<h1>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h1>
+<dl class="std option">
+<dt id="cmdoption-title">
+<span id="cmdoption-window-title"></span><code class="sig-name descname">--title</code><code class="sig-prename descclassname"> &lt;WINDOW_TITLE&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--window-title</code><code class="sig-prename descclassname"> &lt;WINDOW_TITLE&gt;</code><a class="headerlink" href="#cmdoption-title" title="Permalink to this definition">¶</a></dt>
+<dd><p>The title to set for the new window. By default, title is controlled by the child process.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-tab-title">
+<code class="sig-name descname">--tab-title</code><code class="sig-prename descclassname"> &lt;TAB_TITLE&gt;</code><a class="headerlink" href="#cmdoption-tab-title" title="Permalink to this definition">¶</a></dt>
+<dd><p>The title for the new tab if launching in a new tab. By default, the title of the active window in the tab is used as the tab title.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-type">
+<code class="sig-name descname">--type</code><code class="sig-prename descclassname"> &lt;TYPE&gt;</code><a class="headerlink" href="#cmdoption-type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Where to launch the child process, in a new kitty window in the current tab, a new tab, or a new OS window or an overlay over the current window. Note that if the current window already has an overlay, then it will open a new window. The value of background means the process will be run in the background. The values clipboard and primary are meant to work with <a class="reference internal" href="../launch.html#cmdoption-launch-stdin-source"><code class="xref std std-option docutils literal notranslate"><span class="pre">launch</span> <span class="pre">--stdin-source</span></code></a> to copy data to the system clipboard or primary selection.
+Default: <code class="code docutils literal notranslate"><span class="pre">window</span></code>
+Choices: <code class="code docutils literal notranslate"><span class="pre">background,</span> <span class="pre">clipboard,</span> <span class="pre">os-window,</span> <span class="pre">overlay,</span> <span class="pre">primary,</span> <span class="pre">tab,</span> <span class="pre">window</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-keep-focus">
+<code class="sig-name descname">--keep-focus</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-keep-focus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the focus on the currently active window instead of switching to the newly opened window.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-cwd">
+<code class="sig-name descname">--cwd</code><code class="sig-prename descclassname"> &lt;CWD&gt;</code><a class="headerlink" href="#cmdoption-cwd" title="Permalink to this definition">¶</a></dt>
+<dd><p>The working directory for the newly launched child. Use the special value <code class="code docutils literal notranslate"><span class="pre">current</span></code> to use the working directory of the currently active window.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-env">
+<code class="sig-name descname">--env</code><code class="sig-prename descclassname"> &lt;ENV&gt;</code><a class="headerlink" href="#cmdoption-env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Environment variables to set in the child process. Can be specified multiple times to set different environment variables. Syntax: <span class="italic">name=value</span>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-copy-colors">
+<code class="sig-name descname">--copy-colors</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-copy-colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the colors of the newly created window to be the same as the colors in the currently active window.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-copy-cmdline">
+<code class="sig-name descname">--copy-cmdline</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-copy-cmdline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ignore any specified command line and instead use the command line from the currently active window.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-copy-env">
+<code class="sig-name descname">--copy-env</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-copy-env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the environment variables from the currently active window into the newly launched child process. Note that most shells only set environment variables for child processes, so this will only copy the environment variables that the shell process itself has not the environment variables child processes inside the shell see. To copy that enviroment, use the kitty remote control feature with <code class="code docutils literal notranslate"><span class="pre">kitty</span> <span class="pre">&#64;launch</span> <span class="pre">--copy-env</span></code>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-location">
+<code class="sig-name descname">--location</code><code class="sig-prename descclassname"> &lt;LOCATION&gt;</code><a class="headerlink" href="#cmdoption-location" title="Permalink to this definition">¶</a></dt>
+<dd><p>Where to place the newly created window when it is added to a tab which already has existing windows in it. <code class="code docutils literal notranslate"><span class="pre">after</span></code> and <code class="code docutils literal notranslate"><span class="pre">before</span></code> place the new window before or after the active window. <code class="code docutils literal notranslate"><span class="pre">neighbor</span></code> is a synonym for <code class="code docutils literal notranslate"><span class="pre">after</span></code>. Also applies to creating a new tab, where the value of <code class="code docutils literal notranslate"><span class="pre">after</span></code> will cause the new tab to be placed next to the current tab instead of at the end. The values of <code class="code docutils literal notranslate"><span class="pre">vsplit</span></code> and <code class="code docutils literal notranslate"><span class="pre">hsplit</span></code> are only used by the <code class="code docutils literal notranslate"><span class="pre">splits</span></code> layout and control if the new window is placed in a vertical or horizontal split with the currently active window. The default is to place the window in a layout dependent manner, typically, after the currently active window.
+Default: <code class="code docutils literal notranslate"><span class="pre">default</span></code>
+Choices: <code class="code docutils literal notranslate"><span class="pre">after,</span> <span class="pre">before,</span> <span class="pre">default,</span> <span class="pre">first,</span> <span class="pre">hsplit,</span> <span class="pre">last,</span> <span class="pre">neighbor,</span> <span class="pre">vsplit</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-allow-remote-control">
+<code class="sig-name descname">--allow-remote-control</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-allow-remote-control" title="Permalink to this definition">¶</a></dt>
+<dd><p>Programs running in this window can control kitty (if remote control is enabled). Note that any program with the right level of permissions can still write to the pipes of any other program on the same computer and therefore can control kitty. It can, however, be useful to block programs running on other computers (for example, over ssh) or as other users.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-stdin-source">
+<code class="sig-name descname">--stdin-source</code><code class="sig-prename descclassname"> &lt;STDIN_SOURCE&gt;</code><a class="headerlink" href="#cmdoption-stdin-source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pass the screen contents as <code class="code docutils literal notranslate"><span class="pre">STDIN</span></code> to the child process. <code class="code docutils literal notranslate"><span class="pre">&#64;selection</span></code> is the currently selected text. <code class="code docutils literal notranslate"><span class="pre">&#64;screen</span></code> is the contents of the currently active window. <code class="code docutils literal notranslate"><span class="pre">&#64;screen_scrollback</span></code> is the same as <code class="code docutils literal notranslate"><span class="pre">&#64;screen</span></code>, but includes the scrollback buffer as well. <code class="code docutils literal notranslate"><span class="pre">&#64;alternate</span></code> is the secondary screen of the current active window. For example if you run a full screen terminal application, the secondary screen will be the screen you return to when quitting the application.
+Default: <code class="code docutils literal notranslate"><span class="pre">none</span></code>
+Choices: <code class="code docutils literal notranslate"><span class="pre">&#64;alternate,</span> <span class="pre">&#64;alternate_scrollback,</span> <span class="pre">&#64;screen,</span> <span class="pre">&#64;screen_scrollback,</span> <span class="pre">&#64;selection,</span> <span class="pre">none</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-stdin-add-formatting">
+<code class="sig-name descname">--stdin-add-formatting</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-stdin-add-formatting" title="Permalink to this definition">¶</a></dt>
+<dd><p>When using <a class="reference internal" href="../launch.html#cmdoption-launch-stdin-source"><code class="xref std std-option docutils literal notranslate"><span class="pre">launch</span> <span class="pre">--stdin-source</span></code></a> add formatting escape codes, without this only plain text will be sent.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-stdin-add-line-wrap-markers">
+<code class="sig-name descname">--stdin-add-line-wrap-markers</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-stdin-add-line-wrap-markers" title="Permalink to this definition">¶</a></dt>
+<dd><p>When using <a class="reference internal" href="../launch.html#cmdoption-launch-stdin-source"><code class="xref std std-option docutils literal notranslate"><span class="pre">launch</span> <span class="pre">--stdin-source</span></code></a> add a carriage return at every line wrap location (where long lines are wrapped at screen edges). This is useful if you want to pipe to program that wants to duplicate the screen layout of the screen.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-marker">
+<code class="sig-name descname">--marker</code><code class="sig-prename descclassname"> &lt;MARKER&gt;</code><a class="headerlink" href="#cmdoption-marker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a marker that highlights text in the newly created window. The syntax is the same as for the <code class="code docutils literal notranslate"><span class="pre">toggle_marker</span></code> map action (see <a class="reference internal" href="../marks.html"><span class="doc">Marks</span></a>).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-os-window-class">
+<code class="sig-name descname">--os-window-class</code><code class="sig-prename descclassname"> &lt;OS_WINDOW_CLASS&gt;</code><a class="headerlink" href="#cmdoption-os-window-class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the WM_CLASS property on X11 and the application id property on Wayland for the newly created OS Window when using <a class="reference internal" href="../launch.html#cmdoption-launch-type"><code class="xref std std-option docutils literal notranslate"><span class="pre">launch</span> <span class="pre">--type</span></code></a><code class="code docutils literal notranslate"><span class="pre">=os-window</span></code>. Defaults to whatever is used by the parent kitty process, which in turn defaults to <code class="code docutils literal notranslate"><span class="pre">kitty</span></code>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-os-window-name">
+<code class="sig-name descname">--os-window-name</code><code class="sig-prename descclassname"> &lt;OS_WINDOW_NAME&gt;</code><a class="headerlink" href="#cmdoption-os-window-name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the WM_NAME property on X11 for the newly created OS Window when using <a class="reference internal" href="../launch.html#cmdoption-launch-type"><code class="xref std std-option docutils literal notranslate"><span class="pre">launch</span> <span class="pre">--type</span></code></a><code class="code docutils literal notranslate"><span class="pre">=os-window</span></code>. Defaults to <a class="reference internal" href="../launch.html#cmdoption-launch-os-window-class"><code class="xref std std-option docutils literal notranslate"><span class="pre">launch</span> <span class="pre">--os-window-class</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-watcher">
+<span id="cmdoption-w"></span><code class="sig-name descname">--watcher</code><code class="sig-prename descclassname"> &lt;WATCHER&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">-w</code><code class="sig-prename descclassname"> &lt;WATCHER&gt;</code><a class="headerlink" href="#cmdoption-watcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to a python file. Appropriately named functions in this file will be called for various events, such as when the window is resized, focused or closed. See the section on watchers in the launch command documentation <a class="reference internal" href="#"><span class="doc">Options</span></a>. Relative paths are resolved relative to the kitty config directory.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

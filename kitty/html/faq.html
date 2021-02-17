@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frequently Asked Questions &#8212; kitty 0.19.3 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/kitty.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The terminal graphics protocol" href="graphics-protocol.html" />
+    <link rel="prev" title="Configuring kitty" href="conf.html" />
+<!-- kitty analytics placeholder -->
+  
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/kitty.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<div id="support" style="text-align: center">
+    <form class="support-form" action="support.html" title="Donate to support kitty development">
+        <input type="submit" value="Support kitty">
+    </form>
+</div>
+
+<div id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" placeholder="Search" />
+      <input type="submit" value="Go" style="cursor: pointer" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div>&nbsp;</div>
+<div id="sidebartoc">
+  <ul>
+<li><a class="reference internal" href="#some-special-symbols-are-rendered-small-truncated-in-kitty">Some special symbols are rendered small/truncated in kitty?</a></li>
+<li><a class="reference internal" href="#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim">Using a color theme with a background color does not work well in vim?</a></li>
+<li><a class="reference internal" href="#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-when-sshing-into-a-different-computer">I get errors about the terminal being unknown or opening the terminal failing when SSHing into a different computer?</a></li>
+<li><a class="reference internal" href="#keys-such-as-arrow-keys-backspace-delete-home-end-etc-do-not-work-when-using-su-or-sudo">Keys such as arrow keys, backspace, delete, home/end, etc. do not work when using su or sudo?</a></li>
+<li><a class="reference internal" href="#how-do-i-change-the-colors-in-a-running-kitty-instance">How do I change the colors in a running kitty instance?</a></li>
+<li><a class="reference internal" href="#how-do-i-specify-command-line-options-for-kitty-on-macos">How do I specify command line options for kitty on macOS?</a></li>
+<li><a class="reference internal" href="#kitty-is-not-able-to-use-my-favorite-font">kitty is not able to use my favorite font?</a></li>
+<li><a class="reference internal" href="#how-can-i-assign-a-single-global-shortcut-to-bring-up-the-kitty-terminal">How can I assign a single global shortcut to bring up the kitty terminal?</a></li>
+<li><a class="reference internal" href="#how-do-i-map-key-presses-in-kitty-to-different-keys-in-the-terminal-program">How do I map key presses in kitty to different keys in the terminal program?</a></li>
+<li><a class="reference internal" href="#how-do-i-open-a-new-window-or-tab-with-the-same-working-directory-as-the-current-window">How do I open a new window or tab with the same working directory as the current window?</a></li>
+<li><a class="reference internal" href="#i-am-using-tmux-and-have-a-problem">I am using tmux and have a problem</a></li>
+</ul>
+
+</div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="conf.html" title="previous chapter">Configuring kitty</a></li>
+      <li>Next: <a href="graphics-protocol.html" title="next chapter">The terminal graphics protocol</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="frequently-asked-questions">
+<h1><a class="toc-backref" href="#id1">Frequently Asked Questions</a><a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#frequently-asked-questions" id="id1">Frequently Asked Questions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#some-special-symbols-are-rendered-small-truncated-in-kitty" id="id2">Some special symbols are rendered small/truncated in kitty?</a></p></li>
+<li><p><a class="reference internal" href="#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim" id="id3">Using a color theme with a background color does not work well in vim?</a></p></li>
+<li><p><a class="reference internal" href="#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-when-sshing-into-a-different-computer" id="id4">I get errors about the terminal being unknown or opening the terminal failing when SSHing into a different computer?</a></p></li>
+<li><p><a class="reference internal" href="#keys-such-as-arrow-keys-backspace-delete-home-end-etc-do-not-work-when-using-su-or-sudo" id="id5">Keys such as arrow keys, backspace, delete, home/end, etc. do not work when using su or sudo?</a></p></li>
+<li><p><a class="reference internal" href="#how-do-i-change-the-colors-in-a-running-kitty-instance" id="id6">How do I change the colors in a running kitty instance?</a></p></li>
+<li><p><a class="reference internal" href="#how-do-i-specify-command-line-options-for-kitty-on-macos" id="id7">How do I specify command line options for kitty on macOS?</a></p></li>
+<li><p><a class="reference internal" href="#kitty-is-not-able-to-use-my-favorite-font" id="id8">kitty is not able to use my favorite font?</a></p></li>
+<li><p><a class="reference internal" href="#how-can-i-assign-a-single-global-shortcut-to-bring-up-the-kitty-terminal" id="id9">How can I assign a single global shortcut to bring up the kitty terminal?</a></p></li>
+<li><p><a class="reference internal" href="#how-do-i-map-key-presses-in-kitty-to-different-keys-in-the-terminal-program" id="id10">How do I map key presses in kitty to different keys in the terminal program?</a></p></li>
+<li><p><a class="reference internal" href="#how-do-i-open-a-new-window-or-tab-with-the-same-working-directory-as-the-current-window" id="id11">How do I open a new window or tab with the same working directory as the current window?</a></p></li>
+<li><p><a class="reference internal" href="#i-am-using-tmux-and-have-a-problem" id="id12">I am using tmux and have a problem</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="some-special-symbols-are-rendered-small-truncated-in-kitty">
+<h2><a class="toc-backref" href="#id2">Some special symbols are rendered small/truncated in kitty?</a><a class="headerlink" href="#some-special-symbols-are-rendered-small-truncated-in-kitty" title="Permalink to this headline">¶</a></h2>
+<p>The number of cells a unicode character takes up are controlled by the unicode
+standard.  All characters are rendered in a single cell unless the unicode
+standard says they should be rendered in two cells. When a symbol does not fit,
+it will either be rescaled to be smaller or truncated (depending on how much
+extra space it needs). This is often different from other terminals which just
+let the character overflow into neighboring cells, which is fine if the
+neighboring cell is empty, but looks terrible if it is not.</p>
+<p>Some programs, like powerline, vim with fancy gutter symbols/status-bar, etc.
+misuse unicode characters from the private use area to represent symbols. Often
+these symbols are square and should be rendered in two cells.  However, since
+private use area symbols all have their width set to one in the unicode
+standard, <em>kitty</em> renders them either smaller or truncated. The exception is if
+these characters are followed by a space or empty cell in which case kitty
+makes use of the extra cell to render them in two cells.</p>
+</div>
+<div class="section" id="using-a-color-theme-with-a-background-color-does-not-work-well-in-vim">
+<h2><a class="toc-backref" href="#id3">Using a color theme with a background color does not work well in vim?</a><a class="headerlink" href="#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim" title="Permalink to this headline">¶</a></h2>
+<p>First make sure you have not changed the TERM environment variable, it should
+be <code class="docutils literal notranslate"><span class="pre">xterm-kitty</span></code>. vim uses <em>background color erase</em> even if the terminfo file
+does not contain the <code class="docutils literal notranslate"><span class="pre">bce</span></code> capability. This is a bug in vim. You can work around
+it by adding the following to your vimrc:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">let</span> <span class="p">&amp;</span><span class="nv">t_ut</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="protocol-extensions.html#ext-styles"><span class="std std-ref">here</span></a> for why <em>kitty</em> does not support background color erase.</p>
+</div>
+<div class="section" id="i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-when-sshing-into-a-different-computer">
+<h2><a class="toc-backref" href="#id4">I get errors about the terminal being unknown or opening the terminal failing when SSHing into a different computer?</a><a class="headerlink" href="#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-when-sshing-into-a-different-computer" title="Permalink to this headline">¶</a></h2>
+<p>This happens because the <em>kitty</em> terminfo files are not available on the server.
+You can ssh in using the following command which will automatically copy the
+terminfo files to the server:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kitty +kitten ssh myserver
+</pre></div>
+</div>
+<p>This ssh kitten takes all the same command line arguments
+as ssh, you can alias it to ssh in your shell’s rc files to avoid having to
+type it each time.</p>
+<p>If for some reason that does not work (typically because the server is using a
+non POSIX compliant shell), you can use the following one-liner instead (it
+is slower as it needs to ssh into the server twice, but will work with most
+servers):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>infocmp xterm-kitty <span class="p">|</span> ssh myserver tic -x -o <span class="se">\~</span>/.terminfo /dev/stdin
+</pre></div>
+</div>
+<p>If you are behind a proxy (like Balabit) that prevents this, you must redirect the
+1st command to a file, copy that to the server and run <code class="docutils literal notranslate"><span class="pre">tic</span></code> manually.  If you
+connect to a server, embedded or Android system that doesn’t have <code class="docutils literal notranslate"><span class="pre">tic</span></code>, copy over
+your local file terminfo to the other system as <code class="file docutils literal notranslate"><span class="pre">~/.terminfo/x/xterm-kitty</span></code>.</p>
+<p>Really, the correct solution for this is to convince the OpenSSH maintainers to
+have ssh do this automatically, if possible, when connecting to a server, so that
+all terminals work transparently.</p>
+<p>If the server is running FreeBSD, or another system that relies on termcap
+rather than terminfo, you will need to convert the terminfo file on your local
+machine by running (on local machine with <em>kitty</em>):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>infocmp -C xterm-kitty
+</pre></div>
+</div>
+<p>The output of this command is the termcap description, which should be appended
+to <code class="file docutils literal notranslate"><span class="pre">/usr/share/misc/termcap</span></code> on the remote server. Then run the following
+command to apply your change (on the server):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cap_mkdb /usr/share/misc/termcap
+</pre></div>
+</div>
+</div>
+<div class="section" id="keys-such-as-arrow-keys-backspace-delete-home-end-etc-do-not-work-when-using-su-or-sudo">
+<h2><a class="toc-backref" href="#id5">Keys such as arrow keys, backspace, delete, home/end, etc. do not work when using su or sudo?</a><a class="headerlink" href="#keys-such-as-arrow-keys-backspace-delete-home-end-etc-do-not-work-when-using-su-or-sudo" title="Permalink to this headline">¶</a></h2>
+<p>Make sure the TERM environment variable, is <code class="docutils literal notranslate"><span class="pre">xterm-kitty</span></code>.  And either the
+TERMINFO environment variable points to a directory containing <code class="file docutils literal notranslate"><span class="pre">x/xterm-kitty</span></code>
+or that file is under <code class="file docutils literal notranslate"><span class="pre">~/.terminfo/x/</span></code>.</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">sudo</span></code> might remove TERMINFO.  Then setting it at the shell prompt can
+be too late, because command line editing may not be reinitialized.  In that case
+you can either ask <code class="docutils literal notranslate"><span class="pre">sudo</span></code> to set it or if that is not supported, insert an <code class="docutils literal notranslate"><span class="pre">env</span></code>
+command before starting the shell, or, if not possible, after sudo start another
+Shell providing the right terminfo path:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo … <span class="nv">TERMINFO</span><span class="o">=</span><span class="nv">$HOME</span>/.terminfo bash -i
+sudo … env <span class="nv">TERMINFO</span><span class="o">=</span><span class="nv">$HOME</span>/.terminfo bash -i
+<span class="nv">TERMINFO</span><span class="o">=</span>/home/ORIGINALUSER/.terminfo <span class="nb">exec</span> bash -i
+</pre></div>
+</div>
+<p>You can configure sudo to preserve TERMINFO by running <code class="docutils literal notranslate"><span class="pre">sudo</span>
+<span class="pre">visudo</span></code> and adding the following line:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>Defaults <span class="nv">env_keep</span> <span class="o">+=</span> <span class="s2">&quot;TERM TERMINFO&quot;</span>
+</pre></div>
+</div>
+<p>If you have double width characters in your prompt, you may also need to
+explicitly set a UTF-8 locale, like:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8 <span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-do-i-change-the-colors-in-a-running-kitty-instance">
+<h2><a class="toc-backref" href="#id6">How do I change the colors in a running kitty instance?</a><a class="headerlink" href="#how-do-i-change-the-colors-in-a-running-kitty-instance" title="Permalink to this headline">¶</a></h2>
+<p>You can either use the
+<a class="reference external" href="https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h2-Operating-System-Commands">OSC terminal escape codes</a>
+to set colors or you can define keyboard shortcuts to set colors, for example:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>map f1 set_colors --configured /path/to/some/config/file/colors.conf
+</pre></div>
+</div>
+<p>Or you can enable <a class="reference internal" href="remote-control.html"><span class="doc">remote control</span></a> for <em>kitty</em> and use <a class="reference internal" href="remote-control.html#at-set-colors"><span class="std std-ref">kitty &#64; set-colors</span></a>.
+The shortcut mapping technique has the same syntax as the remote control
+command, for details, see <a class="reference internal" href="remote-control.html#at-set-colors"><span class="std std-ref">kitty &#64; set-colors</span></a>.</p>
+<p>A list of pre-made color themes for kitty is available at:
+<a class="reference external" href="https://github.com/dexpota/kitty-themes">kitty-themes</a></p>
+<p>Examples of using OSC escape codes to set colors:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>Change the default foreground color:
+<span class="nb">printf</span> <span class="s1">&#39;\x1b]10;#ff0000\x1b\\&#39;</span>
+Change the default background color:
+<span class="nb">printf</span> <span class="s1">&#39;\x1b]11;blue\x1b\\&#39;</span>
+Change the cursor color:
+<span class="nb">printf</span> <span class="s1">&#39;\x1b]12;blue\x1b\\&#39;</span>
+Change the selection background color:
+<span class="nb">printf</span> <span class="s1">&#39;\x1b]17;blue\x1b\\&#39;</span>
+Change the selection foreground color:
+<span class="nb">printf</span> <span class="s1">&#39;\x1b]19;blue\x1b\\&#39;</span>
+Change the nth color <span class="o">(</span><span class="m">0</span> - <span class="m">255</span><span class="o">)</span>:
+<span class="nb">printf</span> <span class="s1">&#39;\x1b]4;n;green\x1b\\&#39;</span>
+</pre></div>
+</div>
+<p>You can use various syntaxes/names for color specifications in the above
+examples. See <a class="reference external" href="https://linux.die.net/man/3/xparsecolor">XParseColor</a>
+for full details.</p>
+<p>If a <code class="docutils literal notranslate"><span class="pre">?</span></code> is given rather than a color specification, kitty will respond
+with the current value for the specified color.</p>
+</div>
+<div class="section" id="how-do-i-specify-command-line-options-for-kitty-on-macos">
+<h2><a class="toc-backref" href="#id7">How do I specify command line options for kitty on macOS?</a><a class="headerlink" href="#how-do-i-specify-command-line-options-for-kitty-on-macos" title="Permalink to this headline">¶</a></h2>
+<p>Apple does not want you to use command line options with GUI applications. To
+workaround that limitation, <em>kitty</em> will read command line options from the file
+<code class="file docutils literal notranslate"><span class="pre">&lt;kitty</span> <span class="pre">config</span> <span class="pre">dir&gt;/macos-launch-services-cmdline</span></code> when it is launched
+from the GUI, i.e. by clicking the <em>kitty</em> application icon or using <code class="docutils literal notranslate"><span class="pre">open</span> <span class="pre">-a</span> <span class="pre">kitty</span></code>.
+Note that this file is <em>only read</em> when running via the GUI.</p>
+<p>You can, of course, also run <em>kitty</em> from a terminal with command line options, using:
+<code class="file docutils literal notranslate"><span class="pre">/Applications/kitty.app/Contents/MacOS/kitty</span></code>.</p>
+<p>And within <em>kitty</em> itself, you can always run <em>kitty</em> using just <cite>kitty</cite> as it
+cleverly adds itself to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+</div>
+<div class="section" id="kitty-is-not-able-to-use-my-favorite-font">
+<h2><a class="toc-backref" href="#id8">kitty is not able to use my favorite font?</a><a class="headerlink" href="#kitty-is-not-able-to-use-my-favorite-font" title="Permalink to this headline">¶</a></h2>
+<p><em>kitty</em> achieves its stellar performance by caching alpha masks of each rendered
+character on the GPU, so that every character needs to be rendered only once.
+This means it is a strictly character cell based display.  As such it can use
+only monospace fonts, since every cell in the grid has to be the same size.
+Furthermore, it needs fonts to be freely resizable, so it does not support
+bitmapped fonts.</p>
+<p>If your font is not listed in <code class="docutils literal notranslate"><span class="pre">kitty</span> <span class="pre">list-fonts</span></code> it means that it is not
+monospace or is a bitmapped font. On Linux you can list all monospace fonts with:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>fc-list : family spacing outline scalable <span class="p">|</span> grep -e <span class="nv">spacing</span><span class="o">=</span><span class="m">100</span> -e <span class="nv">spacing</span><span class="o">=</span><span class="m">90</span> <span class="p">|</span> grep -e <span class="nv">outline</span><span class="o">=</span>True <span class="p">|</span> grep -e <span class="nv">scalable</span><span class="o">=</span>True
+</pre></div>
+</div>
+<p>Note that the spacing property is calculated by fontconfig based on actual
+glyph widths in the font. If for some reason fontconfig concludes your favorite
+monospace font does not have <code class="docutils literal notranslate"><span class="pre">spacing=100</span></code> you can override it by using the
+following <code class="file docutils literal notranslate"><span class="pre">~/.config/fontconfig/fonts.conf</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>&lt;?xml <span class="nv">version</span><span class="o">=</span><span class="s2">&quot;1.0&quot;</span>?&gt;
+&lt;!DOCTYPE fontconfig SYSTEM <span class="s2">&quot;fonts.dtd&quot;</span>&gt;
+&lt;fontconfig&gt;
+&lt;match <span class="nv">target</span><span class="o">=</span><span class="s2">&quot;scan&quot;</span>&gt;
+    &lt;<span class="nb">test</span> <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;family&quot;</span>&gt;
+        &lt;string&gt;Your Font Family Name&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;edit <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span>&gt;
+        &lt;int&gt;100&lt;/int&gt;
+    &lt;/edit&gt;
+&lt;/match&gt;
+&lt;/fontconfig&gt;
+</pre></div>
+</div>
+<p>After creating (or modifying) this file, you may need to run the following
+command to rebuild your fontconfig cache:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>fc-cache -r
+</pre></div>
+</div>
+<p>Then, the font will be available in <code class="docutils literal notranslate"><span class="pre">kitty</span> <span class="pre">list-fonts</span></code>.</p>
+</div>
+<div class="section" id="how-can-i-assign-a-single-global-shortcut-to-bring-up-the-kitty-terminal">
+<h2><a class="toc-backref" href="#id9">How can I assign a single global shortcut to bring up the kitty terminal?</a><a class="headerlink" href="#how-can-i-assign-a-single-global-shortcut-to-bring-up-the-kitty-terminal" title="Permalink to this headline">¶</a></h2>
+<p>Bringing up applications on a single key press is the job of the window
+manager/desktop environment. For ways to do it with kitty (or indeed any
+terminal) in different environments,
+see <a class="reference external" href="https://github.com/kovidgoyal/kitty/issues/45">here</a>.</p>
+</div>
+<div class="section" id="how-do-i-map-key-presses-in-kitty-to-different-keys-in-the-terminal-program">
+<h2><a class="toc-backref" href="#id10">How do I map key presses in kitty to different keys in the terminal program?</a><a class="headerlink" href="#how-do-i-map-key-presses-in-kitty-to-different-keys-in-the-terminal-program" title="Permalink to this headline">¶</a></h2>
+<p>This is accomplished by using <code class="docutils literal notranslate"><span class="pre">map</span></code> with <a class="reference internal" href="conf.html#shortcut-kitty.Send-arbitrary-text-on-key-presses"><code class="xref std std-sc docutils literal notranslate"><span class="pre">send_text</span></code></a> in <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code>.
+For example:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>map alt+s send_text all <span class="se">\x</span><span class="m">13</span>
+</pre></div>
+</div>
+<p>This maps <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">alt</kbd>+<kbd class="kbd docutils literal notranslate">s</kbd></kbd> to <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">ctrl</kbd>+<kbd class="kbd docutils literal notranslate">s</kbd></kbd>. To figure out what bytes to use for
+the <a class="reference internal" href="conf.html#shortcut-kitty.Send-arbitrary-text-on-key-presses"><code class="xref std std-sc docutils literal notranslate"><span class="pre">send_text</span></code></a> you can use the <code class="docutils literal notranslate"><span class="pre">showkey</span></code> utility. Run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>showkey -a
+</pre></div>
+</div>
+<p>Then press the key you want to emulate. On macOS, this utility is currently not
+available. The manual way to figure it out is:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Look up your key’s decimal value in the table at the bottom of <a class="reference external" href="http://ascii-table.com/ansi-escape-sequences.php">this
+page</a> or any
+ANSI escape sequence table. There are different modifiers for <kbd class="kbd docutils literal notranslate">ctrl</kbd>,
+<kbd class="kbd docutils literal notranslate">alt</kbd>, etc. For e.g., for <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">ctrl</kbd>+<kbd class="kbd docutils literal notranslate">s</kbd></kbd>, find the <code class="docutils literal notranslate"><span class="pre">S</span></code> row and look at
+the third column value, <code class="docutils literal notranslate"><span class="pre">19</span></code>.</p></li>
+<li><p>Convert the decimal value to hex with <code class="docutils literal notranslate"><span class="pre">kitty</span> <span class="pre">+runpy</span> <span class="pre">&quot;print(hex(19))&quot;</span></code>.
+This shows the hex value, <code class="docutils literal notranslate"><span class="pre">13</span></code> in this case.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">\x(hexval)</span></code> in your <code class="docutils literal notranslate"><span class="pre">send_text</span></code> command in kitty. So in this example, <code class="docutils literal notranslate"><span class="pre">\x13</span></code></p></li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="how-do-i-open-a-new-window-or-tab-with-the-same-working-directory-as-the-current-window">
+<h2><a class="toc-backref" href="#id11">How do I open a new window or tab with the same working directory as the current window?</a><a class="headerlink" href="#how-do-i-open-a-new-window-or-tab-with-the-same-working-directory-as-the-current-window" title="Permalink to this headline">¶</a></h2>
+<p>In <code class="file docutils literal notranslate"><span class="pre">kitty.conf</span></code> add the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>map f1 launch --cwd<span class="o">=</span>current
+map f2  launch --cwd<span class="o">=</span>current --type<span class="o">=</span>tab
+</pre></div>
+</div>
+<p>Pressing <kbd class="kbd docutils literal notranslate">F1</kbd> will open a new kitty window with the same working directory
+as the current window. The <a class="reference internal" href="launch.html"><span class="doc">launch command</span></a> is very powerful,
+explore <a class="reference internal" href="launch.html"><span class="doc">its documentation</span></a>.</p>
+</div>
+<div class="section" id="i-am-using-tmux-and-have-a-problem">
+<h2><a class="toc-backref" href="#id12">I am using tmux and have a problem</a><a class="headerlink" href="#i-am-using-tmux-and-have-a-problem" title="Permalink to this headline">¶</a></h2>
+<p>First, terminal multiplexers are <a class="reference external" href="https://github.com/kovidgoyal/kitty/issues/391#issuecomment-638320745">a bad idea</a>, do
+not use them, if at all possible. kitty contains features that do all of what
+tmux does, but better, with the exception of remote persistence (<a class="reference external" href="https://github.com/kovidgoyal/kitty/issues/391">#391</a>).
+If you still want to use tmux, read on.</p>
+<p>Image display will not work, see <a class="reference external" href="https://github.com/tmux/tmux/issues/1391">tmux issue</a>.</p>
+<p>If you are using tmux with multiple terminals or you start it under one
+terminal and then switch to another and these terminals have different TERM
+variables, tmux will break. You will need to restart it as tmux does not
+support multiple terminfo definitions.</p>
+<p>Copying to clipboard via OSC 52 will not work, because tmux does not support
+the extended version of that protocol, you will need to add <code class="docutils literal notranslate"><span class="pre">no-append</span></code> to
+<a class="reference internal" href="conf.html#opt-kitty.clipboard_control"><code class="xref std std-opt docutils literal notranslate"><span class="pre">clipboard_control</span></code></a> in kitty.conf.</p>
+<p>If you use any of the advanced features that kitty has innovated, such as
+styled underlines, desktop notifications, extended keyboard support, etc.
+they may or may not work, depending on the whims of tmux’s maintainer, your
+version of tmux, etc.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Kovid Goyal.
+      
+    </div>
+
+    
+    <a href="https://github.com/kovidgoyal/kitty" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>
