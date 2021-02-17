@@ -65,6 +65,6 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh;
-sh ~/.config/zsh.sh
 alias spice="sudo cp ~/git/dotfiles/Dribbblish/color.ini ~/.config/spicetify/Themes/Dribbblish/;spicetify apply"
 alias update='sudo pacman -Sy;paru -Qu && sleep 1 && sudo powerpill -Su && paru -Su'
+colorscript -e 5;pfetch;colorscript -e 5
