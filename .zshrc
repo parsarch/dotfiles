@@ -68,3 +68,7 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 alias spice="sudo cp ~/git/dotfiles/Dribbblish/color.ini ~/.config/spicetify/Themes/Dribbblish/;spicetify apply"
 alias update='sudo pacman -Sy;paru -Qu && sleep 1 && sudo powerpill -Su && paru -Su'
 colorscript -e 5;pfetch;colorscript -e 5
+alias xi='sudo xbps-install'
+alias xu='sudo xbps-install -Su'
+alias xq='sudo xbps-query -Rs'
+alias xr='sudo xbps-remove'

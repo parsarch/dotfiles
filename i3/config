@@ -32,9 +32,9 @@ bindsym $mod+shift+Print exec ~/.config/i3/scshf.sh
 bindsym $mod+b exec XDG_CURRENT_DESKTOP=gnome telegram-desktop
 bindsym $mod+c exec vlc
 bindsym $mod+s exec spotify
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec alacritty
 bindsym $mod+q kill
-bindsym $mod+w exec sh ~/.config/rofi/appmenu/launcher.sh
+bindsym $mod+w exec ~/.config/rofi/appmenu/launcher.sh
 #bindsym $mod+r exec xfce4-popup-whiskermenu
 bindsym $mod+n focus left
 bindsym $mod+e focus down
@@ -54,8 +54,8 @@ bindsym $mod+semicolon layout toggle split
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
-bindsym XF86PowerOff exec ./.config/rofi/powermenu/powermenu.sh
-bindsym $mod+Control+q exec ./.config/rofi/powermenu/powermenu.sh
+bindsym XF86PowerOff exec ~/.config/rofi/powermenu/powermenu.sh
+bindsym $mod+Control+q exec ~/.config/rofi/powermenu/powermenu.sh
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
