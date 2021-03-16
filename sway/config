@@ -1,4 +1,4 @@
-exec_always killall waybar;waybar
+exec_always pkill waybar;waybar
 input "type:keyboard" {
   xkb_layout workman,ir-parsarch
   xkb_options grp:alt_shift_toggle,caps:backspace,shift:both_capslock,'clear lock'
@@ -14,7 +14,7 @@ input "type:keyboard" {
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
-set	$alt Mod1		
+set	$alt Mod1
 # set custom icons for workspaces
 set	$ws1 		"1"
 set	$ws2 		"2"
@@ -31,7 +31,7 @@ set	$white		#e5e9f0
 set	$bg		    #2e3440
 set	$bglighter	#4c566a
 set	$bglight	#3b4252
-bindsym --to-code $mod+d exec lightcord
+bindsym --to-code $mod+d exec discord
 #bindsym --to-code $mod+d exec discord-canary --proxy-server="socks5://127.0.0.1:9050"
 # Home row direction keys, like vim
 set $left j
@@ -48,7 +48,7 @@ set $menu wofi --show drun
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /home/parsarch/Pictures/bg.png fill
+output * bg /home/parsarch/git/dotfiles/BG/Void/void-16_9.png fill
 #
 # Example configuration:
 #
@@ -94,7 +94,7 @@ output * bg /home/parsarch/Pictures/bg.png fill
     bindsym --to-code $mod+q kill
 
     # Start your launcher
-    bindsym --to-code $mod+r exec sh ~/.config/rofi/appmenu/launcher.sh
+    bindsym --to-code $mod+r exec ~/.config/rofi/appmenu/launcher.sh
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -150,6 +150,9 @@ output * bg /home/parsarch/Pictures/bg.png fill
     bindsym --to-code $mod+Shift+4 move container to workspace $ws4
     bindsym --to-code $mod+Shift+5 move container to workspace $ws5
     bindsym --to-code $mod+Shift+6 move container to workspace $ws6
+    bindsym --to-code $mod+n focus output left
+    bindsym --to-code $mod+shift+n move output left
+    bindsym --to-code $mod+Control+n move workspace to output left
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 #
@@ -158,13 +161,13 @@ output * bg /home/parsarch/Pictures/bg.png fill
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym --to-code $mod+p splith
+    bindsym --to-code $mod+i splith
     bindsym --to-code $mod+o splitv
 
     # Switch the current container between different layout styles
 #    bindsym --to-code $mod+s layout stacking
     bindsym --to-code $mod+u layout tabbed
-    bindsym --to-code $mod+i layout toggle split
+    bindsym --to-code $mod+p layout toggle split
 
     # Make the current focus fullscreen
     bindsym --to-code $mod+f fullscreen
@@ -176,7 +179,7 @@ output * bg /home/parsarch/Pictures/bg.png fill
     bindsym --to-code $mod+space focus mode_toggle
 
     # Move focus to the parent container
-    bindsym --to-code $mod+a focus parent
+bindsym --to-code $mod+a focus parent
 #
 # Scratchpad:
 #
@@ -274,3 +277,8 @@ assign [class="Gimp-2.10"] workspace $ws5
 for_window [class="Spotify"] move to workspace $ws4
 bindsym --to-code $mod+Print exec grimshot copy area
 bindsym --to-code $mod+shift+Print exec grimshot copy
+set $laptop LVDS-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+output HDMI-A-1 scale 1
+
