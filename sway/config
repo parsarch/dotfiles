@@ -31,7 +31,7 @@ set	$white		#e5e9f0
 set	$bg		    #2e3440
 set	$bglighter	#4c566a
 set	$bglight	#3b4252
-bindsym --to-code $mod+d exec discord
+bindsym --to-code $mod+d exec Discord
 #bindsym --to-code $mod+d exec discord-canary --proxy-server="socks5://127.0.0.1:9050"
 # Home row direction keys, like vim
 set $left j
@@ -39,7 +39,7 @@ set $down k
 set $up l
 set $right semicolon
 # Your preferred terminal emulator
-set $term kitty
+set $term alacritty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -122,6 +122,8 @@ output * bg /home/parsarch/git/dotfiles/BG/Void/void-16_9.png fill
     bindsym --to-code $mod+Up focus up
     bindsym --to-code $mod+Right focus right
 
+    bindsym --to-code $alt+tab focus next
+    bindsym --to-code $alt+shift+tab focus prev
     # Move the focused window with the same, but add Shift
     bindsym --to-code $mod+Shift+$left move left
     bindsym --to-code $mod+Shift+$down move down
@@ -280,5 +282,5 @@ bindsym --to-code $mod+shift+Print exec grimshot copy
 set $laptop LVDS-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
-output HDMI-A-1 scale 1
-
+output DP-1 pos 0 0 mode 1920x1080@74.973000Hz
+output HDMI-A-1 pos 1920 0 mode 1920x1080@74.973000Hz

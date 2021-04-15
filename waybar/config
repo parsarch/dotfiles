@@ -5,7 +5,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray","sway/language" ,"backlight", "custom/storage", "cpu","memory", "temperature", "pulseaudio", "network", "battery", "clock"],
+    "modules-right": ["tray","sway/language" , "custom/storage", "cpu","memory", "temperature", "pulseaudio", "battery", "clock"],
     "sway/mode": {
         "format": " {}"
     },
@@ -40,7 +40,7 @@
         "tooltip": true
     },
     "battery": {
-        "bat": "BAT0",
+        "bat": "BAT1",
         "format": "{capacity}% {icon}",
         "format-alt": "{time} {icon}",
         "format-icons": ["", "", "", "", ""],

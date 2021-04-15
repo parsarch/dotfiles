@@ -114,15 +114,21 @@ color: #bf616a;
 }
 
 #battery {
-    background-color: #d8dee9;
-    color: #000000;
+    background-color: #2e3440;
+    color: #ffffff;
     border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+    margin: 2 2px ;
+    padding: 2 5px ;
 }
 
 #battery.charging {
     color: #d8dee9;
-    background-color: #26A65B;
+    background-color: #2e3440;
     border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+    margin: 2 2px ;
+    padding: 2 5px ;
 }
 
 @keyframes blink {
@@ -133,7 +139,7 @@ color: #bf616a;
 }
 
 #battery.critical:not(.charging) {
-    background-color: #f53c3c;
+    background-color: #2e3440;
     color: #d8dee9;
     animation-name: blink;
     animation-duration: 0.5s;
@@ -141,6 +147,9 @@ color: #bf616a;
     animation-iteration-count: infinite;
     animation-direction: alternate;
     border-bottom: 2px solid #bf616a;
+    font-size: 12px;
+    margin: 2 2px ;
+    padding: 2 5px ;
 }
 
 label:focus {
