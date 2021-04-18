@@ -1,27 +1,59 @@
-    "settingDefaults": {
+"settingDefaults": {
         "custom_themes": [
             {
-    "name": "Nord dark theme",
-    "is_dark": true,
-    "colors": {
-        "accent-color": "#bf616a",
-        "primary-color": "#bf616a",
-        "warning-color": "#ebcb8b",
-
-        "sidebar-color": "#2e3440",
-        "roomlist-background-color": "#2e3440",
-        "roomlist-text-color": "#ebcb8b",
-        "roomlist-text-secondary-color": "#e5e9f0",
-        "roomlist-highlights-color": "#4c566a",
-        "roomlist-separator-color": "#2e3440",
-
-        "timeline-background-color": "#2e3440",
-        "timeline-text-color": "#eceff4",
-        "timeline-text-secondary-color": "#bf616a",
-        "timeline-highlights-color": "#2e3440",
-        "reaction-row-button-selected-bg-color": "#bf616a"
+                "name": "Electric Blue",
+                "is_dark": false,
+                "fonts": {
+                    "faces": [
+                        {
+                            "font-family": "Inter",
+                            "src": [{"url": "/fonts/Inter.ttf", "format": "ttf"}]
+                        }
+                    ],
+                    "general": "Inter, sans",
+                    "monospace": "'Courier New'"
+                },
+                "colors": {
+                    "accent-color": "#3596fc",
+                    "primary-color": "#368bd6",
+                    "warning-color": "#ff4b55",
+                    "sidebar-color": "#27303a",
+                    "roomlist-background-color": "#f3f8fd",
+                    "roomlist-text-color": "#2e2f32",
+                    "roomlist-text-secondary-color": "#61708b",
+                    "roomlist-highlights-color": "#ffffff",
+                    "roomlist-separator-color": "#e3e8f0",
+                    "timeline-background-color": "#ffffff",
+                    "timeline-text-color": "#2e2f32",
+                    "timeline-text-secondary-color": "#61708b",
+                    "timeline-highlights-color": "#f3f8fd",
+                    "timeline-bubble-background-incoming": "#bbccee",
+                    "timeline-bubble-background-outgoing": "#bb77dd",
+                    "timeline-bubble-background-selected": "#7766cc",
+                    "username-colors": ["#ff0000", ...],
+                    "avatar-background-colors": ["#cc0000", ...]
+                }
+            }, {
+                "name": "Deep Purple",
+                "is_dark": true,
+                "colors": {
+                    "accent-color": "#6503b3",
+                    "primary-color": "#368bd6",
+                    "warning-color": "#b30356",
+                    "sidebar-color": "#15171B",
+                    "roomlist-background-color": "#22262E",
+                    "roomlist-text-color": "#A1B2D1",
+                    "roomlist-text-secondary-color": "#EDF3FF",
+                    "roomlist-highlights-color": "#343A46",
+                    "roomlist-separator-color": "#a1b2d1",
+                    "timeline-background-color": "#181b21",
+                    "timeline-text-color": "#EDF3FF",
+                    "timeline-text-secondary-color": "#A1B2D1",
+                    "timeline-highlights-color": "#22262E",
+                    "timeline-bubble-background-incoming": "#445566",
+                    "timeline-bubble-background-outgoing": "#228844",
+                    "timeline-bubble-background-selected": "#889955"
                 }
             }
         ]
     }
-
