@@ -1,6 +1,4 @@
-    "settingDefaults": {
-        "custom_themes": [
-            {
+{
     "name": "Nord dark theme",
     "is_dark": true,
     "colors": {
@@ -21,7 +19,5 @@
         "timeline-highlights-color": "#2e3440",
         "reaction-row-button-selected-bg-color": "#bf616a"
                 }
-            }
-        ]
-    }
+}
 
