@@ -26,30 +26,48 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.12374369"
-     inkscape:cx="1587.1694"
-     inkscape:cy="642.01773"
+     inkscape:zoom="0.70710678"
+     inkscape:cx="2077.2359"
+     inkscape:cy="2240.046"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
      units="px"
-     showguides="false"
-     inkscape:snap-bbox="false"
-     inkscape:snap-bbox-midpoints="true"
+     showguides="true"
+     inkscape:snap-bbox="true"
+     inkscape:snap-bbox-midpoints="false"
      inkscape:snap-bbox-edge-midpoints="true"
-     inkscape:bbox-paths="false"
+     inkscape:bbox-paths="true"
      inkscape:bbox-nodes="true"
      inkscape:snap-page="true"
-     inkscape:snap-global="false"
-     inkscape:window-width="1024"
-     inkscape:window-height="768"
+     inkscape:snap-global="true"
+     inkscape:window-width="1905"
+     inkscape:window-height="1026"
      inkscape:window-x="0"
      inkscape:window-y="0"
-     inkscape:window-maximized="0"
+     inkscape:window-maximized="1"
      inkscape:object-paths="true"
      inkscape:snap-intersection-paths="true"
-     inkscape:snap-nodes="true" />
+     inkscape:snap-nodes="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-midpoints="true"
+     inkscape:object-nodes="true"
+     inkscape:snap-to-guides="true">
+    <sodipodi:guide
+       position="2544.4404,1873.9333"
+       orientation="1,0"
+       id="guide1268" />
+    <sodipodi:guide
+       position="2985.7909,1432.3127"
+       orientation="1,0"
+       id="guide1270" />
+    <sodipodi:guide
+       position="-1849.6745,401.65288"
+       orientation="1,0"
+       id="guide1630" />
+  </sodipodi:namedview>
   <metadata
      id="metadata864">
     <rdf:RDF>
@@ -73,85 +91,6 @@
        height="571.5"
        x="-7.7271523e-14"
        y="0" />
-    <g
-       id="g1548"
-       transform="matrix(2.1725017,0,0,2.1761782,-0.37722156,-1251.06)">
-      <g
-         inkscape:label="Layer 1"
-         id="layer1-6">
-        <g
-           id="g941"
-           transform="matrix(0.76073868,0,0,0.76073868,129.64772,-9.3679719e-7)" />
-        <g
-           id="g931"
-           transform="matrix(0.74536248,0,0,0.74536248,-0.09009816,103.4795)">
-          <path
-             style="fill:#b48ead;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M 0.35381161,984.81979 V 758.29205 L 227.11269,984.81979 Z"
-             id="path37-3-6-7-5-3-5-6"
-             inkscape:export-filename="/home/parsarch/Pictures/bg.png"
-             inkscape:export-xdpi="96"
-             inkscape:export-ydpi="96" />
-          <path
-             style="fill:#5e81ac;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M 0.35383161,984.81978 V 783.19657 L 202.18274,984.81978 Z"
-             id="path37-3-6-7-5-3-2"
-             inkscape:export-filename="/home/parsarch/Pictures/bg.png"
-             inkscape:export-xdpi="96"
-             inkscape:export-ydpi="96" />
-          <path
-             style="fill:#8fbcbb;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M 0.35383161,984.81979 V 806.54923 L 178.80626,984.81979 Z"
-             id="path37-3-6-7-5-9"
-             inkscape:export-filename="/home/parsarch/Pictures/bg.png"
-             inkscape:export-xdpi="96"
-             inkscape:export-ydpi="96" />
-          <path
-             style="fill:#a3be8c;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M 0.35383161,984.81979 V 828.62602 L 156.70696,984.81979 Z"
-             id="path37-3-6-7-1"
-             inkscape:export-filename="/home/parsarch/Pictures/bg.png"
-             inkscape:export-xdpi="96"
-             inkscape:export-ydpi="96" />
-          <path
-             style="fill:#ebcb8b;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M 0.35383161,984.81979 V 851.3641 L 133.9457,984.81979 Z"
-             id="path37-3-6-2"
-             inkscape:export-filename="/home/parsarch/Pictures/bg.png"
-             inkscape:export-xdpi="96"
-             inkscape:export-ydpi="96" />
-          <path
-             style="fill:#d08770;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M 0.35383161,984.81979 V 872.97275 L 112.315,984.81979 Z"
-             id="path37-3-7"
-             inkscape:export-filename="/home/parsarch/Pictures/bg.png"
-             inkscape:export-xdpi="96"
-             inkscape:export-ydpi="96" />
-          <a
-             id="a919"
-             transform="translate(-0.0530056)">
-            <path
-               style="fill:#bf616a;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="M 0.35383161,984.81979 V 895.63158 L 89.633051,984.81979 Z"
-               id="path37-0"
-               inkscape:export-filename="/home/parsarch/Pictures/path37.png"
-               inkscape:export-xdpi="96"
-               inkscape:export-ydpi="96" />
-          </a>
-          <path
-             style="fill:#2e3440;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M 0.35383161,984.8146 0.30082601,918.72336 66.158694,984.81979 Z"
-             id="path37-36-7"
-             inkscape:export-filename="/home/parsarch/Pictures/path37.png"
-             inkscape:export-xdpi="96"
-             inkscape:export-ydpi="96"
-             sodipodi:nodetypes="cccc" />
-        </g>
-      </g>
-      <g
-         id="layer2"
-         inkscape:label="Layer 2" />
-    </g>
     <ellipse
        style="opacity:1;fill:#3b4252;fill-opacity:1;stroke:#4c566a;stroke-width:7.78737;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
        id="path5985"
@@ -170,141 +109,6 @@
        inkscape:export-filename="/home/parsarch/Pictures/bg.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
-    <g
-       id="g1588"
-       transform="matrix(-2.1758921,0,0,-2.1725018,1016.3778,1819.5294)">
-      <g
-         inkscape:label="Layer 1"
-         id="g1584">
-        <g
-           id="g1562"
-           transform="matrix(0.76073868,0,0,0.76073868,129.64772,-9.3679719e-7)" />
-        <g
-           id="g1582"
-           transform="matrix(0.74536248,0,0,0.74536248,-0.09009816,103.4795)">
-          <path
-             style="fill:#b48ead;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M 0.35381161,984.81979 V 758.29205 L 227.11269,984.81979 Z"
-             id="path1564"
-             inkscape:export-filename="/home/parsarch/Pictures/bg.png"
-             inkscape:export-xdpi="96"
-             inkscape:export-ydpi="96" />
-          <path
-             style="fill:#5e81ac;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M 0.35383161,984.81978 V 783.19657 L 202.18274,984.81978 Z"
-             id="path1566"
-             inkscape:export-filename="/home/parsarch/Pictures/bg.png"
-             inkscape:export-xdpi="96"
-             inkscape:export-ydpi="96" />
-          <path
-             style="fill:#8fbcbb;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M 0.35383161,984.81979 V 806.54923 L 178.80626,984.81979 Z"
-             id="path1568"
-             inkscape:export-filename="/home/parsarch/Pictures/bg.png"
-             inkscape:export-xdpi="96"
-             inkscape:export-ydpi="96" />
-          <path
-             style="fill:#a3be8c;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M 0.35383161,984.81979 V 828.62602 L 156.70696,984.81979 Z"
-             id="path1570"
-             inkscape:export-filename="/home/parsarch/Pictures/bg.png"
-             inkscape:export-xdpi="96"
-             inkscape:export-ydpi="96" />
-          <path
-             style="fill:#ebcb8b;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M 0.35383161,984.81979 V 851.3641 L 133.9457,984.81979 Z"
-             id="path1572"
-             inkscape:export-filename="/home/parsarch/Pictures/bg.png"
-             inkscape:export-xdpi="96"
-             inkscape:export-ydpi="96" />
-          <path
-             style="fill:#d08770;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M 0.35383161,984.81979 V 872.97275 L 112.315,984.81979 Z"
-             id="path1574"
-             inkscape:export-filename="/home/parsarch/Pictures/bg.png"
-             inkscape:export-xdpi="96"
-             inkscape:export-ydpi="96" />
-          <a
-             id="a1578"
-             transform="translate(-0.0530056)">
-            <path
-               style="fill:#bf616a;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="M 0.35383161,984.81979 V 895.63158 L 89.633051,984.81979 Z"
-               id="path1576"
-               inkscape:export-filename="/home/parsarch/Pictures/path37.png"
-               inkscape:export-xdpi="96"
-               inkscape:export-ydpi="96" />
-          </a>
-          <path
-             style="fill:#2e3440;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M 2.5369211e-6,984.8146 0.30082601,918.72336 66.158694,984.8146 Z"
-             id="path1580"
-             inkscape:export-filename="/home/parsarch/Pictures/path37.png"
-             inkscape:export-xdpi="96"
-             inkscape:export-ydpi="96"
-             sodipodi:nodetypes="cccc" />
-        </g>
-      </g>
-      <g
-         id="g1586"
-         inkscape:label="Layer 2" />
-    </g>
-    <g
-       id="g1866"
-       style="stroke-width:3.96875;stroke-miterlimit:4;stroke-dasharray:none;stroke:#2e3440;stroke-opacity:1">
-      <path
-         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-         d="M -50.591764,376.42716 195.13756,621.90599 Z"
-         id="path1753" />
-      <path
-         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-         d="M -32.110256,358.05038 213.61907,603.52922 Z"
-         id="path1753-6" />
-      <path
-         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-         d="M -14.567308,340.52532 231.16202,586.00416 Z"
-         id="path1753-0" />
-      <path
-         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-         d="M -50.435502,267.8116 303.94992,621.83577 Z"
-         id="path1753-62" />
-      <path
-         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-         d="M -50.412358,232.02527 339.77276,621.81263 Z"
-         id="path1753-61" />
-      <path
-         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-         d="M -50.387872,194.17074 377.6659,621.78816 Z"
-         id="path1753-8" />
-    </g>
-    <g
-       id="g1858"
-       style="stroke:#2e3440;stroke-opacity:1;stroke-width:3.96875;stroke-miterlimit:4;stroke-dasharray:none">
-      <path
-         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-         d="M 639.66238,-48.899362 1064.3697,375.37514 Z"
-         id="path1753-7-9" />
-      <path
-         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-         d="M 641.0468,-85.245633 1100.8389,374.07782 Z"
-         id="path1753-7-2" />
-      <path
-         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-         d="M 658.93948,-103.20584 1118.7316,356.11763 Z"
-         id="path1753-7-0" />
-      <path
-         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-         d="M 694.88149,-139.11119 1154.6736,320.21227 Z"
-         id="path1753-7-23" />
-      <path
-         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-         d="M 713.33175,-157.45693 1173.1239,301.86653 Z"
-         id="path1753-7-7" />
-      <path
-         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-         d="M 677.36815,-121.61574 1137.1603,337.70772 Z"
-         id="path1753-7-92" />
-    </g>
     <g
        id="layer2-3"
        inkscape:label="Layer 2"
@@ -336,6 +140,754 @@
              style="fill:#a3be8c;fill-opacity:1" />
         </g>
       </g>
+    </g>
+    <rect
+       style="fill:#728d5b;stroke:#4c566a;stroke-width:0;stop-color:#000000"
+       id="rect1280"
+       width="1172.8121"
+       height="1172.8121"
+       x="858.01343"
+       y="-2953.7537" />
+    <g
+       id="g1920"
+       clip-path="none"
+       transform="translate(1015.989,3.9472833e-5)">
+      <g
+         inkscape:label="Clip"
+         id="g1918">
+        <a
+           id="a1916"
+           transform="translate(9.2219532e-7,-2.8334894e-5)">
+          <g
+             id="g1914"
+             transform="matrix(-2.5789478,0,0,-2.5833123,0.41641971,2163.5944)">
+            <g
+               inkscape:label="Layer 1"
+               id="g1910">
+              <g
+                 id="g1888"
+                 transform="matrix(0.76073868,0,0,0.76073868,129.64772,-9.3679719e-7)" />
+              <g
+                 id="g1908"
+                 transform="matrix(0.74536248,0,0,0.74536248,-0.09009816,103.4795)">
+                <path
+                   style="fill:#b48ead;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33751009,984.81979 0.33751616,755.95761 229.58701,984.8198 Z"
+                   id="path1890"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#5e81ac;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.81979 0.33751616,778.812 206.69393,984.8198 Z"
+                   id="path1892"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#8fbcbb;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751616,802.0446 183.42201,984.8198 Z"
+                   id="path1894"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#a3be8c;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751615,823.959 161.49044,984.8198 Z"
+                   id="path1896"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#ebcb8b;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751614,848.87522 136.51219,984.8198 Z"
+                   id="path1898"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#d08770;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.331783,984.81981 0.3374754,870.78961 114.48401,984.8198 Z"
+                   id="path1900"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <a
+                   id="a1902"
+                   transform="translate(-0.0530056)" />
+                <path
+                   style="fill:#bf616a;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="m 0.331783,984.81981 0.005683,-90.7976 90.890071,90.79758 z"
+                   id="path1904"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#2e3440;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.3317825,984.81981 0.33517423,916.8766 68.346985,984.8198 Z"
+                   id="path1906"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+              </g>
+            </g>
+            <g
+               id="g1912"
+               inkscape:label="Layer 2" />
+          </g>
+        </a>
+      </g>
+    </g>
+    <g
+       id="g1954"
+       clip-path="none"
+       transform="rotate(180,0,285.75)">
+      <g
+         inkscape:label="Clip"
+         id="g1952">
+        <a
+           id="a1950"
+           transform="translate(9.2219532e-7,-2.8334894e-5)">
+          <g
+             id="g1948"
+             transform="matrix(-2.5789478,0,0,-2.5833123,0.41641971,2163.5944)">
+            <g
+               inkscape:label="Layer 1"
+               id="g1944">
+              <g
+                 id="g1922"
+                 transform="matrix(0.76073868,0,0,0.76073868,129.64772,-9.3679719e-7)" />
+              <g
+                 id="g1942"
+                 transform="matrix(0.74536248,0,0,0.74536248,-0.09009816,103.4795)">
+                <path
+                   style="fill:#b48ead;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33751009,984.81979 0.33751616,755.95761 229.58701,984.8198 Z"
+                   id="path1924"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#5e81ac;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.81979 0.33751616,778.812 206.69393,984.8198 Z"
+                   id="path1926"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#8fbcbb;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751616,802.0446 183.42201,984.8198 Z"
+                   id="path1928"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#a3be8c;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751615,823.959 161.49044,984.8198 Z"
+                   id="path1930"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#ebcb8b;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751614,848.87522 136.51219,984.8198 Z"
+                   id="path1932"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#d08770;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.331783,984.81981 0.3374754,870.78961 114.48401,984.8198 Z"
+                   id="path1934"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <a
+                   id="a1936"
+                   transform="translate(-0.0530056)" />
+                <path
+                   style="fill:#bf616a;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="m 0.331783,984.81981 0.005683,-90.7976 90.890071,90.79758 z"
+                   id="path1938"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#2e3440;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.3317825,984.81981 0.33517423,916.8766 68.346985,984.8198 Z"
+                   id="path1940"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+              </g>
+            </g>
+            <g
+               id="g1946"
+               inkscape:label="Layer 2" />
+          </g>
+        </a>
+      </g>
+    </g>
+    <rect
+       style="fill:#2e3440;fill-opacity:1;stroke:none;stroke-width:3.18753;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       id="rect1956"
+       width="1016"
+       height="571.5"
+       x="-7.7271523e-14"
+       y="0" />
+    <ellipse
+       style="opacity:1;fill:#3b4252;fill-opacity:1;stroke:#4c566a;stroke-width:7.78737;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="ellipse1958"
+       cx="507.99997"
+       cy="285.75"
+       rx="136.34242"
+       ry="136.2169"
+       inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <g
+       id="g1970"
+       inkscape:label="Layer 2"
+       transform="matrix(1.3829737,0,0,1.3829737,-126.63754,1505.2082)">
+      <g
+         id="g1968"
+         transform="matrix(0.69175451,0,0,0.69175451,182.2021,130.40324)"
+         inkscape:export-filename="/home/parsarch/git/dotfiles/BG/Void/void-4_3.png"
+         inkscape:export-xdpi="95.875"
+         inkscape:export-ydpi="95.875">
+        <g
+           id="g1966">
+          <path
+             d="m 399.98486,-1568.4253 c -22.03188,0.047 -43.49345,7.0072 -61.35907,19.9001 l 23.90269,23.9027 c 11.27745,-6.8986 24.23629,-10.5597 37.45638,-10.5822 39.77241,-10e-5 72.01434,32.2418 72.01426,72.0143 -0.0318,13.2153 -3.69956,26.1671 -10.60151,37.437 l 23.94799,23.948 c 12.8888,-17.8759 19.8404,-39.3471 19.87417,-61.385 0,-58.1197 -47.11529,-105.2349 -105.23491,-105.2349 z"
+             fill="#abc2ab"
+             id="path1960"
+             style="fill:#a3be8c;fill-opacity:1" />
+          <path
+             d="m 461.34392,-1377.8557 -23.90269,-23.9027 c -11.27745,6.8986 -24.23629,10.5597 -37.45637,10.5822 -39.77242,1e-4 -72.01435,-32.2418 -72.01427,-72.0142 0.0318,-13.2154 3.69955,-26.1672 10.60151,-37.4371 l -23.948,-23.948 c -12.88881,17.8759 -19.84038,39.3471 -19.87414,61.3851 0,58.1196 47.11527,105.2349 105.2349,105.2349 22.03188,-0.047 43.49344,-7.0073 61.35906,-19.9002 z"
+             fill="#478061"
+             id="path1962"
+             style="fill:#728d5b;fill-opacity:1" />
+          <circle
+             fill="#abc2ab"
+             cx="399.96805"
+             cy="-1463.1904"
+             r="33.503357"
+             id="circle1964"
+             style="fill:#a3be8c;fill-opacity:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="g2004"
+       clip-path="none"
+       transform="translate(1015.989,3.9472833e-5)">
+      <g
+         inkscape:label="Clip"
+         id="g2002">
+        <a
+           id="a2000"
+           transform="translate(9.2219532e-7,-2.8334894e-5)">
+          <g
+             id="g1998"
+             transform="matrix(-2.5789478,0,0,-2.5833123,0.41641971,2163.5944)">
+            <g
+               inkscape:label="Layer 1"
+               id="g1994">
+              <g
+                 id="g1972"
+                 transform="matrix(0.76073868,0,0,0.76073868,129.64772,-9.3679719e-7)" />
+              <g
+                 id="g1992"
+                 transform="matrix(0.74536248,0,0,0.74536248,-0.09009816,103.4795)">
+                <path
+                   style="fill:#bf616a;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33751009,984.81979 0.33751616,755.95761 229.58701,984.8198 Z"
+                   id="path1974"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#d08770;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.81979 0.33751616,778.812 206.69393,984.8198 Z"
+                   id="path1976"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#ebcb8b;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751616,802.0446 183.42201,984.8198 Z"
+                   id="path1978"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#a3be8c;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751615,823.959 161.49044,984.8198 Z"
+                   id="path1980"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#8fbcbb;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751614,848.87522 136.51219,984.8198 Z"
+                   id="path1982"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#5e81ac;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.331783,984.81981 0.3374754,870.78961 114.48401,984.8198 Z"
+                   id="path1984"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <a
+                   id="a1986"
+                   transform="translate(-0.0530056)" />
+                <path
+                   style="fill:#b48ead;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="m 0.331783,984.81981 0.005683,-90.7976 90.890071,90.79758 z"
+                   id="path1988"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#2e3440;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.3317825,984.81981 0.33517423,916.8766 68.346985,984.8198 Z"
+                   id="path1990"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+              </g>
+            </g>
+            <g
+               id="g1996"
+               inkscape:label="Layer 2" />
+          </g>
+        </a>
+      </g>
+    </g>
+    <g
+       id="g2038"
+       clip-path="none"
+       transform="rotate(180,0,285.75)">
+      <g
+         inkscape:label="Clip"
+         id="g2036">
+        <a
+           id="a2034"
+           transform="translate(9.2219532e-7,-2.8334894e-5)">
+          <g
+             id="g2032"
+             transform="matrix(-2.5789478,0,0,-2.5833123,0.41641971,2163.5944)">
+            <g
+               inkscape:label="Layer 1"
+               id="g2028">
+              <g
+                 id="g2006"
+                 transform="matrix(0.76073868,0,0,0.76073868,129.64772,-9.3679719e-7)" />
+              <g
+                 id="g2026"
+                 transform="matrix(0.74536248,0,0,0.74536248,-0.09009816,103.4795)">
+                <path
+                   style="fill:#b48ead;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33751009,984.81979 0.33751616,755.95761 229.58701,984.8198 Z"
+                   id="path2008"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#5e81ac;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.81979 0.33751616,778.812 206.69393,984.8198 Z"
+                   id="path2010"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#8fbcbb;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751616,802.0446 183.42201,984.8198 Z"
+                   id="path2012"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#a3be8c;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751615,823.959 161.49044,984.8198 Z"
+                   id="path2014"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#ebcb8b;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751614,848.87522 136.51219,984.8198 Z"
+                   id="path2016"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#d08770;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.331783,984.81981 0.3374754,870.78961 114.48401,984.8198 Z"
+                   id="path2018"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <a
+                   id="a2020"
+                   transform="translate(-0.0530056)" />
+                <path
+                   style="fill:#bf616a;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="m 0.331783,984.81981 0.005683,-90.7976 90.890071,90.79758 z"
+                   id="path2022"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#2e3440;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.3317825,984.81981 0.33517423,916.8766 68.346985,984.8198 Z"
+                   id="path2024"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+              </g>
+            </g>
+            <g
+               id="g2030"
+               inkscape:label="Layer 2" />
+          </g>
+        </a>
+      </g>
+    </g>
+    <rect
+       style="fill:#2e3440;fill-opacity:1;stroke:none;stroke-width:3.18753;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       id="rect2040"
+       width="1016"
+       height="571.5"
+       x="-7.7271523e-14"
+       y="0" />
+    <ellipse
+       style="opacity:1;fill:#3b4252;fill-opacity:1;stroke:#4c566a;stroke-width:7.78737;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="ellipse2042"
+       cx="507.99997"
+       cy="285.75"
+       rx="136.34242"
+       ry="136.2169"
+       inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <g
+       id="g2054"
+       inkscape:label="Layer 2"
+       transform="matrix(1.3829737,0,0,1.3829737,-126.63754,1505.2082)">
+      <g
+         id="g2052"
+         transform="matrix(0.69175451,0,0,0.69175451,182.2021,130.40324)"
+         inkscape:export-filename="/home/parsarch/git/dotfiles/BG/Void/void-4_3.png"
+         inkscape:export-xdpi="95.875"
+         inkscape:export-ydpi="95.875">
+        <g
+           id="g2050">
+          <path
+             d="m 399.98486,-1568.4253 c -22.03188,0.047 -43.49345,7.0072 -61.35907,19.9001 l 23.90269,23.9027 c 11.27745,-6.8986 24.23629,-10.5597 37.45638,-10.5822 39.77241,-10e-5 72.01434,32.2418 72.01426,72.0143 -0.0318,13.2153 -3.69956,26.1671 -10.60151,37.437 l 23.94799,23.948 c 12.8888,-17.8759 19.8404,-39.3471 19.87417,-61.385 0,-58.1197 -47.11529,-105.2349 -105.23491,-105.2349 z"
+             fill="#abc2ab"
+             id="path2044"
+             style="fill:#a3be8c;fill-opacity:1" />
+          <path
+             d="m 461.34392,-1377.8557 -23.90269,-23.9027 c -11.27745,6.8986 -24.23629,10.5597 -37.45637,10.5822 -39.77242,1e-4 -72.01435,-32.2418 -72.01427,-72.0142 0.0318,-13.2154 3.69955,-26.1672 10.60151,-37.4371 l -23.948,-23.948 c -12.88881,17.8759 -19.84038,39.3471 -19.87414,61.3851 0,58.1196 47.11527,105.2349 105.2349,105.2349 22.03188,-0.047 43.49344,-7.0073 61.35906,-19.9002 z"
+             fill="#478061"
+             id="path2046"
+             style="fill:#728d5b;fill-opacity:1" />
+          <circle
+             fill="#abc2ab"
+             cx="399.96805"
+             cy="-1463.1904"
+             r="33.503357"
+             id="circle2048"
+             style="fill:#a3be8c;fill-opacity:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="g2088"
+       clip-path="none"
+       transform="translate(1015.989,3.9472833e-5)">
+      <g
+         inkscape:label="Clip"
+         id="g2086">
+        <a
+           id="a2084"
+           transform="translate(9.2219532e-7,-2.8334894e-5)">
+          <g
+             id="g2082"
+             transform="matrix(-2.5789478,0,0,-2.5833123,0.41641971,2163.5944)">
+            <g
+               inkscape:label="Layer 1"
+               id="g2078">
+              <g
+                 id="g2056"
+                 transform="matrix(0.76073868,0,0,0.76073868,129.64772,-9.3679719e-7)" />
+              <g
+                 id="g2076"
+                 transform="matrix(0.74536248,0,0,0.74536248,-0.09009816,103.4795)">
+                <path
+                   style="fill:#bf616a;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33751009,984.81979 0.33751616,755.95761 229.58701,984.8198 Z"
+                   id="path2058"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#d08770;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.81979 0.33751616,778.812 206.69393,984.8198 Z"
+                   id="path2060"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#ebcb8b;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751616,802.0446 183.42201,984.8198 Z"
+                   id="path2062"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#a3be8c;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751615,823.959 161.49044,984.8198 Z"
+                   id="path2064"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#8fbcbb;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751614,848.87522 136.51219,984.8198 Z"
+                   id="path2066"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#5e81ac;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.331783,984.81981 0.3374754,870.78961 114.48401,984.8198 Z"
+                   id="path2068"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <a
+                   id="a2070"
+                   transform="translate(-0.0530056)" />
+                <path
+                   style="fill:#b48ead;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="m 0.331783,984.81981 0.005683,-90.7976 90.890071,90.79758 z"
+                   id="path2072"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#2e3440;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.3317825,984.81981 0.33517423,916.8766 68.346985,984.8198 Z"
+                   id="path2074"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+              </g>
+            </g>
+            <g
+               id="g2080"
+               inkscape:label="Layer 2" />
+          </g>
+        </a>
+      </g>
+    </g>
+    <g
+       id="g2122"
+       clip-path="none"
+       transform="rotate(180,0,285.75)">
+      <g
+         inkscape:label="Clip"
+         id="g2120">
+        <a
+           id="a2118"
+           transform="translate(9.2219532e-7,-2.8334894e-5)">
+          <g
+             id="g2116"
+             transform="matrix(-2.5789478,0,0,-2.5833123,0.41641971,2163.5944)">
+            <g
+               inkscape:label="Layer 1"
+               id="g2112">
+              <g
+                 id="g2090"
+                 transform="matrix(0.76073868,0,0,0.76073868,129.64772,-9.3679719e-7)" />
+              <g
+                 id="g2110"
+                 transform="matrix(0.74536248,0,0,0.74536248,-0.09009816,103.4795)">
+                <path
+                   style="fill:#b48ead;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33751009,984.81979 0.33751616,755.95761 229.58701,984.8198 Z"
+                   id="path2092"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#5e81ac;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.81979 0.33751616,778.812 206.69393,984.8198 Z"
+                   id="path2094"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#8fbcbb;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751616,802.0446 183.42201,984.8198 Z"
+                   id="path2096"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#a3be8c;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751615,823.959 161.49044,984.8198 Z"
+                   id="path2098"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#ebcb8b;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.33750961,984.8198 0.33751614,848.87522 136.51219,984.8198 Z"
+                   id="path2100"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#d08770;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.331783,984.81981 0.3374754,870.78961 114.48401,984.8198 Z"
+                   id="path2102"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <a
+                   id="a2104"
+                   transform="translate(-0.0530056)" />
+                <path
+                   style="fill:#bf616a;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="m 0.331783,984.81981 0.005683,-90.7976 90.890071,90.79758 z"
+                   id="path2106"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+                <path
+                   style="fill:#2e3440;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                   d="M 0.3317825,984.81981 0.33517423,916.8766 68.346985,984.8198 Z"
+                   id="path2108"
+                   inkscape:export-filename="/home/parsarch/Pictures/bg.png"
+                   inkscape:export-xdpi="96"
+                   inkscape:export-ydpi="96"
+                   sodipodi:nodetypes="cccc" />
+              </g>
+            </g>
+            <g
+               id="g2114"
+               inkscape:label="Layer 2" />
+          </g>
+        </a>
+      </g>
+    </g>
+    <g
+       id="g2150">
+      <path
+         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -28.553167,146.1253 425.222,600.20588"
+         id="path2132" />
+      <path
+         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -50.920402,168.49253 402.85476,622.57311"
+         id="path2134" />
+      <path
+         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -71.999391,189.59067 381.77577,643.67125"
+         id="path2136" />
+      <path
+         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -96.006627,213.57881 357.76854,667.65939"
+         id="path2138" />
+      <path
+         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -117.17851,234.67693 336.59666,688.75751"
+         id="path2140" />
+      <path
+         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -139.53091,257.04416 314.24426,711.12474"
+         id="path2142" />
+    </g>
+    <g
+       id="g2164"
+       transform="rotate(180,507.9945,285.75002)">
+      <path
+         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -28.553167,146.1253 425.222,600.20588"
+         id="path2152" />
+      <path
+         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -50.920402,168.49253 402.85476,622.57311"
+         id="path2154" />
+      <path
+         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -71.999391,189.59067 381.77577,643.67125"
+         id="path2156" />
+      <path
+         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -96.006627,213.57881 357.76854,667.65939"
+         id="path2158" />
+      <path
+         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -117.17851,234.67693 336.59666,688.75751"
+         id="path2160" />
+      <path
+         style="fill:none;stroke:#2e3440;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -139.53091,257.04416 314.24426,711.12474"
+         id="path2162" />
     </g>
   </g>
 </svg>

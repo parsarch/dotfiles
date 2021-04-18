@@ -1,4 +1,3 @@
-exec_always pkill waybar;waybar
 input "type:keyboard" {
   xkb_layout workman,ir-parsarch
   xkb_options grp:alt_shift_toggle,caps:backspace,shift:both_capslock,'clear lock'
@@ -282,5 +281,19 @@ bindsym --to-code $mod+shift+Print exec grimshot copy
 set $laptop LVDS-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
-output DP-1 pos 0 0 mode 1920x1080@74.973000Hz
-output HDMI-A-1 pos 1920 0 mode 1920x1080@74.973000Hz
+output DP-1 pos 1920 0 mode 1920x1080@74.973000Hz
+output HDMI-A-1 pos 0 0 mode 1920x1080@74.973000Hz
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Orchis-dark'
+    gsettings set $gnome-schema icon-theme 'Papirus-Dark'
+    gsettings set $gnome-schema cursor-theme 'Vimix Cursors - White'
+    gsettings set $gnome-schema font-name 'Nova Round Book 11'
+    pkill waybar;waybar
+}
+exec {
+    pulseaudio
+    mako
+    waybar
+}
