@@ -244,7 +244,7 @@ bindsym --to-code --release $mod+shift+apostrophe exec playerctl play-pause
 bindsym --to-code --release $mod+apostrophe exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 bindsym --to-code $mod+b exec QT_QPA_PLATFORM=wayland firefox
 bindsym --to-code $mod+e exec nautilus
-bindsym --to-code $mod+t exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland  telegram-desktop
+bindsym --to-code $mod+t exec XDG_CURRENT_DESKTOP=sway QT_QPA_PLATFORM=wayland  telegram-desktop
 bindsym --to-code $mod+v exec vlc
 bindsym --to-code $mod+s exec spotify
 bindsym --to-code XF86PowerOff exec ./.config/rofi/powermenu/powermenu.sh
@@ -291,9 +291,12 @@ exec_always {
     gsettings set $gnome-schema cursor-theme 'Vimix Cursors - White'
     gsettings set $gnome-schema font-name 'Nova Round Book 11'
     pkill waybar;waybar
-}
+    lxpolkit
+            }
 exec {
-    pulseaudio
+    pipewire
+    pipewire-pulse
+    pipewire-media-session
     mako
     waybar
-}
+     }

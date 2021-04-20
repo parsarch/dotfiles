@@ -5,7 +5,7 @@
 #  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 #fi
 
-source /usr/share/zsh/share/antigen.zsh
+source ~/antigen.zsh
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -72,4 +72,4 @@ alias xi='sudo xbps-install'
 alias xu='sudo xbps-install -Su'
 alias xq='sudo xbps-query -Rs'
 alias xr='sudo xbps-remove'
-alias sway='dbus-launch --exit-with-session sway'
+alias sway='XDG_CURRENT_DESKTOP=sway dbus-launch --exit-with-session sway'
