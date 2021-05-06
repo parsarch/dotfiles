@@ -73,3 +73,10 @@ alias xu='sudo xbps-install -Su'
 alias xq='sudo xbps-query -Rs'
 alias xr='sudo xbps-remove'
 alias sway='XDG_CURRENT_DESKTOP=sway dbus-launch --exit-with-session sway'
+alias proton='STEAM_COMPAT_DATA_PATH=$HOME/proton ~/.steam/steam/steamapps/common/Proton\ 6.3/proton run'
+wgu() {
+    sudo wg-quick down ./$1;sudo wg-quick up ./$1
+}
+wgd() {
+    sudo wg-quick down ./$1
+}

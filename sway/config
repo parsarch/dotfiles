@@ -2,7 +2,8 @@ input "type:keyboard" {
   xkb_layout workman,ir-parsarch
   xkb_options grp:alt_shift_toggle,caps:backspace,shift:both_capslock,'clear lock'
 }
-}
+input "2362:9505:USB_OPTICAL_MOUSE" pointer_accel -0.6
+
 # Default config for sway
 #
 # Copy this to ~/.config/sway/config and edit it to your liking.
@@ -172,6 +173,7 @@ output * bg /home/parsarch/git/dotfiles/BG/Void/void-16_9.png fill
 
     # Make the current focus fullscreen
     bindsym --to-code $mod+f fullscreen
+    bindsym --to-code $mod+shift+f fullscreen global
 
     # Toggle the current focus between tiling and floating mode
     bindsym --to-code $mod+Shift+space floating toggle
@@ -242,9 +244,9 @@ bindsym --to-code --release $mod+bracketleft exec dbus-send --print-reply --dest
 bindsym --to-code --release $mod+shift+bracketleft exec playerctl previous
 bindsym --to-code --release $mod+shift+apostrophe exec playerctl play-pause
 bindsym --to-code --release $mod+apostrophe exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-bindsym --to-code $mod+b exec QT_QPA_PLATFORM=wayland firefox
+bindsym --to-code $mod+b exec QT_QPA_PLATFORM=wayland brave-browser-stable
 bindsym --to-code $mod+e exec nautilus
-bindsym --to-code $mod+t exec XDG_CURRENT_DESKTOP=sway QT_QPA_PLATFORM=wayland  telegram-desktop
+bindsym --to-code $mod+t exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland Telegram
 bindsym --to-code $mod+v exec vlc
 bindsym --to-code $mod+s exec spotify
 bindsym --to-code XF86PowerOff exec ./.config/rofi/powermenu/powermenu.sh
@@ -294,9 +296,17 @@ exec_always {
     lxpolkit
             }
 exec {
-    pipewire
-    pipewire-pulse
-    pipewire-media-session
     mako
     waybar
-     }
+    pulseaudio
+   # pipewire &
+   # pipewire-pulse &
+   #pipewire-media-session
+    swayidle -w \
+	timeout 1800 'swaylock' \
+	timeout 1805 'swaymsg "output * dpms off"' \
+    before-sleep 'playerctl pause' \
+    before-sleep 'swaylock' \
+	resume 'swaymsg "output * dpms on"'
+    }
+    seat seat0 xcursor_theme "Vimix-white-cursors"

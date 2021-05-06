@@ -276,3 +276,5 @@ source $VIMRUNTIME/menu.vim
 :nnoremap C V
 :nnoremap c v
 :nnoremap f u
+:noremap p o
+:noremap ; p

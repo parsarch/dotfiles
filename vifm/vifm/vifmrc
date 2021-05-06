@@ -1,9 +1,9 @@
-"  ____ _____
+"  ____ _____ 
 " |  _ \_   _|  Derek Taylor (DistroTube)
 " | | | || |    http://www.youtube.com/c/DistroTube
-" | |_| || |    http://www.gitlab.com/dwt1/
+" | |_| || |    http://www.gitlab.com/dwt1/ 
 " |____/ |_|
-" |____/ |_|
+" |____/ |_|  	
 
 " vim: filetype=vifm :
 " My config file for the vifm terminal file manager.
@@ -219,8 +219,8 @@ filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
 fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
           \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
           \*.as[fx]
-        \ vifmimg videopreview %px %py %pw %ph %c
-        \ %pc
+        \ vifmimg videopreview %px %py %pw %ph %c 
+        \ %pc 
         \ vifmimg clear
         " \ ffprobe -pretty %c 2>&1
 
@@ -263,7 +263,7 @@ fileviewer *.gif
         \ vifmimg gifpreview %px %py %pw %ph %c
         \ %pc
         \ vifmimg clear
-
+        
 " OpenRaster
 filextype *.ora
         \ {Edit in MyPaint}
@@ -512,26 +512,3 @@ nnoremap <f8> :delete<cr>
 "     vifm --server-name "$VIFM_SERVER_NAME" --remote +"cd '$PWD'"
 "
 " let $VIFM_SERVER_NAME = v:servername
-
-nnoremap n h
-nnoremap e j
-nnoremap i l
-nnoremap o k
-nnoremap h d
-nnoremap k n
-nnoremap hh dd
-nnoremap d w
-nnoremap r e
-nnoremap w r
-nnoremap v b
-nnoremap u i
-nnoremap md cw
-nnoremap mh cd
-nnoremap hG dG
-vnoremap n h
-vnoremap e j
-vnoremap o k
-vnoremap i l
-nnoremap C V
-nnoremap c v
-nnoremap f u
