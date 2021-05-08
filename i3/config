@@ -25,32 +25,32 @@ bindsym --release $mod+bracketleft exec dbus-send --print-reply --dest=org.mpris
 bindsym --release $mod+shift+bracketleft exec playerctl previous
 bindsym --release $mod+shift+apostrophe exec playerctl play-pause
 bindsym --release $mod+apostrophe exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-bindsym $mod+v exec firefox
-bindsym $mod+r exec nautilus
+bindsym $mod+b exec firefox
+bindsym $mod+e exec nautilus
 bindsym $mod+Print exec ~/.config/i3/scsh.sh
 bindsym $mod+shift+Print exec ~/.config/i3/scshf.sh
-bindsym $mod+b exec XDG_CURRENT_DESKTOP=gnome telegram-desktop
-bindsym $mod+c exec vlc
+bindsym $mod+t exec XDG_CURRENT_DESKTOP=gnome telegram-desktop
+bindsym $mod+v exec vlc
 bindsym $mod+s exec spotify
 bindsym $mod+Return exec alacritty
 bindsym $mod+q kill
-bindsym $mod+w exec ~/.config/rofi/appmenu/launcher.sh
+bindsym $mod+r exec ~/.config/rofi/appmenu/launcher.sh
 #bindsym $mod+r exec xfce4-popup-whiskermenu
-bindsym $mod+n focus left
-bindsym $mod+e focus down
-bindsym $mod+o focus up
-bindsym $mod+i focus right
-bindsym $mod+h exec discord
-bindsym $mod+Shift+n move left
-bindsym $mod+Shift+e move down
-bindsym $mod+Shift+o move up
-bindsym $mod+Shift+i move right
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+bindsym $mod+d exec discord
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
 bindsym $mod+Shift+Left move left
-bindsym $mod+u split h
-bindsym $mod+p split v
-bindsym $mod+t fullscreen toggle
-bindsym $mod+f layout tabbed
-bindsym $mod+semicolon layout toggle split
+bindsym $mod+i split h
+bindsym $mod+o split v
+bindsym $mod+f fullscreen toggle
+bindsym $mod+u layout tabbed
+bindsym $mod+p layout toggle split
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
@@ -68,15 +68,15 @@ bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Control+n resize shrink width 10 px or 10 ppt
-bindsym $mod+Control+e resize grow height 10 px or 10 ppt
-bindsym $mod+Control+o resize shrink height 10 px or 10 ppt
-bindsym $mod+Control+i resize grow width 10 px or 10 ppt
-bindsym $mod+Control+w restart
-bindsym $mod+m exec picom
-bindsym $mod+Shift+m exec killall picom
+bindsym $mod+Control+j resize shrink width 10 px or 10 ppt
+bindsym $mod+Control+k resize grow height 10 px or 10 ppt
+bindsym $mod+Control+l resize shrink height 10 px or 10 ppt
+bindsym $mod+Control+semicolon resize grow width 10 px or 10 ppt
+bindsym $mod+Control+r restart
+bindsym $mod+c exec picom
+bindsym $mod+Shift+c exec killall picom
 bindsym --release $alt+q exec xkill
-bindsym $mod+l exec nice -10 minecraft-launcher
+bindsym $mod+m exec nice -10 minecraft-launcher
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next

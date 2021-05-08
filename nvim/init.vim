@@ -253,28 +253,3 @@ source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 "Sourcing evrything ("don't why but you need to do it)
 =
-:nnoremap n h
-:nnoremap e j
-:nnoremap i l
-:nnoremap o k
-:nnoremap h d
-:nnoremap k n
-:nnoremap hh dd
-:nnoremap d w
-:nnoremap r e
-:nnoremap w r
-:nnoremap v b
-:nnoremap u i
-:inoremap uu <Esc>
-:nnoremap md cw
-:nnoremap mh cd
-:nnoremap hG dG
-:vnoremap n h
-:vnoremap e j
-:vnoremap o k
-:vnoremap i l
-:nnoremap C V
-:nnoremap c v
-:nnoremap f u
-:noremap p o
-:noremap ; p
