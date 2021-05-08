@@ -1,7 +1,12 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =5
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/home/parsarch/git/dotfiles-qwerty/alacritty'
+let g:netrw_dirhist_2='/home/parsarch/git/DotOS/vendor/xiaomi/tucana/proprietary/vendor'
+let g:netrw_dirhist_1='/home/parsarch/git/DotOS/hardware/qcom-caf/sm8150/display/display-commonsys-intf/libdisplayconfig'
+let g:netrw_dirhist_0='/home/parsarch/git/DotOS/device/xiaomi/sdm845-common/sepolicy/private'
+let g:netrw_dirhist_9='/home/parsarch/git/DotOS/hardware/dot/interfaces/livedisplay/2.0'
+let g:netrw_dirhist_8='/home/parsarch/git/DotOS/device/xiaomi/tucana-oss'
+let g:netrw_dirhist_7='/home/parsarch/git/DotOS/external/selinux/libsepol'
+let g:netrw_dirhist_6='/home/parsarch/git/DotOS/device/xiaomi/beryllium'
 let g:netrw_dirhist_5='/home/parsarch/void-packages/srcpkgs/virtualbox-ose'
 let g:netrw_dirhist_4='/home/parsarch/git/void-packages/srcpkgs/linux-tkg'
-let g:netrw_dirhist_3='/home/parsarch/git/dotfiles/i3'
-let g:netrw_dirhist_2='/home/parsrch/.config/i3'
-let g:netrw_dirhist_1='/home/parsrch/Projects'
