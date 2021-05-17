@@ -1,5 +1,5 @@
 input "type:keyboard" {
-  xkb_layout us,ir
+  xkb_layout workman,ir-parsarch
   xkb_options grp:alt_shift_toggle,caps:backspace,shift:both_capslock,'clear lock'
 }
 input "2362:9505:USB_OPTICAL_MOUSE" pointer_accel -0.6
@@ -31,8 +31,6 @@ set	$white		#e5e9f0
 set	$bg		    #2e3440
 set	$bglighter	#4c566a
 set	$bglight	#3b4252
-bindsym --to-code $mod+d exec Discord
-#bindsym --to-code $mod+d exec discord-canary --proxy-server="socks5://127.0.0.1:9050"
 # Home row direction keys, like vim
 set $left j
 set $down k
@@ -246,7 +244,17 @@ bindsym --to-code --release $mod+shift+apostrophe exec playerctl play-pause
 bindsym --to-code --release $mod+apostrophe exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 bindsym --to-code $mod+b exec QT_QPA_PLATFORM=wayland brave-browser-stable
 bindsym --to-code $mod+e exec nautilus
-bindsym --to-code $mod+t exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland Telegram
+bindsym --to-code $mod+t mode chats
+mode "chats" {
+bindsym --to-code t exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland Telegram
+bindsym --to-code d exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland Discord
+bindsym --to-code e exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland /opt/SchildiChat/schildichat-desktop
+bindsym --to-code f exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland /opt/Ferdi/ferdi
+bindsym --to-code Return mode "default"
+bindsym --to-code $mod+t mode "default"
+bindsym --to-code Escape mode "default"
+             }
+
 bindsym --to-code $mod+v exec vlc
 bindsym --to-code $mod+s exec spotify
 bindsym --to-code XF86PowerOff exec ./.config/rofi/powermenu/powermenu.sh
@@ -283,8 +291,8 @@ bindsym --to-code $mod+shift+Print exec grimshot copy
 set $laptop LVDS-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
-output DP-1 pos 1920 0 mode 1920x1080@74.973000Hz
-output HDMI-A-1 pos 0 0 mode 1920x1080@74.973000Hz
+output HDMI-A-1 pos 1920 0 mode 1920x1080@74.973000Hz
+output DP-1 pos 0 0 mode 1920x1080@74.973000Hz
 set $gnome-schema org.gnome.desktop.interface
 
 exec_always {
