@@ -1,5 +1,5 @@
 input "type:keyboard" {
-  xkb_layout us,ir
+  xkb_layout workman,ir-parsarch
   xkb_options grp:alt_shift_toggle,caps:backspace,shift:both_capslock,'clear lock'
 }
 input "2362:9505:USB_OPTICAL_MOUSE" pointer_accel -0.6
@@ -151,8 +151,10 @@ output * bg /home/parsarch/git/dotfiles/BG/Void/void-16_9.png fill
     bindsym --to-code $mod+Shift+5 move container to workspace $ws5
     bindsym --to-code $mod+Shift+6 move container to workspace $ws6
     bindsym --to-code $mod+n focus output left
+    bindsym --to-code $mod+tab focus output left
     bindsym --to-code $mod+shift+n move output left
-    bindsym --to-code $mod+Control+n move workspace to output left
+    bindsym --to-code $mod+shift+tab move output left
+    bindsym --to-code $mod+Control+tab move workspace to output left
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 #
@@ -242,21 +244,21 @@ bindsym --to-code --release $mod+bracketleft exec dbus-send --print-reply --dest
 bindsym --to-code --release $mod+shift+bracketleft exec playerctl previous
 bindsym --to-code --release $mod+shift+apostrophe exec playerctl play-pause
 bindsym --to-code --release $mod+apostrophe exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-bindsym --to-code $mod+b exec QT_QPA_PLATFORM=wayland brave-browser-stable
-bindsym --to-code $mod+e exec nautilus
-bindsym --to-code $mod+t mode chats
-mode "chats" {
+bindsym --to-code $mod+e mode Shortcuts
+mode "Shortcuts" {
 bindsym --to-code t exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland Telegram
 bindsym --to-code d exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland Discord
-bindsym --to-code e exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland /opt/SchildiChat/schildichat-desktop
+bindsym --to-code m exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland /opt/SchildiChat/schildichat-desktop
+bindsym --to-code s exec spotify
 bindsym --to-code f exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland /opt/Ferdi/ferdi
+bindsym --to-code e exec nautilus
+bindsym --to-code v exec vlc
+bindsym --to-code b exec QT_QPA_PLATFORM=wayland brave-browser-stable
 bindsym --to-code Return mode "default"
 bindsym --to-code $mod+t mode "default"
 bindsym --to-code Escape mode "default"
              }
 
-bindsym --to-code $mod+v exec vlc
-bindsym --to-code $mod+s exec spotify
 bindsym --to-code XF86PowerOff exec ./.config/rofi/powermenu/powermenu.sh
 bindsym --to-code $mod+Control+q exec ./.config/rofi/powermenu/powermenu.sh
 bindsym --to-code $mod+Control+$left resize shrink width 10 px or 10 ppt
