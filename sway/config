@@ -46,7 +46,7 @@ set $menu wofi --show drun
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /home/parsarch/git/dotfiles/BG/Void/void-16_9.png fill
+output * bg ~/git/dotfiles/BG/Void/void-16_9.png fill
 #
 # Example configuration:
 #
@@ -293,8 +293,12 @@ bindsym --to-code $mod+shift+Print exec grimshot copy
 set $laptop LVDS-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
-output HDMI-A-1 pos 1920 0 mode 1920x1080@74.973000Hz
-output DP-1 pos 0 0 mode 1920x1080@74.973000Hz
+output {
+	LVDS-1 pos 0 0 mode 1366x768@60Hz
+	VGA-1 pos 1366 0 mode 1366x768@60Hz
+	HDMI-A-1 pos 1920 0 mode 1920x1080@74.973000Hz
+	DP-1 pos 0 0 mode 1920x1080@74.973000Hz
+	}
 set $gnome-schema org.gnome.desktop.interface
 
 exec_always {
