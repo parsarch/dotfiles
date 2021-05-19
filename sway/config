@@ -1,6 +1,6 @@
 input "type:keyboard" {
-  xkb_layout workman,ir-parsarch
-  xkb_options grp:alt_shift_toggle,caps:backspace,shift:both_capslock,'clear lock'
+  xkb_layout us,ir
+  xkb_options grp:alt_shift_toggle,caps:backspace
 }
 input "2362:9505:USB_OPTICAL_MOUSE" pointer_accel -0.6
 
