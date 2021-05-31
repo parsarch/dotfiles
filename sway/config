@@ -1,326 +1,209 @@
-input "type:keyboard" {
-  xkb_layout us,ir
-  xkb_options grp:alt_shift_toggle,caps:backspace
-}
-input "2362:9505:USB_OPTICAL_MOUSE" pointer_accel -0.6
-
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
-# Read `man 5 sway` for a complete reference.
-
-### Variables
-#
-# Logo key. Use Mod1 for Alt.
-set $mod Mod4
-set	$alt Mod1
-# set custom icons for workspaces
-set	$ws1 		"1"
-set	$ws2 		"2"
-set	$ws3 		"3"
-set	$ws4 		"4"
-set	$ws5 		"5"
-set	$ws6 		"6"
-#Set variables for color scheme
-set	$red		#bf616a
-set	$green		#a3be8c
-set	$yellow		#ebcb8b
-set	$blue		#81a1c1
-set	$white		#e5e9f0
-set	$bg		    #2e3440
-set	$bglighter	#4c566a
-set	$bglight	#3b4252
-# Home row direction keys, like vim
-set $left j
-set $down k
-set $up l
-set $right semicolon
-# Your preferred terminal emulator
-set $term alacritty
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-set $menu wofi --show drun
-
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/git/dotfiles/BG/Void/void-16_9.png fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
-
-### Idle configuration
-#
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
-
-### Input configuration
-#
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
-
-### Key bindings
-#
-# Basics:
-#
-    # Start a terminal
-    bindsym --to-code $mod+Return exec $term
-
-    # Kill focused window
-    bindsym --to-code $mod+q kill
-
-    # Start your launcher
-    bindsym --to-code $mod+r exec ~/.config/rofi/appmenu/launcher.sh
-
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
-    floating_modifier $mod normal
-
-    # Reload the configuration file
-    bindsym --to-code $mod+Shift+c reload
-
-    # Exit sway (logs you out of your Wayland session)
-#    bindsym --to-code $mod+Shift+r exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
-#
-# Moving around:
-#
-    # Move your focus around
-    bindsym --to-code $mod+$left focus left
-    bindsym --to-code $mod+$down focus down
-    bindsym --to-code $mod+$up focus up
-    bindsym --to-code $mod+$right focus right
-    # Or use $mod+[up|down|left|right]
-    bindsym --to-code $mod+Left focus left
-    bindsym --to-code $mod+Down focus down
-    bindsym --to-code $mod+Up focus up
-    bindsym --to-code $mod+Right focus right
-
-    bindsym --to-code $alt+tab focus next
-    bindsym --to-code $alt+shift+tab focus prev
-    # Move the focused window with the same, but add Shift
-    bindsym --to-code $mod+Shift+$left move left
-    bindsym --to-code $mod+Shift+$down move down
-    bindsym --to-code $mod+Shift+$up move up
-    bindsym --to-code $mod+Shift+$right move right
-    # Ditto, with arrow keys
-    bindsym --to-code $mod+Shift+Left move left
-    bindsym --to-code $mod+Shift+Down move down
-    bindsym --to-code $mod+Shift+Up move up
-    bindsym --to-code $mod+Shift+Right move right
-#
-# Workspaces:
-#set shortcuts to toggle between workspaces
-    workspace_auto_back_and_forth yes
-    # Switch to workspace
-    bindsym --to-code $mod+1 workspace $ws1
-    bindsym --to-code $mod+2 workspace $ws2
-    bindsym --to-code $mod+3 workspace $ws3
-    bindsym --to-code $mod+4 workspace $ws4
-    bindsym --to-code $mod+5 workspace $ws5
-    bindsym --to-code $mod+6 workspace $ws6
-    # Move focused container to workspace
-    bindsym --to-code $mod+Shift+1 move container to workspace $ws1
-    bindsym --to-code $mod+Shift+2 move container to workspace $ws2
-    bindsym --to-code $mod+Shift+3 move container to workspace $ws3
-    bindsym --to-code $mod+Shift+4 move container to workspace $ws4
-    bindsym --to-code $mod+Shift+5 move container to workspace $ws5
-    bindsym --to-code $mod+Shift+6 move container to workspace $ws6
-    bindsym --to-code $mod+n focus output left
-    bindsym --to-code $mod+tab focus output left
-    bindsym --to-code $mod+shift+n move output left
-    bindsym --to-code $mod+shift+tab move output left
-    bindsym --to-code $mod+Control+tab move workspace to output left
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
-#
-# Layout stuff:
-#
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym --to-code $mod+i splith
-    bindsym --to-code $mod+o splitv
-
-    # Switch the current container between different layout styles
-#    bindsym --to-code $mod+s layout stacking
-    bindsym --to-code $mod+u layout tabbed
-    bindsym --to-code $mod+p layout toggle split
-
-    # Make the current focus fullscreen
-    bindsym --to-code $mod+f fullscreen
-    bindsym --to-code $mod+shift+f fullscreen global
-
-    # Toggle the current focus between tiling and floating mode
-    bindsym --to-code $mod+Shift+space floating toggle
-
-    # Swap focus between the tiling area and the floating area
-    bindsym --to-code $mod+space focus mode_toggle
-
-    # Move focus to the parent container
-bindsym --to-code $mod+a focus parent
-#
-# Scratchpad:
-#
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-
-    # Move the currently focused window to the scratchpad
-    bindsym --to-code $mod+Shift+minus move scratchpad
-
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym --to-code $mod+minus scratchpad show
-#
-# Resizing containers:
-#
-#mode "resize" {
-#    # left will shrink the containers width
-#    # right will grow the containers width
-#    # up will shrink the containers height
-#    # down will grow the containers height
-#    bindsym --to-code $left resize shrink width 10px
-#    bindsym --to-code $down resize grow height 10px
-#    bindsym --to-code $up resize shrink height 10px
-#    bindsym --to-code $right resize grow width 10px
-#
-#    # Ditto, with arrow keys
-#    bindsym --to-code Left resize shrink width 10px
-#    bindsym --to-code Down resize grow height 10px
-#    bindsym --to-code Up resize shrink height 10px
-#    bindsym --to-code Right resize grow width 10px
-#
-#    # Return to default mode
-#    bindsym --to-code Return mode "default"
-#    bindsym --to-code Escape mode "default"
-#}
-#bindsym --to-code $mod+j mode "resize"
-
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-#bar {
-#    position top
-#
-#    # When the status_command prints a new line to stdout, swaybar updates.
-#    # The default just shows the current date and time.
-#    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
-#  colors {
-#    statusline #ffffff
-#    background #323232
-#    inactive_workspace #32323200 #32323200 #5c5c5c
-#}
-#}
-include /etc/sway/config.d/*
-popup_during_fullscreen smart
-bindsym --to-code --release $mod+bracketright exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-bindsym --to-code --release $mod+shift+bracketright exec playerctl next
-bindsym --to-code --release $mod+bracketleft exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
-bindsym --to-code --release $mod+shift+bracketleft exec playerctl previous
-bindsym --to-code --release $mod+shift+apostrophe exec playerctl play-pause
-bindsym --to-code --release $mod+apostrophe exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-bindsym --to-code $mod+e mode Shortcuts
-mode "Shortcuts" {
-bindsym --to-code t exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland Telegram
-bindsym --to-code d exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland Discord
-bindsym --to-code m exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland /opt/SchildiChat/schildichat-desktop
-bindsym --to-code s exec spotify
-bindsym --to-code f exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland /opt/Ferdi/ferdi
-bindsym --to-code e exec nautilus
-bindsym --to-code v exec vlc
-bindsym --to-code b exec QT_QPA_PLATFORM=wayland brave-browser-stable
-bindsym --to-code Return mode "default"
-bindsym --to-code $mod+t mode "default"
-bindsym --to-code Escape mode "default"
-             }
-
-bindsym --to-code XF86PowerOff exec ./.config/rofi/powermenu/powermenu.sh
-bindsym --to-code $mod+Control+q exec ./.config/rofi/powermenu/powermenu.sh
-bindsym --to-code $mod+Control+$left resize shrink width 10 px or 10 ppt
-bindsym --to-code $mod+Control+$down resize grow height 10 px or 10 ppt
-bindsym --to-code $mod+Control+$up resize shrink height 10 px or 10 ppt
-bindsym --to-code $mod+Control+$right resize grow width 10 px or 10 ppt
-bindsym --to-code $mod+Control+left resize shrink width 10 px or 10 ppt
-bindsym --to-code $mod+Control+down resize grow height 10 px or 10 ppt
-bindsym --to-code $mod+Control+up resize shrink height 10 px or 10 ppt
-bindsym --to-code $mod+Control+right resize grow width 10 px or 10 ppt
-bindsym --to-code XF86AudioPlay exec playerctl play-pause
-bindsym --to-code XF86AudioPause exec playerctl pause
-bindsym --to-code XF86AudioNext exec playerctl next
-bindsym --to-code XF86AudioPrev exec playerctl previous
-gaps right 5
-gaps top 5
-gaps bottom 5
-gaps inner 5
-default_border pixel 3
-smart_borders on
-#	<colorclass>		    <border>	<background>    <text>	<indicator>	<child_border>
-	client.focused 		    $bglight		$bglight		    $white	$blue		$red
-	client.focused_inactive	$bg		    $bg		        $white	$bg		    $bg
-    client.unfocused  	    $bg 		$bg	    $white	$red		$bglighter
-	client.urgent		    $yellow		$yellow		    $bg	    $yellow		$yellow
-assign	[class="opera" class="chromium" class="firefox" ] workspace $ws2
-assign	[class="TelegramDesktop" class="Telegram" class="KotatogramDesktop" class="discord" ] workspace $ws3
-assign [class="Gimp-2.10"] workspace $ws5
-for_window [class="Spotify"] move to workspace $ws4
-bindsym --to-code $mod+Print exec grimshot copy area
-bindsym --to-code $mod+shift+Print exec grimshot copy
-set $laptop LVDS-1
-bindswitch --reload --locked lid:on output $laptop disable
-bindswitch --reload --locked lid:off output $laptop enable
-output {
-	LVDS-1 pos 0 0 mode 1366x768@60Hz
-	VGA-1 pos 1366 0 mode 1366x768@60Hz
-	HDMI-A-1 pos 1920 0 mode 1920x1080@74.973000Hz
-	DP-1 pos 0 0 mode 1920x1080@74.973000Hz
-	}
-set $gnome-schema org.gnome.desktop.interface
-
-exec_always {
-    gsettings set $gnome-schema gtk-theme 'Orchis-dark'
-    gsettings set $gnome-schema icon-theme 'Papirus-Dark'
-    gsettings set $gnome-schema cursor-theme 'Vimix Cursors - White'
-    gsettings set $gnome-schema font-name 'Nova Round Book 11'
-    pkill waybar;waybar
-    lxpolkit
-            }
-exec {
-    mako
-    waybar
-    pulseaudio
-   # pipewire &
-   # pipewire-pulse &
-   #pipewire-media-session
-    swayidle -w \
-	timeout 1800 'swaylock' \
-	timeout 1805 'swaymsg "output * dpms off"' \
-    before-sleep 'playerctl pause' \
-    before-sleep 'swaylock' \
-	resume 'swaymsg "output * dpms on"'
+#set input configs
+    input "type:keyboard" {
+      xkb_layout us,ir
+      xkb_options grp:alt_space_toggle,caps:backspace
     }
+    input "2362:9505:USB_OPTICAL_MOUSE" pointer_accel -0.6
+# Variables
+    set {
+        $mod Mod4
+        $alt Mod1
+# set custom icons for workspaces
+        $ws1 		"1"
+        $ws2 		"2"
+        $ws3 		"3"
+        $ws4 		"4"
+        $ws5 		"5"
+        $ws6 		"6"
+#Set variables for color scheme
+        $red		#bf616a
+        $green		#a3be8c
+        $yellow		#ebcb8b
+        $blue		#81a1c1
+        $white		#e5e9f0
+        $bg		    #2e3440
+        $bglighter	#4c566a
+        $bglight	#3b4252
+# Home row direction keys
+        $left j
+        $down k
+        $up l
+        $right semicolon
+# Your preferred terminal emulator
+        $term alacritty
+    }
+#    workspace_auto_back_and_forth yes
+    floating_modifier $mod normal
+    output * bg /home/parsarch/git/dotfiles/BG/Void/void-16_9.png fill
+    bindsym --to-code {
+        $mod+Return exec $term #run Terminal
+        $mod+q kill
+        $mod+r exec ~/.config/rofi/appmenu/launcher.sh #run app launcher
+        $mod+Shift+c reload
+    #change focus
+        $mod+$left focus left
+        $mod+$down focus down
+        $mod+$up focus up
+        $mod+$right focus right
+        $mod+Left focus left
+        $mod+Down focus down
+        $mod+Up focus up
+        $mod+Right focus right
+    #change focus with alt-tab
+        $alt+tab focus next
+        $alt+shift+tab focus prev
+    #move windows around
+        $mod+Shift+$left move left
+        $mod+Shift+$down move down
+        $mod+Shift+$up move up
+        $mod+Shift+$right move right
+        $mod+Shift+Left move left
+        $mod+Shift+Down move down
+        $mod+Shift+Up move up
+        $mod+Shift+Right move right
+    #switch workspaces
+        $mod+1 workspace $ws1
+        $mod+2 workspace $ws2
+        $mod+3 workspace $ws3
+        $mod+4 workspace $ws4
+        $mod+5 workspace $ws5
+        $mod+6 workspace $ws6
+    #move window to another workspace
+        $mod+Shift+1 move container to workspace $ws1
+        $mod+Shift+2 move container to workspace $ws2
+        $mod+Shift+3 move container to workspace $ws3
+        $mod+Shift+4 move container to workspace $ws4
+        $mod+Shift+5 move container to workspace $ws5
+        $mod+Shift+6 move container to workspace $ws6
+    #shortcuts for multi-monitor management
+        $mod+n focus output left
+        $mod+tab focus output left
+        $mod+shift+n move output left
+        $mod+shift+tab move output left
+        $mod+Control+tab move workspace to output left
+        $mod+Control+n move workspace to output left
+    #switch between sway's layouts
+        $mod+i splith
+        $mod+o splitv
+        $mod+u layout tabbed
+        $mod+p layout toggle split
+        $mod+f fullscreen
+        $mod+shift+f fullscreen global #make window fullscreen on all monitors
+        $mod+Shift+space floating toggle
+        $mod+space focus mode_toggle
+        $mod+a focus parent
+        $mod+Shift+minus move scratchpad #basically a window that you can hide and show on your focused workspace
+        $mod+minus scratchpad show #show scratchpad
+    #playerctl is for managing your media player
+    #dbus-send commands are shortcuts only for spotify
+        --release $mod+shift+bracketright exec playerctl next
+        --release $mod+bracketleft exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+        --release $mod+shift+bracketleft exec playerctl previous
+        --release $mod+shift+apostrophe exec playerctl play-pause
+        --release $mod+apostrophe exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+        --release $mod+bracketright exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+        #enter shortcut mode
+        $mod+e mode Shortcuts
+        XF86PowerOff exec ./.config/rofi/powermenu/powermenu.sh #you have to disable your init's power button management
+        $mod+Control+q exec ./.config/rofi/powermenu/powermenu.sh
+    #resizing your window
+        $mod+Control+$left resize shrink width 10 px or 10 ppt
+        $mod+Control+$down resize grow height 10 px or 10 ppt
+        $mod+Control+$up resize shrink height 10 px or 10 ppt
+        $mod+Control+$right resize grow width 10 px or 10 ppt
+        $mod+Control+left resize shrink width 10 px or 10 ppt
+        $mod+Control+down resize grow height 10 px or 10 ppt
+        $mod+Control+up resize shrink height 10 px or 10 ppt
+        $mod+Control+right resize grow width 10 px or 10 ppt
+    #playerctl for fn buttons
+        XF86AudioPlay exec playerctl play-pause
+        XF86AudioPause exec playerctl pause
+        XF86AudioNext exec playerctl next
+        XF86AudioPrev exec playerctl previous
+    #screenshot
+        $mod+Print exec grimshot copy output
+        $mod+shift+Print exec grimshot copy area
+        $mod+Control+Print exec grimshot copy
+    }
+    include /etc/sway/config.d/*
+    popup_during_fullscreen smart
+    mode "Shortcuts" {
+    # a custom mode for running apps
+        bindsym --to-code {
+            t exec QT_QPA_PLATFORM=wayland Telegram
+            d exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland Discord
+            m exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland /opt/SchildiChat/schildichat-desktop
+            s exec spotify
+            f exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland /opt/Ferdi/ferdi
+            e exec nautilus
+            v exec vlc
+            b exec QT_QPA_PLATFORM=wayland brave-browser-stable
+            Return mode "default"
+            $mod+t mode "default"
+            Escape mode "default"
+            }
+    }
+
+    gaps inner  5
+    gaps outer  5
+    default_border pixel 3 #border width
+#removes border if you have only one window
+    smart_borders on
+    #	<colorclass>		    <border>	<background>    <text>	<indicator>	<child_border>
+    	client.focused 		    $bglight		$bglight		    $white	$blue		$red
+    	client.focused_inactive	$bg		    $bg		        $white	$bg		    $bg
+        client.unfocused  	    $bg 		$bg	    $white	$red		$bglighter
+    	client.urgent		    $yellow		$yellow		    $bg	    $yellow		$yellow
+#assign windows to open in said workspace
+    for_window {
+        [   class="opera"\
+            class="chromium"\
+            class="firefox"\
+            class="Brave-browser"]\
+        move to workspace $ws2
+        [   class="TelegramDesktop"\
+            class="Telegram"\
+            class="Ferdi"\
+            class="SchildiChat"\
+            class="KotatogramDesktop"\
+            class="discord"\
+         ] move to workspace $ws3
+        [class="Gimp-2.10"] move to workspace $ws5
+    }
+      for_window  [class="Spotify"] move to workspace $ws4
+      for_window [app_id="appimagekit_d4b27878fdf61075b77964053264576c"] move to workspace $ws3
+      for_window [app_id="org.telegram.desktop.desktop"] move to workspace $ws3
+#some configuration for my laptop
+    set $laptop LVDS-1
+    bindswitch --reload --locked lid:on output $laptop disable
+    bindswitch --reload --locked lid:off output $laptop enable
+#monitor layout
+    output HDMI-A-1 pos 1920 0 mode 1920x1080@74.973000Hz
+    output DP-1 pos 0 0 mode 1920x1080@74.973000Hz
+    set $gnome-schema org.gnome.desktop.interface
+
+    exec_always {
+    #These always run when you reload sway
+        gsettings set $gnome-schema gtk-theme 'Orchis-dark'
+        gsettings set $gnome-schema icon-theme 'Papirus-Dark'
+        gsettings set $gnome-schema cursor-theme 'Vimix Cursors - White'
+        gsettings set $gnome-schema font-name 'Nova Round Book 11'
+        pkill waybar;waybar #bar
+        lxpolkit #for asking root password
+                }
+    exec {
+    #audio
+        pulseaudio
+    #PipeWire is a newer technology for audio,has great potential,but apps are still buggy with it
+    #    pipewire &
+    #    pipewire-pulse &
+    #    pipewire-media-session
+        mako #notifications
+        waybar #bar
+#        /opt/Ferdi/ferdi #a chat browser
+        /opt/SchildiChat/schildichat-desktop #Element
+        Telegram
+        Discord
+        swayidle -w timeout 600 'swaylock' timeout 605 'swaymsg "output * dpms off"' before-sleep 'playerctl pause' before-sleep 'swaylock' resume 'swaymsg "output * dpms on"' #for setting sleep on idle
+        }
     seat seat0 xcursor_theme "Vimix-white-cursors"

@@ -1,10 +1,6 @@
 let g:netrw_dirhistmax  =10
-<<<<<<< HEAD
-let g:netrw_dirhistcnt =2
-=======
 let g:netrw_dirhistcnt =3
 let g:netrw_dirhist_3='/home/parsarch/git/dotfiles-qwerty/alacritty'
->>>>>>> e4a17a0 (added fontconfig)
 let g:netrw_dirhist_2='/home/parsarch/git/DotOS/vendor/xiaomi/tucana/proprietary/vendor'
 let g:netrw_dirhist_1='/home/parsarch/git/DotOS/hardware/qcom-caf/sm8150/display/display-commonsys-intf/libdisplayconfig'
 let g:netrw_dirhist_0='/home/parsarch/git/DotOS/device/xiaomi/sdm845-common/sepolicy/private'
@@ -14,7 +10,3 @@ let g:netrw_dirhist_7='/home/parsarch/git/DotOS/external/selinux/libsepol'
 let g:netrw_dirhist_6='/home/parsarch/git/DotOS/device/xiaomi/beryllium'
 let g:netrw_dirhist_5='/home/parsarch/void-packages/srcpkgs/virtualbox-ose'
 let g:netrw_dirhist_4='/home/parsarch/git/void-packages/srcpkgs/linux-tkg'
-<<<<<<< HEAD
-let g:netrw_dirhist_3='/home/parsarch/git/dotfiles/i3'
-=======
->>>>>>> e4a17a0 (added fontconfig)

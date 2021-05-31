@@ -8,25 +8,25 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.config/nvim/bundle/Vundle.vim
 
-call vundle#begin()		" required, all plugins must appear after this line.
+call plug#begin('~/.config/nvim/plugged')		" required, all plugins must appear after this line.
 
-Plugin 'gmarik/Vundle.vim'							" Vundle
-Plugin 'itchyny/lightline.vim'                      " Lightline statusbar
-Plugin 'vifm/vifm.vim'
-Plugin 'vimwiki/vimwiki'                            " Vim wiki
-Plugin 'scrooloose/nerdtree'						" added nerdtree
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plugin 'ryanoasis/vim-devicons'
-Plugin 'frazrepo/vim-rainbow'
-Plugin 'vim-python/python-syntax'
-Plugin 'jreybert/vimagit'
-Plugin 'severin-lemaignan/vim-minimap'
-Plugin 'ap/vim-css-color'                           " Color previews for CSS
-Plugin 'tpope/vim-surround'                         " Change surrounding marks
-Plugin 'mattn/emmet-vim'
-Plugin 'neoclide/coc.nvim'
+Plug 'rust-lang/rust.vim'
+Plug 'itchyny/lightline.vim'                      " Lightline statusbar
+Plug 'vifm/vifm.vim'
+Plug 'vimwiki/vimwiki'                            " Vim wiki
+Plug 'scrooloose/nerdtree'						" added nerdtree
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'ryanoasis/vim-devicons'
+Plug 'frazrepo/vim-rainbow'
+Plug 'vim-python/python-syntax'
+Plug 'jreybert/vimagit'
+Plug 'severin-lemaignan/vim-minimap'
+Plug 'ap/vim-css-color'                           " Color previews for CSS
+Plug 'tpope/vim-surround'                         " Change surrounding marks
+Plug 'mattn/emmet-vim'
+Plug 'neoclide/coc.nvim'
 
-call vundle#end()		" required, all plugins must appear before this line.
+call plug#end()		" required, all plugins must appear before this line.
 
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
@@ -253,3 +253,28 @@ source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 "Sourcing evrything ("don't why but you need to do it)
 =
+:nnoremap n h
+:nnoremap e j
+:nnoremap i l
+:nnoremap o k
+:nnoremap h d
+:nnoremap k n
+:nnoremap hh dd
+:nnoremap d w
+:nnoremap r e
+:nnoremap w r
+:nnoremap v b
+:nnoremap u i
+:inoremap uu <Esc>
+:nnoremap md cw
+:nnoremap mh cd
+:nnoremap hG dG
+:vnoremap n h
+:vnoremap e j
+:vnoremap o k
+:vnoremap i l
+:nnoremap C V
+:nnoremap c v
+:nnoremap f u
+:noremap p o
+:noremap ; p
