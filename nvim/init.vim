@@ -8,25 +8,25 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.config/nvim/bundle/Vundle.vim
 
-call vundle#begin()		" required, all plugins must appear after this line.
+call plug#begin('~/.config/nvim/plugged')		" required, all plugins must appear after this line.
 
-Plugin 'gmarik/Vundle.vim'							" Vundle
-Plugin 'itchyny/lightline.vim'                      " Lightline statusbar
-Plugin 'vifm/vifm.vim'
-Plugin 'vimwiki/vimwiki'                            " Vim wiki
-Plugin 'scrooloose/nerdtree'						" added nerdtree
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plugin 'ryanoasis/vim-devicons'
-Plugin 'frazrepo/vim-rainbow'
-Plugin 'vim-python/python-syntax'
-Plugin 'jreybert/vimagit'
-Plugin 'severin-lemaignan/vim-minimap'
-Plugin 'ap/vim-css-color'                           " Color previews for CSS
-Plugin 'tpope/vim-surround'                         " Change surrounding marks
-Plugin 'mattn/emmet-vim'
-Plugin 'neoclide/coc.nvim'
+Plug 'rust-lang/rust.vim'
+Plug 'itchyny/lightline.vim'                      " Lightline statusbar
+Plug 'vifm/vifm.vim'
+Plug 'vimwiki/vimwiki'                            " Vim wiki
+Plug 'scrooloose/nerdtree'						" added nerdtree
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'ryanoasis/vim-devicons'
+Plug 'frazrepo/vim-rainbow'
+Plug 'vim-python/python-syntax'
+Plug 'jreybert/vimagit'
+Plug 'severin-lemaignan/vim-minimap'
+Plug 'ap/vim-css-color'                           " Color previews for CSS
+Plug 'tpope/vim-surround'                         " Change surrounding marks
+Plug 'mattn/emmet-vim'
+Plug 'neoclide/coc.nvim'
 
-call vundle#end()		" required, all plugins must appear before this line.
+call plug#end()		" required, all plugins must appear before this line.
 
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
