@@ -2,7 +2,7 @@
 
 // NAME: Keyboard Shortcut
 // AUTHOR: khanhas
-// DESCRIPTION: Register a few more keybinds to support keyboard-driven navigation in Spotify client. 
+// DESCRIPTION: Register a few more keybinds to support keyboard-driven navigation in Spotify client.
 
 /// <reference path="../globals.d.ts" />
 
@@ -16,12 +16,12 @@
 
     /**
      * Register your own keybind with function `registerBind`
-     * 
+     *
      * Syntax:
      *     registerBind(keyName, ctrl, shift, alt, callback)
-     * 
+     *
      * ctrl, shift and alt are boolean, true or false
-     * 
+     *
      * Valid keyName:
      * - BACKSPACE       - C               - Y               - F3
      * - TAB             - D               - Z               - F4
@@ -45,13 +45,13 @@
      * - DELETE          - V               - DIVIDE          - \
      * - A               - W               - F1              - ]
      * - B               - X               - F2              - "
-     * 
+     *
      * Use one of keyName as a string. If key that you want isn't in that list,
      * you can also put its keycode number in keyName as a number.
-     * 
-     * callback is name of function you want your shortcut to bind to. It also 
+     *
+     * callback is name of function you want your shortcut to bind to. It also
      * returns one KeyboardEvent parameter.
-     * 
+     *
      * Following are my default keybinds, use them as examples.
      */
 
@@ -74,10 +74,6 @@
     registerBind("J", false, false, false, appScrollDown);
     registerBind("K", false, false, false, appScrollUp);
 
-    // H and L to horizontally scroll carousel
-    registerBind("H", false, false, false, carouselScrollLeft);
-    registerBind("L", false, false, false, carouselScrollRight);
-
     // G and Shift + G to scroll to top and to bottom
     registerBind("G", false, false, false, appScrollTop);
     registerBind("G", false, true, false, appScrollBottom);
@@ -92,7 +88,7 @@
     const vim = new VimBind();
     registerBind("F", false, false, false, vim.activate.bind(vim));
     // Esc to cancle Link Follow
-    Spicetify.Keyboard.registerImportantShortcut(Spicetify.Keyboard.KEYS["ESCAPE"], vim.deactivate.bind(vim));
+    vim.setCancleKey("ESCAPE")
 
     function rotateSidebarDown() {
         rotateSidebar(1)
@@ -103,15 +99,15 @@
     }
 
     function clickQueueButton() {
-        document.getElementById("player-button-queue").click();
+        document.querySelector(".control-button-wrapper .spoticon-queue-16").click();
     }
 
     function clickNavigatingBackButton() {
-        document.querySelector("#header .back").click();
+        document.querySelector(".main-topBar-historyButtons .main-topBar-back").click();
     }
 
     function clickNavigatingForwardButton() {
-        document.querySelector("#header .forward").click();
+        document.querySelector(".main-topBar-historyButtons .main-topBar-forward").click();
     }
 
     function appScrollDown() {
@@ -128,20 +124,6 @@
         }
     }
 
-    function carouselScrollLeft() {
-        const app = focusOnApp();
-        if (app) {
-            scrollCarousel(app.querySelectorAll(CAROUSEL_CLASSES), false);
-        }
-    }
-
-    function carouselScrollRight() {
-        const app = focusOnApp();
-        if (app) {
-            scrollCarousel(app.querySelectorAll(CAROUSEL_CLASSES), true);
-        }
-    }
-
     function appScrollBottom() {
         const app = focusOnApp();
         app.scroll(0, app.scrollHeight);
@@ -153,50 +135,43 @@
     }
 
     /**
-     * 
-     * @param {KeyboardEvent} event 
+     *
+     * @param {KeyboardEvent} event
      */
     function openSearchPage(event) {
-        const sidebarItem = document.querySelector(`#view-navigation-bar a[href="spotify:app:search:"]`);
-        if (sidebarItem) {
-            sidebarItem.click();
-            return;
-        }
-
-        const searchInput = document.querySelector(".SearchInput__input");
+        const searchInput = document.querySelector(".main-topBar-topbarContentWrapper input");
         if (searchInput) {
             searchInput.focus();
+        } else {
+            const sidebarItem = document.querySelector(`.main-navBar-navBar a[href="/search"]`);
+            if (sidebarItem) {
+                sidebarItem.click();
+            }
         }
 
         event.preventDefault();
     }
 
-    const CAROUSEL_CLASSES = `.Carousel, .crsl-item.col-xs-12.col-sm-12.col-md-12.col-lg-12`;
-    const CAROUSEL_NEXT_CLASSES = `[data-ta-id="next-button"], [data-button="carousel-next"]`;
-    const CAROUSEL_PREVIOUS_CLASSES = `[data-ta-id="previous-button"], [data-button="carousel-previous"]`;
-
     /**
-     * 
-     * @param {string | number} keyName 
-     * @param {boolean} ctrl 
-     * @param {boolean} shift 
-     * @param {boolean} alt 
-     * @param {(event: KeyboardEvent) => void} callback 
+     *
+     * @param {Spicetify.Keyboard.ValidKey} keyName
+     * @param {boolean} ctrl
+     * @param {boolean} shift
+     * @param {boolean} alt
+     * @param {(event: KeyboardEvent) => void} callback
      */
     function registerBind(keyName, ctrl, shift, alt, callback) {
-        if (typeof keyName === "string") {
-            keyName = Spicetify.Keyboard.KEYS[keyName];
-        }
+        const key = Spicetify.Keyboard.KEYS[keyName];
 
         Spicetify.Keyboard.registerShortcut(
             {
-                key: keyName,
+                key,
                 ctrl,
                 shift,
                 alt,
             },
             (event) => {
-                if (!event.cancelBubble && !vim.isActive) {
+                if (!vim.isActive) {
                     callback(event);
                 }
             },
@@ -204,19 +179,7 @@
     }
 
     function focusOnApp() {
-        /** @type {HTMLIFrameElement} */
-        const iframe = document.querySelector("iframe.active");
-        if (iframe) {
-            iframe.focus();
-            return iframe.contentDocument.querySelector("html");
-        }
-
-        /** @type {HTMLDivElement} */
-        const embebbed = document.querySelector(".embedded-app.active");
-        if (embebbed) {
-            embebbed.firstChild.focus();
-            return embebbed;
-        }
+        return document.querySelector("main .os-viewport");
     }
 
     /**
@@ -224,7 +187,7 @@
      */
     function findActiveIndex(allItems) {
         const active = document.querySelector(
-            ".SidebarListItem--is-active, .SidebarListItemLink--is-highlighted"
+            ".main-navBar-navBarLinkActive, .main-collectionLinkButton-selected, .main-rootlist-rootlistItemLinkActive"
         );
         if (!active) {
             return -1;
@@ -241,12 +204,12 @@
     }
 
     /**
-     * 
-     * @param {1 | -1} direction 
+     *
+     * @param {1 | -1} direction
      */
     function rotateSidebar(direction) {
         const allItems = document.querySelectorAll(
-            ".SidebarListItem, .RootlistItem__link .SidebarListItemLink"
+            ".main-navBar-navBarLink, .main-collectionLinkButton-collectionLinkButton, .main-rootlist-rootlistItemLink"
         );
         const maxIndex = allItems.length - 1;
         let index = findActiveIndex(allItems) + direction;
@@ -256,52 +219,17 @@
 
         let toClick = allItems[index];
         if (!toClick.hasAttribute("href")) {
-            toClick = toClick.querySelector(".SidebarListItemLink");
+            toClick = toClick.querySelector(".main-rootlist-rootlistItemLink");
         }
 
         toClick.click();
-    }
-
-    /**
-     * Find first visible carousel and hit next/previous button
-     * @param {NodeListOf<Element>} carouselList 
-     * @param {boolean} isNext
-     */
-    function scrollCarousel(carouselList, isNext) {
-        if (carouselList.length === 0) {
-            return;
-        }
-
-        for (const carousel of carouselList) {
-            const bound = carousel.getBoundingClientRect();
-            if (bound.top < 0) {
-                continue;
-            }
-
-            if (isNext) {
-                const next = carousel.querySelector(CAROUSEL_NEXT_CLASSES);
-                if (next) {
-                    next.click();
-                }
-            } else {
-                const previous = carousel.querySelector(CAROUSEL_PREVIOUS_CLASSES);
-                if (previous) {
-                    previous.click();
-                }
-            }
-
-            return;
-        }
     }
 })();
 
 function VimBind() {
     const elementQuery = [
         "[href]",
-        "button.button-green",
-        "button.button-with-stroke",
-        "button.Button--style-green",
-        "button.Button--style-stroke",
+        "button",
         "td.tl-play",
         "td.tl-number",
         "tr.TableRow",
@@ -311,22 +239,7 @@ function VimBind() {
 
     const lastKeyIndex = keyList.length - 1;
 
-    /** @type {Document | undefined} */
-    let currentIframe;
-    /** @type {HTMLDivElement} */
-    let currentEmbedded;
-    const sidebar = document.getElementById("view-navigation-bar");
-    const player = document.getElementById("view-player-footer");
-    const buddyList = document.getElementById("iframe-buddy-list");
-
     this.isActive = false;
-
-    keyList.forEach((key) => {
-        Spicetify.Keyboard.registerImportantShortcut(
-            Spicetify.Keyboard.KEYS[key.toUpperCase()],
-            listenToKeys.bind(this),
-        );
-    });
 
     const vimOverlay = document.createElement("div");
     vimOverlay.id = "vim-overlay";
@@ -339,9 +252,9 @@ function VimBind() {
 .vim-key {
     position: fixed;
     padding: 3px 6px;
-    background-color: black;
+    background-color: #2e3440;
     border-radius: 3px;
-    border: solid 2px white;
+    border: solid 2px #4c566a;
     color: white;
     text-transform: lowercase;
     line-height: normal;
@@ -351,29 +264,17 @@ function VimBind() {
 </style>`;
     document.body.append(vimOverlay);
 
+    const mousetrap = new Spicetify.Mousetrap(document);
+    mousetrap.bind(keyList, listenToKeys.bind(this), "keypress");
+    // Pause mousetrap event emitter
+    const orgStopCallback = mousetrap.stopCallback;
+    mousetrap.stopCallback = () => true;
+
     /**
-     * 
-     * @param {KeyboardEvent} event 
+     *
+     * @param {KeyboardEvent} event
      */
     this.activate = function (event) {
-        /** @type {HTMLIFrameElement} */
-        const iframe = document.querySelector("iframe.active");
-        let iframeBound = null;
-        let buddyBound = null;
-
-        if (iframe) {
-            currentIframe = iframe.contentDocument;
-            iframeBound = iframe.getBoundingClientRect();
-            currentEmbedded = undefined;
-        } else {
-            currentIframe = undefined;
-            currentEmbedded = document.querySelector(".embedded-app.active");
-        }
-
-        if (buddyList.src !== "about:blank") {
-            buddyBound = buddyList.getBoundingClientRect();
-        }
-
         vimOverlay.style.display = "block";
 
         const vimkey = getVims();
@@ -393,23 +294,10 @@ function VimBind() {
             }
 
             const bound = e.getBoundingClientRect();
-            let owner;
+            let owner = document.body;
 
             let top = bound.top;
             let left = bound.left;
-
-            if (e.ownerDocument === currentIframe && iframeBound) {
-                top += iframeBound.top;
-                left += iframeBound.left;
-                owner = iframe;
-
-            } else if (e.ownerDocument === buddyList.contentDocument && buddyBound) {
-                top += buddyBound.top;
-                left += buddyBound.left;
-                owner = buddyList;
-            } else {
-                owner = document.body;
-            }
 
             if (
                 bound.bottom > owner.clientHeight ||
@@ -437,29 +325,22 @@ function VimBind() {
         });
 
         this.isActive = true;
+        setTimeout(() => mousetrap.stopCallback = orgStopCallback.bind(mousetrap), 100);
     }
 
     /**
-     * 
-     * @param {KeyboardEvent} event 
+     *
+     * @param {KeyboardEvent} event
      */
     this.deactivate = function (event) {
-        event.cancelBubble = true;
+        mousetrap.stopCallback = () => true;
         this.isActive = false;
         vimOverlay.style.display = "none";
         getVims().forEach((e) => e.remove());
     }
 
     function getLinks() {
-        const elements = Array.from(sidebar.querySelectorAll(elementQuery));
-        elements.push(...player.querySelectorAll(elementQuery));
-        elements.push(...buddyList.contentDocument.querySelectorAll(elementQuery));
-
-        if (currentIframe || currentEmbedded) {
-            const el = (currentIframe || currentEmbedded).querySelectorAll(elementQuery);
-            elements.push(...el);
-        }
-
+        const elements = Array.from(document.querySelectorAll(elementQuery));
         return elements;
     }
 
@@ -497,6 +378,10 @@ function VimBind() {
             }
 
             div.innerText = newText;
+        }
+
+        if (vimOverlay.childNodes.length === 1) {
+            this.deactivate(event);
         }
     }
 
@@ -547,6 +432,14 @@ function VimBind() {
         }
 
         return null;
+    }
+
+    /**
+     *
+     * @param {Spicetify.Keyboard.ValidKey} key
+     */
+    this.setCancleKey = function(key) {
+        mousetrap.bind(Spicetify.Keyboard.KEYS[key], this.deactivate.bind(this));
     }
 
     return this;
