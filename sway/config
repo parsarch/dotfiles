@@ -4,6 +4,7 @@
       xkb_options grp:alt_space_toggle,caps:backspace
     }
     input "2362:9505:USB_OPTICAL_MOUSE" pointer_accel -0.6
+#    input "2362:9505:USB_OPTICAL_MOUSE" map_to_output HDMI-A-1
 # Variables
     set {
         $mod Mod4
@@ -34,7 +35,7 @@
     }
 #    workspace_auto_back_and_forth yes
     floating_modifier $mod normal
-    output * bg /home/parsarch/git/dotfiles/BG/Void/void-16_9.png fill
+    output * bg /home/parsarch/bitmap.png fill
     bindsym --to-code {
         $mod+Return exec $term #run Terminal
         $mod+q kill
@@ -88,12 +89,16 @@
         $mod+u layout tabbed
         $mod+p layout toggle split
         $mod+f fullscreen
-        $mod+shift+f fullscreen global #make window fullscreen on all monitors
+        $mod+shift+f fullscreen global
         $mod+Shift+space floating toggle
         $mod+space focus mode_toggle
         $mod+a focus parent
-        $mod+Shift+minus move scratchpad #basically a window that you can hide and show on your focused workspace
-        $mod+minus scratchpad show #show scratchpad
+        $mod+Shift+0 move scratchpad
+        $mod+Shift+v move scratchpad
+        #basically a window that you can hide and show on your focused workspace
+        $mod+0 scratchpad show
+        $mod+v scratchpad show
+        #show scratchpad
     #playerctl is for managing your media player
     #dbus-send commands are shortcuts only for spotify
         --release $mod+shift+bracketright exec playerctl next
@@ -115,31 +120,28 @@
         $mod+Control+down resize grow height 10 px or 10 ppt
         $mod+Control+up resize shrink height 10 px or 10 ppt
         $mod+Control+right resize grow width 10 px or 10 ppt
-    #playerctl for fn buttons
-        XF86AudioPlay exec playerctl play-pause
-        XF86AudioPause exec playerctl pause
-        XF86AudioNext exec playerctl next
-        XF86AudioPrev exec playerctl previous
+    #playerctl for function buttons
+        $mod+equal exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
+        $mod+minus exec --no-startup-id pactl set-sink-volume 1 -5% #decrease sound volume
     #screenshot
         $mod+Print exec grimshot copy output
         $mod+shift+Print exec grimshot copy area
         $mod+Control+Print exec grimshot copy
+        $mod+b exec QT_QPA_PLATFORM=wayland firefox
     }
     include /etc/sway/config.d/*
-    popup_during_fullscreen smart
+    #popup_during_fullscreen smart
     mode "Shortcuts" {
     # a custom mode for running apps
         bindsym --to-code {
             t exec QT_QPA_PLATFORM=wayland Telegram
             d exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland Discord
-            m exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland /opt/SchildiChat/schildichat-desktop
             s exec spotify
-            f exec XDG_CURRENT_DESKTOP=gnome QT_QPA_PLATFORM=wayland /opt/Ferdi/ferdi
             e exec nautilus
             v exec vlc
-            b exec QT_QPA_PLATFORM=wayland brave-browser-stable
+            b exec QT_QPA_PLATFORM=wayland firefox
             Return mode "default"
-            $mod+t mode "default"
+            $mod+e mode "default"
             Escape mode "default"
             }
     }
@@ -150,12 +152,13 @@
 #removes border if you have only one window
     smart_borders on
     #	<colorclass>		    <border>	<background>    <text>	<indicator>	<child_border>
-    	client.focused 		    $bglight		$bglight		    $white	$blue		$red
+    	client.focused 		    $bglight	$bglight	    $white	$blue		$red
     	client.focused_inactive	$bg		    $bg		        $white	$bg		    $bg
-        client.unfocused  	    $bg 		$bg	    $white	$red		$bglighter
+        client.unfocused  	    $bg 		$bg	            $white	$red		$bg
     	client.urgent		    $yellow		$yellow		    $bg	    $yellow		$yellow
 #assign windows to open in said workspace
     for_window {
+        [title="Picture-in-Picture"] border none
         [   class="opera"\
             class="chromium"\
             class="firefox"\
@@ -173,6 +176,7 @@
       for_window  [class="Spotify"] move to workspace $ws4
       for_window [app_id="appimagekit_d4b27878fdf61075b77964053264576c"] move to workspace $ws3
       for_window [app_id="org.telegram.desktop.desktop"] move to workspace $ws3
+      for_window  [title="ncpamixer"] floating enable
 #some configuration for my laptop
     set $laptop LVDS-1
     bindswitch --reload --locked lid:on output $laptop disable
@@ -184,6 +188,7 @@
 
     exec_always {
     #These always run when you reload sway
+        killall fetchcord;fetchcord --noshell --nohost -t 15 -p
         gsettings set $gnome-schema gtk-theme 'Orchis-dark'
         gsettings set $gnome-schema icon-theme 'Papirus-Dark'
         gsettings set $gnome-schema cursor-theme 'Vimix Cursors - White'
@@ -191,19 +196,20 @@
         pkill waybar;waybar #bar
         lxpolkit #for asking root password
                 }
-    exec {
+    exec --no-startup-id {
+    #PipeWire is a newer technology for audio,has great potential,but apps are still buggy with it
+        pipewire
+    #    pipewire-pulse
+        /usr/libexec/xdg-desktop-portal -r
+        /usr/libexec/xdg-desktop-portal-wlr
     #audio
         pulseaudio
-    #PipeWire is a newer technology for audio,has great potential,but apps are still buggy with it
-    #    pipewire &
-    #    pipewire-pulse &
-    #    pipewire-media-session
         mako #notifications
+        swayidle -w timeout 600 'swaylock' timeout 605 'swaymsg "output * dpms off"' before-sleep 'playerctl pause' before-sleep 'swaylock' resume 'swaymsg "output * dpms on"' #for setting sleep on idle
+    }
+    exec {
         waybar #bar
-#        /opt/Ferdi/ferdi #a chat browser
-        /opt/SchildiChat/schildichat-desktop #Element
         Telegram
         Discord
-        swayidle -w timeout 600 'swaylock' timeout 605 'swaymsg "output * dpms off"' before-sleep 'playerctl pause' before-sleep 'swaylock' resume 'swaymsg "output * dpms on"' #for setting sleep on idle
         }
     seat seat0 xcursor_theme "Vimix-white-cursors"

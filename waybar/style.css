@@ -1,15 +1,16 @@
 * {
     border: none;
-    border-radius: 0;
+    border-radius: 10;
     /* `otf-font-awesome` is required to be installed for icons */
     min-height: 0;
 }
-
+window {margin-left: 5;}
 window#waybar {
     background-color: transparent;
     color: #d8dee9;
     transition-property: background-color;
     transition-duration: .5s;
+    margin-left: 5;
 }
 
 window#waybar.hidden {
@@ -18,7 +19,7 @@ window#waybar.hidden {
 
 /*
 window#waybar.empty {
-    background-color: transparent;
+    background-color: #2e3440;
 }
 window#waybar.solo {
     background-color: #FFFFFF;
@@ -33,36 +34,39 @@ window#waybar.chromium {
     background-color: #000000;
     border: none;
 }
-
-#workspaces button {
-/*    margin: 0 -10px;*/
-    background-color: transparent;
+#null {margin-left: 5;}
+#workspaces  {
+    background-color: #2e3440;
     color: #d8dee9;
     /* Use box-shadow instead of border so the text isn't offset */
     font-family: "Material Design Icons";
     font-size: 14px;
-    border-bottom: 2px solid #d8dee9;
+    border: 1px solid #4c566a;
+    margin-left: 5;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }
-
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-#workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
-    border-bottom: 2px solid #bf616a;
-}
-
 #workspaces button.focused {
 color: #bf616a;
-    border-bottom: 2px solid #bf616a;
 }
 
 #workspaces button.urgent {
-    background-color: #d08770;
-    border-bottom: 2px solid #d08770;
 }
 
 #mode {
-    background-color: #64727D;
-    border-bottom: 2px solid #d8dee9;
+    background-color: #2e3440;
+    border: 1.5px solid #4c566a;
+    font-family: "Material Design Icons";
+    font-size: 14px;
+    margin: 2 5px ;
+    padding: 2 5px ;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }
 
 /*#clock,
@@ -84,15 +88,16 @@ color: #bf616a;
 }
 
 #window{
-    background: #2e3440;
-    border-bottom: 2px solid #bf616a;
-    font-size: 12px;
+    background: rgba(46,52,64,1);
+    border: 1.5px solid #4c566a;
+    font-size: 14px;
+    color: #d8dee9;
     margin: 2 2px ;
-    padding: 2 5px ;
-}
-#workspaces {
-    margin: 0 4px;
-    padding: 2 5px ;
+    padding: 5 8px ;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -107,28 +112,48 @@ color: #bf616a;
 
 #clock {
     background-color: #2e3440;
-    border-bottom: 2px solid #bf616a;
-    font-size: 12px;
-    margin: 2 2px ;
+    font-family: "Material Design Icons";
+    border: 1.5px solid #4c566a;
+    border-left: none;
+    color: #8fbcbb;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    font-size: 14px;
+    margin: 2 0px ;
     padding: 2 5px ;
+    margin-right: 5px;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }
 
 #battery {
     background-color: #2e3440;
     color: #ffffff;
-    border-bottom: 2px solid #bf616a;
+    border: 1.5px solid #4c566a;
+    border-left: .5px dashed #d8dee9;
+    border-right: .5px dashed #d8dee9;
+    border-radius: 0;
     font-size: 12px;
-    margin: 2 2px ;
+    margin: 2 0px ;
     padding: 2 5px ;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }
 
 #battery.charging {
     color: #d8dee9;
     background-color: #2e3440;
-    border-bottom: 2px solid #bf616a;
     font-size: 12px;
     margin: 2 2px ;
     padding: 2 5px ;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }
 
 @keyframes blink {
@@ -146,70 +171,106 @@ color: #bf616a;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
-    border-bottom: 2px solid #bf616a;
     font-size: 12px;
     margin: 2 2px ;
     padding: 2 5px ;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }
 
 label:focus {
     background-color: #000000;
-    border-bottom: 2px solid #bf616a;
     font-size: 12px;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }
 
 #cpu {
     background-color: #2e3440;
-    margin: 2 2px ;
+    margin: 2 0px;
+    border: 1.5px solid #4c566a;
+    font-family: "Material Design Icons";
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
     padding: 2 5px ;
-    color: #d8dee9;
-    border-bottom: 2px solid #bf616a;
-    font-size: 12px;
+    color: #b48ead;
+    font-size: 14px;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }
 
 #memory {
+    margin: 2 0px;
+    border-radius: 0;
+    border: 1.5px solid #4c566a;
+    border-left: none;
+    border-right: none;
+    color: #d08770;
     background-color: #2e3440;
-    margin: 2 2px ;
     padding: 2 5px ;
-    border-bottom: 2px solid #bf616a;
-    font-size: 12px;
+    font-family: "Material Design Icons";
+    font-size: 14px;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }
 
 #backlight {
     background-color: #90b1b1;
-    border-bottom: 2px solid #bf616a;
+    border-bottom: 1.5px solid #4c566a;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }
 
 #network {
     background-color: #2e3440;
-    border-bottom: 2px solid #bf616a;
+    border-bottom: 2px solid #4c566a;
     font-size: 12px;
     margin: 2 2px ;
     padding: 2 5px ;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }
 
 #network.disconnected {
     background-color: #2e3440;
-    border-bottom: 2px solid #bf616a;
     font-size: 12px;
     margin: 2 2px ;
     padding: 2 5px ;
 }
 
 #pulseaudio {
+    margin: 2 0px;
+    border-radius: 0;
     background-color: #2e3440;
-    color: #d8dee9;
-    border-bottom: 2px solid #bf616a;
-    font-size: 12px;
-    margin: 2 2px ;
+    color: #ebcb8b;
+    border: 1.5px solid #4c566a;
+    border-left: none;
+    border-right: none;
+    font-family: "Material Design Icons";
+    font-size: 14px;
     padding: 2 5px ;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }
 
 #pulseaudio.muted {
     background-color: #2e3440;
     color: #d8dee9;
-    border-bottom: 2px solid #bf616a;
-    font-size: 12px;
     margin: 2 2px ;
     padding: 2 5px ;
 }
@@ -218,7 +279,7 @@ label:focus {
     background-color: #2e3440;
     color: #d8dee9;
     min-width: 100px;
-    border-bottom: 2px solid #bf616a;
+    border-bottom: 1.5px solid #4c566a;
     font-size: 12px;
     margin: 2 2px ;
     padding: 2 5px ;
@@ -226,7 +287,6 @@ label:focus {
 
 #custom-media.custom-spotify {
     background-color: #2e3440;
-    border-bottom: 2px solid #bf616a;
     font-size: 12px;
     margin: 2 2px ;
     padding: 2 5px ;
@@ -234,33 +294,47 @@ label:focus {
 
 #custom-media.custom-vlc {
     background-color: #2e3440;
-    border-bottom: 2px solid #bf616a;
     font-size: 12px;
     margin: 2 2px ;
     padding: 2 5px ;
 }
 
 #temperature {
+    margin: 2 0px;
+    border-radius: 0;
     background-color: #2e3440;
-    border-bottom: 2px solid #bf616a;
-    font-size: 12px;
-    margin: 2 2px ;
+    border: 1.5px solid #4c566a;
+    border-left: none;
+    border-right: none;
+    font-family: "Material Design Icons";
+    font-size: 14px;
     padding: 2 5px ;
+    color: #a3be8c;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }
 
 #temperature.critical {
     background-color: #2e3440;
-    border-bottom: 2px solid #bf616a;
-    font-size: 12px;
+    font-size: 14px;
     margin: 2 2px ;
     padding: 2 5px ;
 }
 
 #tray {
     background-color: #2e3440;
-    border-bottom: 2px solid #bf616a;
-    margin: 2 2px ;
+    border: 1.5px solid #4c566a;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin: 2 0px ;
     padding: 2 5px ;
+    border-right: none;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }
 
 #idle_inhibitor {
@@ -297,11 +371,18 @@ label:focus {
 
 #language {
     background: #2e3440;
-    color: #d8dee9;
-    padding: 2 5px;
-    margin: 2 5px;
+    color: #5e81ac;
+    margin: 2 0px;
+    border-radius: 0;
     padding: 2 5px ;
+    font-family: "Material Design Icons";
     min-width: 16px;
-    font-size: 12px;
-    border-bottom: 2px solid #bf616a;
+    font-size: 14px;
+    border: 1.5px solid #4c566a;
+    border-left: none;
+    border-right: none;
+    margin-top: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 0;
 }

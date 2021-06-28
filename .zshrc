@@ -25,9 +25,7 @@ antigen apply
 #if [ -f /etc/bash.command-not-found ]; then
 #	    . /etc/bash.command-not-found
 #fi;
-alias tor="sudo systemctl restart tor;journalctl -exfu tor"
 alias gc="git -C ~/git clone"
-alias a2c="aria2c -x 16"
 export USE_CCACHE=1
 export CCACHE_EXEC=/usr/bin/ccache
 alias ..='cd ..'
@@ -65,18 +63,20 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh;
-alias spice="sudo cp ~/git/dotfiles/Dribbblish/color.ini ~/.config/spicetify/Themes/Dribbblish/;spicetify apply"
 alias update='sudo pacman -Sy;paru -Qu && sleep 1 && sudo powerpill -Su && paru -Su'
 colorscript -e 5;pfetch;colorscript -e 5
 alias xi='sudo xbps-install'
 alias xu='sudo xbps-install -Su'
 alias xq='sudo xbps-query -Rs'
 alias xr='sudo xbps-remove'
-alias sway='XDG_CURRENT_DESKTOP=sway dbus-launch --exit-with-session sway'
+alias sway='XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland dbus-launch --exit-with-session sway'
 alias proton='STEAM_COMPAT_DATA_PATH=$HOME/proton ~/.steam/steam/steamapps/common/Proton\ 6.3/proton run'
 wgu() {
-    sudo wg-quick down ./$1;sudo wg-quick up ./$1
+    sudo wg-quick down $1;sudo wg-quick up $1
 }
 wgd() {
-    sudo wg-quick down ./$1
+    sudo wg-quick down $1
+}
+a2c() {
+  aria2c -x 16 $1
 }
